@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CompetencyPath 2.0 · Kampala International University</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,800;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0e2433;--ink-mid:#163348;--ink-muted:#3a6278;
+  --teal:#10b981;--teal-mid:#059669;--teal-dark:#047857;
+  --teal-light:#d1fae5;--teal-xlight:#ecfdf5;
+  --gold:#f59e0b;--gold-light:#fef3c7;--gold-dark:#d97706;
+  --hour-a:#06b6d4;--hour-a-bg:#e0f9ff;--hour-a-text:#0e7490;
+  --hour-b:#8b5cf6;--hour-b-bg:#ede9fe;--hour-b-text:#5b21b6;
+  --hour-c:#f59e0b;--hour-c-bg:#fef3c7;--hour-c-text:#92400e;
+  --hour-d:#10b981;--hour-d-bg:#d1fae5;--hour-d-text:#065f46;
+  --bg:#f0faf7;--surface:#fff;--border:#cee5db;--border-light:#e5f3ee;
+  --text:#1a3a42;--muted:#6b9aaa;--muted-light:#a8c8d0;
+  --danger:#ef4444;--warn:#f59e0b;--ok:#10b981;
+  --sidebar-w:280px;--header-h:62px;
+  --radius:12px;--radius-sm:8px;--radius-lg:18px;
+  --shadow:0 2px 16px rgba(14,36,51,.07);
+  --shadow-md:0 6px 28px rgba(14,36,51,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text)}
+body{display:flex;flex-direction:column;min-height:100vh;overflow:auto}
+::selection{background:var(--teal-light);color:var(--teal-dark)}
+
+/* ── HEADER ── */
+header{
+  height:var(--header-h);flex-shrink:0;
+  background:linear-gradient(100deg,#0e2433 0%,#163348 55%,#1a4a3a 100%);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  box-shadow:0 2px 20px rgba(14,36,51,.4);
+  position:relative;z-index:10;
+}
+header::after{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hdr-left{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.menu-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);
+  border-radius:10px;width:38px;height:38px;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  transition:all .2s}
+.menu-btn:hover{background:rgba(255,255,255,.18)}
+.menu-btn span{display:block;width:16px;height:1.5px;background:#fff;border-radius:2px}
+.brand{display:flex;flex-direction:column}
+.brand-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.3px;line-height:1}
+.brand-sub{font-size:9.5px;color:rgba(255,255,255,.5);font-weight:400;letter-spacing:.04em;margin-top:3px}
+.hdr-right{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.btn-import{display:flex;align-items:center;gap:7px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  border:none;color:#fff;border-radius:10px;padding:9px 16px;
+  cursor:pointer;font-weight:600;font-size:13px;font-family:'Outfit',sans-serif;
+  box-shadow:0 3px 12px rgba(16,185,129,.35);
+  transition:all .2s}
+.btn-import:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(16,185,129,.45)}
+.btn-import svg{width:15px;height:15px;flex-shrink:0}
+.hdr-unit-info{display:none;align-items:center;gap:10px}
+.hdr-unit-label .lbl{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em}
+.hdr-unit-label .val{font-family:'Fraunces',serif;font-size:14px;color:#fff;font-weight:700;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ring-svg{transform:rotate(-90deg)}
+.save-dot{width:7px;height:7px;border-radius:50%;background:#6b9aaa;margin-right:-4px;transition:all .3s;flex-shrink:0}
+.save-dot.unsaved{background:var(--gold);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.save-label{font-size:11px;color:rgba(255,255,255,.5)}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;min-height:0;overflow:hidden}
+
+/* ── SIDEBAR ── */
+aside{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  background:linear-gradient(180deg,#0e2433 0%,#122233 100%);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:width .28s ease,min-width .28s ease;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+aside.collapsed{width:0;min-width:0}
+.sidebar-inner{width:var(--sidebar-w);min-width:var(--sidebar-w);display:flex;flex-direction:column;height:100%}
+.sidebar-units{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sidebar-steps{padding:10px 10px 20px;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
+.sidebar-steps::-webkit-scrollbar{width:4px}
+.sidebar-steps::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+.sec-label{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.unit-card{padding:9px 10px;border-radius:10px;border:1.5px solid transparent;cursor:pointer;margin-bottom:5px;transition:all .2s}
+.unit-card:hover{background:rgba(255,255,255,.06)}
+.unit-card.active{background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(6,182,212,.12));border-color:rgba(16,185,129,.4)}
+.unit-card-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.unit-name{flex:1;font-size:12.5px;color:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.unit-bar{height:2.5px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:7px;overflow:hidden}
+.unit-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--hour-a));border-radius:2px;transition:width .4s ease}
+.unit-desc-preview{font-size:10.5px;color:rgba(255,255,255,.38);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none}
+.unit-card.active .unit-desc-preview{display:block}
+.unit-tools{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.btn-sidebar{width:100%;background:none;border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.65);
+  border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Outfit',sans-serif;text-align:left;
+  transition:all .2s;display:flex;align-items:center;gap:8px}
+.btn-sidebar:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.25)}
+.add-unit-form{display:none;margin-top:8px}
+.add-unit-input{width:100%;border:1.5px solid var(--teal);border-radius:9px;padding:9px 10px;font-size:13px;outline:none;
+  background:rgba(255,255,255,.06);color:#fff;font-family:'Outfit',sans-serif;margin-bottom:7px}
+.add-unit-input::placeholder{color:rgba(255,255,255,.3)}
+.add-unit-btns{display:flex;gap:6px}
+.btn-confirm{flex:1;border:none;border-radius:8px;padding:8px;cursor:pointer;font-size:12px;font-weight:600;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Outfit',sans-serif}
+.btn-cancel-sm{flex:1;border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:8px;cursor:pointer;
+  font-size:12px;font-weight:500;background:none;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif}
+.step-nav-item{display:flex;gap:10px;align-items:center;padding:8px 9px;border-radius:9px;
+  border:1.5px solid transparent;margin-bottom:3px;cursor:pointer;transition:all .18s}
+.step-nav-item:hover{background:rgba(255,255,255,.06)}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:12px;flex-shrink:0;color:rgba(255,255,255,.5)}
+.step-nav-text{flex:1;min-width:0}
+.step-nav-num{font-size:9px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.08em}
+.step-nav-title{font-size:11.5px;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-mini-bar{height:2px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:5px;overflow:hidden}
+.step-mini-fill{height:100%;border-radius:2px;transition:width .3s}
+
+/* ── MAIN ── */
+main{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 28px;scrollbar-width:thin;scrollbar-color:#c7dde4 transparent}
+main::-webkit-scrollbar{width:8px}
+main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
+.content-wrap{max-width:1000px;margin:0 auto}
+.empty-state{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;gap:14px}
+.empty-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--teal-light),var(--teal-xlight));
+  border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;
+  box-shadow:var(--shadow-md)}
+.empty-state h2{font-family:'Fraunces',serif;font-size:22px;color:var(--ink);font-weight:700}
+.empty-state p{font-size:14px;color:var(--muted);max-width:340px;line-height:1.6}
+
+/* ── UNIT DESC CARD ── */
+.unit-desc-card{
+  background:var(--surface);border-radius:var(--radius-lg);
+  border:1.5px solid var(--border-light);padding:18px 22px;margin-bottom:18px;
+  box-shadow:var(--shadow);
+  background:linear-gradient(135deg,#fff 0%,#f7fffe 100%);
+}
+.unit-desc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.unit-desc-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-mid)}
+.unit-desc-badge{font-size:10px;padding:3px 10px;border-radius:999px;
+  background:var(--teal-xlight);color:var(--teal-dark);font-weight:600;
+  max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unit-desc-textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;
+  font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);background:#fafffe;
+  outline:none;resize:vertical;min-height:72px;transition:border-color .18s,box-shadow .18s;line-height:1.6}
+.unit-desc-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.unit-desc-textarea.ai-populated{border-color:var(--teal);background:#f0fdf9}
+.unit-desc-hint{font-size:11px;color:var(--muted);margin-top:6px}
+
+/* ── STEP HEADER ── */
+.step-header{border-radius:var(--radius-lg);padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.step-header::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;
+  border-radius:50%;background:rgba(255,255,255,.07)}
+.step-header::after{content:'';position:absolute;left:-20px;bottom:-30px;width:120px;height:120px;
+  border-radius:50%;background:rgba(255,255,255,.04)}
+.step-header-inner{display:flex;gap:16px;position:relative;z-index:1}
+.step-icon-big{font-size:38px;line-height:1;flex-shrink:0}
+.step-num-label{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.step-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;line-height:1.2}
+.ai-filled-badge{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 11px;
+  border-radius:999px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);
+  color:#fde68a;font-size:11px;font-weight:600}
+.step-progress-row{margin-top:12px;display:flex;align-items:center;gap:10px}
+.step-progress-bar{flex:1;height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+.step-progress-fill{height:100%;background:#fff;border-radius:3px;transition:width .4s ease}
+.step-pct-label{font-size:12px;color:rgba(255,255,255,.9);font-weight:600}
+.step-evaluator-note{margin-top:12px;padding:9px 13px;border-radius:9px;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);
+  font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.55}
+.step-evaluator-note strong{font-weight:700}
+
+/* ── FORM CARD ── */
+.form-card{background:var(--surface);border-radius:var(--radius-lg);padding:26px 28px;
+  border:1.5px solid var(--border-light);box-shadow:var(--shadow)}
+.field-group{margin-bottom:22px}
+.field-label{display:block;margin-bottom:6px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.09em;color:var(--ink-mid)}
+.field-hint{font-size:11.5px;color:var(--ink-muted);margin-bottom:9px;line-height:1.55;
+  padding:8px 12px;background:rgba(16,185,129,.06);
+  border-left:3px solid var(--teal);border-radius:0 7px 7px 0}
+.field-input,.field-textarea,.field-select{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;
+  font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);
+  background:#fafffe;outline:none;transition:border-color .18s,box-shadow .18s}
+.field-textarea{min-height:88px;resize:vertical;line-height:1.6}
+.field-input:focus,.field-textarea:focus,.field-select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.field-input.ai-populated,.field-textarea.ai-populated,.field-select.ai-populated{border-color:var(--teal);background:#f0fdf9}
+.tag-wrap{border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;background:#fafffe;min-height:48px}
+.tag-wrap.ai-populated{border-color:var(--teal);background:#f0fdf9}
+.tag-wrap:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.tag-pill{display:flex;align-items:center;gap:5px;
+  background:linear-gradient(135deg,var(--ink),var(--ink-mid));
+  color:#fff;border-radius:999px;padding:4px 10px;font-size:12px}
+.tag-remove{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:14px;line-height:1}
+.tag-input-field{border:none;background:transparent;outline:none;width:100%;font-size:14px;font-family:'Outfit',sans-serif}
+.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check-item{display:flex;align-items:center;gap:9px;border:1.5px solid var(--border);
+  background:#fafffe;border-radius:9px;padding:9px 11px;cursor:pointer;transition:all .18s}
+.check-item:hover{border-color:var(--teal);background:var(--teal-xlight)}
+.check-item.checked{border-color:var(--teal);background:var(--teal-xlight)}
+.check-box{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
+.check-item.checked .check-box{background:var(--teal);border-color:var(--teal)}
+.check-tick{display:none;color:#fff;font-size:10px;font-weight:700}
+.check-item.checked .check-tick{display:block}
+.check-label{font-size:13px;color:var(--text)}
+
+/* ── QUALITY WARNINGS ── */
+.quality-warn{display:none;margin-top:6px;padding:7px 11px;border-radius:7px;
+  background:#fef3c7;border:1px solid #fcd34d;font-size:11.5px;color:#92400e}
+.quality-warn.show{display:block}
+
+/* ── NOTIONAL HOURS TABLE ── */
+.topic-table-wrap{border:1.5px solid var(--border);border-radius:var(--radius-lg);background:#fafffe;overflow:hidden}
+.topic-table-tools{display:flex;justify-content:space-between;align-items:center;
+  padding:13px 16px;border-bottom:1px solid var(--border-light);background:#f4fdfa;gap:10px;flex-wrap:wrap}
+.topic-table-note{font-size:12px;color:var(--muted)}
+.btn-small{border:none;border-radius:9px;padding:8px 14px;cursor:pointer;font-size:12px;font-weight:700;font-family:'Outfit',sans-serif}
+.btn-add-row{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff}
+.btn-remove-row{background:#fff0ef;color:#b73b31;border:1px solid #f0c3be;font-family:'Outfit',sans-serif}
+.topic-table-scroll{overflow-x:auto;overflow-y:visible}
+.topic-table-scroll::-webkit-scrollbar{height:6px}
+.topic-table-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.topic-table{width:100%;border-collapse:collapse;min-width:1380px}
+.topic-table th{background:#f0faf7;padding:0;vertical-align:middle}
+.topic-table td{border-bottom:1px solid var(--border-light);vertical-align:top;padding:10px 8px}
+.topic-table tr:last-child td{border-bottom:none}
+.th-main{color:var(--ink-mid);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:10px 12px;text-align:left}
+.th-hour-group{text-align:center;border-bottom:none;padding-bottom:0}
+.th-hour-sub{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-align:center;padding:5px 4px 9px}
+.th-hour-parent{font-size:11px;font-weight:700;letter-spacing:.05em;padding:8px 8px 0;text-align:center;border-bottom:1px solid rgba(255,255,255,.3)}
+.hour-header-a{background:var(--hour-a-bg);color:var(--hour-a-text)}
+.hour-header-b{background:var(--hour-b-bg);color:var(--hour-b-text)}
+.hour-header-c{background:var(--hour-c-bg);color:var(--hour-c-text)}
+.hour-header-d{background:var(--hour-d-bg);color:var(--hour-d-text)}
+.th-total{color:var(--ink-mid);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-align:center;padding:10px 8px}
+.table-input,.table-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;
+  font-size:13px;font-family:'Outfit',sans-serif;background:#fff;color:var(--text);outline:none;
+  transition:border-color .18s,box-shadow .18s}
+.table-input:focus,.table-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(16,185,129,.1)}
+.table-textarea{min-height:72px;resize:vertical;line-height:1.5}
+.hour-input{text-align:center;padding:8px 4px;font-weight:600}
+.hour-cell-a{background:rgba(6,182,212,.04)}
+.hour-cell-b{background:rgba(139,92,246,.04)}
+.hour-cell-c{background:rgba(245,158,11,.04)}
+.hour-cell-d{background:rgba(16,185,129,.04)}
+.total-cell{text-align:center;font-weight:700;color:var(--ink);font-size:14px;padding:8px 4px}
+.total-cell.over{color:var(--teal-mid)}
+
+/* ── BLEND BAR ── */
+.blend-summary{padding:14px 16px;background:linear-gradient(135deg,#f0faf7,#f7fff9);border-top:1px solid var(--border-light)}
+.blend-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.blend-total{font-size:13px;font-weight:700;color:var(--ink);min-width:100px}
+.blend-bar-wrap{flex:1;min-width:200px}
+.blend-bar{height:10px;border-radius:5px;overflow:hidden;display:flex;background:var(--border-light);margin-bottom:5px}
+.blend-seg{height:100%;transition:width .4s ease}
+.blend-seg-a{background:var(--hour-a)}
+.blend-seg-b{background:var(--hour-b)}
+.blend-seg-c{background:var(--hour-c)}
+.blend-seg-d{background:var(--hour-d)}
+.blend-legend{display:flex;gap:10px;flex-wrap:wrap}
+.blend-lbl{font-size:11px;display:flex;align-items:center;gap:4px}
+.blend-dot{width:9px;height:9px;border-radius:50%}
+.blend-badge{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.blend-badge.ok{background:var(--teal-xlight);color:var(--teal-dark)}
+.blend-badge.warn{background:#fef3c7;color:#92400e}
+
+/* ── NAV BUTTONS ── */
+.step-nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:12px}
+.btn-prev{border:1.5px solid var(--border);background:#fff;color:var(--ink-mid);
+  border-radius:10px;padding:11px 22px;cursor:pointer;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-prev:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.btn-prev:disabled{opacity:.4;cursor:not-allowed}
+.btn-next,.btn-complete{border:none;color:#fff;border-radius:10px;padding:11px 22px;cursor:pointer;
+  font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-next:hover,.btn-complete:hover{transform:translateY(-1px)}
+.btn-complete{background:linear-gradient(135deg,var(--teal),var(--hour-a))}
+.dots-nav{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.dot{width:8px;height:8px;border-radius:6px;background:var(--border);cursor:pointer;transition:all .2s}
+.dot.active{width:22px}
+.dot.done{background:var(--teal-mid)}
+
+/* ── MODALS ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,24,36,.65);display:none;
+  align-items:center;justify-content:center;padding:16px;z-index:100;backdrop-filter:blur(3px)}
+.modal-backdrop.open{display:flex}
+.modal{width:100%;max-width:740px;background:#fff;border-radius:22px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(10,24,36,.3);max-height:92vh;display:flex;flex-direction:column}
+.modal-head{padding:24px 28px 20px;background:linear-gradient(135deg,#0e2433,#163348 60%,#1a4a3a)}
+.modal-head h2{font-family:'Fraunces',serif;color:#fff;font-size:22px;margin-bottom:5px;font-weight:700}
+.modal-head p{font-size:13px;color:rgba(255,255,255,.65)}
+.modal-close-x{position:absolute;right:18px;top:18px;width:30px;height:30px;border:none;border-radius:8px;
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:16px}
+.modal-body{padding:22px 28px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c7dde4 transparent}
+.import-tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:18px}
+.import-tab{flex:1;border:none;border-radius:8px;padding:8px;background:transparent;color:var(--muted);
+  cursor:pointer;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.import-tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 8px rgba(14,36,51,.1)}
+.hint-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18);border-radius:10px;
+  padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:14px;color:var(--text)}
+.hint-box strong{color:var(--teal-dark)}
+.import-textarea{width:100%;min-height:220px;border:1.5px solid var(--border);border-radius:12px;
+  padding:14px 16px;background:#fafffe;font-family:'Outfit',sans-serif;font-size:14px;
+  color:var(--text);line-height:1.6;resize:vertical;outline:none}
+.import-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.char-count{text-align:right;font-size:11px;color:var(--muted);margin-top:5px}
+.file-box{border:2px dashed var(--border);border-radius:12px;padding:20px;background:#fafffe;text-align:center}
+.file-box.dragover{border-color:var(--teal);background:var(--teal-xlight)}
+.file-meta{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--teal-xlight);font-size:13px;display:none}
+.target-unit-row{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.target-unit-row label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+.target-unit-select{flex:1;min-width:180px;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;
+  background:#fafffe;outline:none;font-size:13px;font-family:'Outfit',sans-serif}
+
+/* ── API KEY SECTION (NEW) ── */
+.api-key-section{margin-top:16px;padding:14px 16px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(6,182,212,.04));
+  border:1.5px solid rgba(16,185,129,.2)}
+.api-key-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.api-key-label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.08em}
+.api-key-badge{font-size:10px;padding:2px 8px;border-radius:999px;background:var(--teal-xlight);color:var(--teal-dark);font-weight:700}
+.api-key-input{width:100%;border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;
+  font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;
+  transition:border-color .18s,box-shadow .18s;color:var(--text)}
+.api-key-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.api-key-hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.api-key-hint a{color:var(--teal-mid);text-decoration:none;font-weight:600}
+.api-key-hint a:hover{text-decoration:underline}
+.api-key-saved{display:none;align-items:center;gap:5px;font-size:11px;color:var(--teal-mid);font-weight:600;margin-top:5px}
+.api-key-saved.show{display:flex}
+
+.btn-generate{width:100%;margin-top:16px;padding:15px;border:none;border-radius:13px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:700;font-size:15px;
+  cursor:pointer;box-shadow:0 4px 18px rgba(16,185,129,.35);font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-generate:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(16,185,129,.45)}
+.btn-generate:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.model-selector-row{margin-top:12px;padding:10px 14px;border-radius:10px;
+  background:rgba(16,185,129,.04);border:1.5px solid var(--border-light)}
+.model-selector-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.model-selector-label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.08em}
+.btn-discover{border:1.5px solid var(--teal);background:transparent;color:var(--teal-mid);
+  border-radius:7px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-discover:hover{background:var(--teal-xlight)}
+.model-select-row{display:flex;gap:8px;align-items:center}
+.model-select{flex:1;border:1.5px solid var(--border);border-radius:9px;padding:8px 10px;
+  font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;min-width:0}
+.model-select:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(16,185,129,.12)}
+.model-status{font-size:11px;color:var(--muted);margin-top:5px;min-height:16px}
+.ai-status{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.55}
+.ai-status.loading{display:flex;align-items:center;gap:10px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);color:var(--teal-dark)}
+.ai-status.success{display:block;background:var(--teal-xlight);border:1px solid rgba(16,185,129,.3);color:var(--teal-dark)}
+.ai-status.error{display:block;background:#fef2f2;border:1px solid rgba(239,68,68,.25);color:#991b1b}
+.ai-status.warning{display:block;background:#fef3c7;border:1px solid rgba(245,158,11,.3);color:#92400e}
+.spinner{width:20px;height:20px;border:2.5px solid rgba(16,185,129,.2);border-top-color:var(--teal);
+  border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-steps{list-style:none;margin-top:10px;display:none}
+.gen-step{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12.5px;color:#888}
+.gen-step.done{color:var(--teal-mid);font-weight:600}
+.gs-icon{width:18px;text-align:center}
+.complete-modal{background:#fff;border-radius:20px;padding:28px 30px;max-width:500px;width:100%;
+  box-shadow:0 24px 70px rgba(10,24,36,.25)}
+.complete-modal h2{font-family:'Fraunces',serif;color:var(--ink);font-size:24px;margin-bottom:6px;font-weight:700}
+.complete-modal p{font-size:13px;color:var(--muted);margin-bottom:18px}
+.modal-summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:7px 0;border-bottom:1px solid var(--border-light);font-size:13px}
+.modal-summary-row:last-child{border-bottom:none}
+.spct{font-weight:700;color:var(--teal-mid)}
+.btn-close-modal{width:100%;margin-top:16px;border:none;border-radius:11px;padding:13px;cursor:pointer;
+  color:#fff;font-weight:600;font-family:'Outfit',sans-serif;font-size:14px;
+  background:linear-gradient(135deg,var(--ink),var(--ink-mid))}
+
+@media(max-width:900px){
+  .checkbox-grid{grid-template-columns:1fr}
+  .target-unit-row{flex-direction:column;align-items:stretch}
+}
+@media(max-width:700px){
+  main{padding:14px}
+  .form-card{padding:18px 16px}
+  .step-nav-btns{flex-direction:column}
+  .btn-prev,.btn-next,.btn-complete{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-left">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand">
+      <span class="brand-name">CompetencyPath</span>
+      <span class="brand-sub">Competency-Based Course Designer · Dr. Michael Adelani Adewusi · KIU Uganda</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="save-dot" id="saveDot"></div>
+    <span class="save-label" id="saveLabel">Saved</span>
+    <button class="btn-import" id="openImportBtn">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3v10M6 9l4 4 4-4"/><path d="M4 15h12"/></svg>
+      Import Write-up
+    </button>
+    <div class="hdr-unit-info" id="headerRight">
+      <div class="hdr-unit-label">
+        <div class="lbl">Active Unit</div>
+        <div class="val" id="headerUnitName">—</div>
+      </div>
+      <svg class="ring-svg" width="44" height="44">
+        <circle cx="22" cy="22" r="16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+        <circle cx="22" cy="22" r="16" fill="none" stroke="#10b981" stroke-width="3"
+          stroke-dasharray="100.5" stroke-dashoffset="100.5" stroke-linecap="round" id="headerRingFill"/>
+        <text x="22" y="22" text-anchor="middle" dominant-baseline="middle"
+          style="font-size:8px;font-weight:700;fill:#10b981;font-family:sans-serif;transform:rotate(90deg);transform-origin:center"
+          id="headerRingTxt">0%</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-units">
+        <div class="sec-label">Course Units</div>
+        <div id="unitsList"></div>
+        <div class="add-unit-form" id="addUnitForm">
+          <input class="add-unit-input" id="newUnitInput" placeholder="e.g. Unit 2: Data Analysis"/>
+          <div class="add-unit-btns">
+            <button class="btn-confirm" id="confirmAddUnit">Add</button>
+            <button class="btn-cancel-sm" id="cancelAddUnit">Cancel</button>
+          </div>
+        </div>
+        <div class="unit-tools">
+          <button class="btn-sidebar" id="showAddUnitBtn">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg>
+            Add Course Unit
+          </button>
+          <button class="btn-sidebar" id="downloadUnitBtn">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3v10M6 9l4 4 4-4"/><path d="M4 15h12"/></svg>
+            Download Unit HTML
+          </button>
+        </div>
+      </div>
+      <div class="sidebar-steps">
+        <div class="sec-label" style="margin-top:4px">Design Steps</div>
+        <div id="stepsList"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="content-wrap">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🎓</div>
+        <h2>Welcome to CompetencyPath</h2>
+        <p>Select a course unit from the sidebar, or use <strong>Import Write-up</strong> to generate a complete CBE course design from your existing materials.</p>
+      </div>
+      <div id="stepContent" style="display:none"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-backdrop" id="importModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close-x" id="closeImportModal">✕</button>
+    <div class="modal-head">
+      <h2>✦ Course Import</h2>
+      <p>Paste or upload your course write-up — powered by Dr. Michael Adelani Adewusi AI-Research Lab</p>
+    </div>
+    <div class="modal-body">
+      <div class="import-tabs">
+        <button class="import-tab active" data-tab="paste">📋 Paste Text</button>
+        <button class="import-tab" data-tab="upload">📁 Upload File</button>
+        <button class="import-tab" data-tab="tips">💡 Tips</button>
+      </div>
+      <div id="tab-paste">
+        <div class="hint-box"><strong>Include:</strong> course title, target learners, topics, assessments, delivery format, and any existing objectives or schedules.</div>
+        <textarea class="import-textarea" id="writeupInput" placeholder="Paste your course or unit write-up here…"></textarea>
+        <div class="char-count"><span id="charCount">0</span> characters</div>
+      </div>
+      <div id="tab-upload" style="display:none">
+        <div class="hint-box"><strong>Supported:</strong> .txt, .md, .csv, .html, .json</div>
+        <div class="file-box" id="fileBox">
+          <p style="font-weight:700;color:var(--teal-mid);margin-bottom:6px">Drop a file here</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">or click the button below</p>
+          <button class="btn-prev" type="button" id="chooseFileBtn">Choose File</button>
+          <input type="file" id="fileInput" accept=".txt,.md,.csv,.html,.json" hidden/>
+        </div>
+        <div class="file-meta" id="fileMeta"></div>
+      </div>
+      <div id="tab-tips" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="hint-box"><strong>📌 Course title & unit topic</strong><br>E.g. Unit 3: Introduction to Financial Reporting</div>
+          <div class="hint-box"><strong>👥 Target learner profile</strong><br>Level, prior knowledge, professional context</div>
+          <div class="hint-box"><strong>📚 Content outline</strong><br>Topics, subtopics, syllabus points, readings</div>
+          <div class="hint-box"><strong>⏱ Duration information</strong><br>Weeks, hours, or notional study time if known</div>
+          <div class="hint-box"><strong>📝 Assessment details</strong><br>Existing tests, projects, marking criteria</div>
+          <div class="hint-box"><strong>🎯 Existing objectives</strong><br>Even rough ones — the AI will refine them to SMART CBE format</div>
+        </div>
+      </div>
+
+      <!-- App served from Render — no setup needed -->
+      <div id="setupBanner" style="display:none"></div>
+      <div id="setupGroqKey" style="display:none"></div>
+      <div id="setupRenderUrl" style="display:none"></div>
+      <div id="setupStatus" style="display:none"></div>
+      <div id="btnSaveGroqKey" style="display:none"></div>
+      <div id="btnSaveRenderUrl" style="display:none"></div>
+      <div id="setupPanel-direct" style="display:none"></div>
+      <div id="setupPanel-render" style="display:none"></div>
+
+      <!-- ── GROQ MODEL SELECTOR ── -->
+      <div class="model-selector-row">
+        <div class="model-selector-top">
+          <span class="model-selector-label">🤖 Model</span>
+          <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:var(--teal-xlight);color:var(--teal-dark);border-radius:999px;font-weight:700">⚡ Free · Fast</span>
+        </div>
+        <select class="model-select" id="groqModelSelect">
+          <option value="llama-3.3-70b-versatile">Best quality</option>
+          <option value="llama-3.1-8b-instant">Fastest</option>
+          <option value="llama3-70b-8192">Super-Option A</option>
+          <option value="llama3-8b-8192">Super-Option B</option>
+        </select>
+        <div class="model-status" id="groqModelStatus"></div>
+      </div>
+
+      <div class="target-unit-row">
+        <label>Apply to unit:</label>
+        <select class="target-unit-select" id="targetUnitSelect"></select>
+      </div>
+      <button class="btn-generate" id="generateBtn">✦ Generate Competency Design</button>
+      <div class="ai-status" id="aiStatus">
+        <div class="spinner"></div>
+        <div id="aiStatusText">Analysing your write-up…</div>
+      </div>
+      <ul class="gen-steps" id="genStepsList">
+        <li class="gen-step" id="gs1"><span class="gs-icon">⏳</span> Reading and extracting content</li>
+        <li class="gen-step" id="gs2"><span class="gs-icon">⏳</span> Identifying competency gaps</li>
+        <li class="gen-step" id="gs3"><span class="gs-icon">⏳</span> Mapping knowledge and skills</li>
+        <li class="gen-step" id="gs4"><span class="gs-icon">⏳</span> Writing SMART objectives with performance indicators</li>
+        <li class="gen-step" id="gs5"><span class="gs-icon">⏳</span> Building notional hours plan with learner activity rationale</li>
+        <li class="gen-step" id="gs6"><span class="gs-icon">⏳</span> Designing assessments with alignment matrix</li>
+        <li class="gen-step" id="gs7"><span class="gs-icon">⏳</span> Populating flexible paths and feedback loops</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Complete Modal -->
+<div class="modal-backdrop" id="completeModal">
+  <div class="complete-modal">
+    <h2>🎉 Unit Design Complete!</h2>
+    <p>Summary of completion across all 9 design steps.</p>
+    <div id="completeSummary"></div>
+    <button class="btn-close-modal" id="closeCompleteModal">Close</button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// STEPS DEFINITION
+// ─────────────────────────────────────────────────────────────────
+const STEPS = [
+  { id:1, title:"Conduct a Competency Gap Analysis", icon:"🔍", color:"#0d7d8c",
+    fields:[
+      {key:"currentState", label:"Current Competency State", type:"textarea",
+       placeholder:"Describe the current skill/knowledge level of learners on course entry…"},
+      {key:"desiredState", label:"Desired Competency State", type:"textarea",
+       placeholder:"Describe the specific competency state learners should reach by course completion…"},
+      {key:"gaps", label:"Identified Gaps", type:"textarea",
+       placeholder:"List the specific knowledge, skill, or attitude gaps between current and desired states…"},
+      {key:"priority", label:"Priority Level", type:"select", options:["Critical","High","Medium","Low"]}
+    ]
+  },
+  { id:2, title:"Map Knowledge and Skills to Competencies", icon:"🗺️", color:"#1a9baf",
+    fields:[
+      {key:"competencies", label:"Core Competencies", type:"tags", placeholder:"Add competency and press Enter…"},
+      {key:"knowledgeAreas", label:"Knowledge Areas Required", type:"textarea",
+       placeholder:"Declarative knowledge (concepts, theories) AND procedural knowledge (how-to, processes)…"},
+      {key:"skills", label:"Skills to Develop", type:"tags", placeholder:"Add observable skill and press Enter…"},
+      {key:"mappingNotes", label:"Mapping Notes", type:"textarea",
+       placeholder:"Explain how each knowledge area maps to a competency and how skills operationalise competency…"}
+    ]
+  },
+  { id:3, title:"Define SMART Learning Objectives", icon:"🎯", color:"#27ae87",
+    evaluatorNote:"Objectives must use observable action verbs. Measurable must state performance indicators (scores, rubric levels, demonstrations) — not activities. Achievable must address learner capability, not tools or resources.",
+    fields:[
+      {key:"specific", label:"Specific – What exactly will learners achieve?", type:"textarea",
+       placeholder:"State precisely what learners will be able to DO. Use observable, action-based, bounded language…"},
+      {key:"measurable", label:"Measurable – Performance Indicators (NOT activities)", type:"textarea",
+       hint:"State how mastery will be measured using performance evidence, not task completion.",
+       placeholder:"E.g.: Learners will score ≥75% on the summative assessment…",
+       qualityCheck:"activities",
+       qualityMsg:"⚠️ Measurable must state performance evidence (scores, rubric levels, demonstrations) — not activities like 'complete the quiz' or 'watch the video'."},
+      {key:"achievable", label:"Achievable – Learner Capability Assessment", type:"textarea",
+       hint:"Explain why these objectives are within learners' reach. Reference prior knowledge, scaffolding, and cognitive load — NOT tools or resources.",
+       placeholder:"E.g.: Learners entering with introductory-level background will be scaffolded through worked examples…",
+       qualityCheck:"resources",
+       qualityMsg:"⚠️ Achievable should discuss learner cognitive readiness and scaffolding — not just the availability of tools or resources."},
+      {key:"relevant", label:"Relevant – Why does this matter?", type:"textarea",
+       placeholder:"Connect objectives to learners' professional roles, career progression, or real-world practice…"},
+      {key:"timeBound", label:"Time-bound – By when?", type:"text",
+       placeholder:"e.g. By the end of Week 3 / Within the 6-week course"},
+      {key:"completeObjectives", label:"Complete SMART Objectives (one per line)", type:"textarea",
+       hint:"Format: 'By [deadline], learners will be able to [action verb] [specific outcome] as demonstrated by [performance evidence].'",
+       placeholder:"By the end of Week 2, learners will be able to analyse a balance sheet…"}
+    ]
+  },
+  { id:4, title:"Plan Course Content, Notional Hours and Engagement Activities", icon:"🧩", color:"#1abc9c",
+    fields:[
+      {key:"contentOverview", label:"Course Content Overview", type:"textarea",
+       placeholder:"Describe the overall sequence of topics and the pedagogical logic for their ordering…"},
+      {key:"topicPlans", label:"Topic-by-Topic Content Plan with Notional Hours", type:"topicTable"},
+      {key:"contentRationale", label:"Rationale for Sequencing and Hours", type:"textarea",
+       placeholder:"Justify the topic sequence and the balance of directed, self-directed, applied, and assessed hours…"}
+    ]
+  },
+  { id:5, title:"Develop Evidence-based Assessments", icon:"📋", color:"#2ecc71",
+    evaluatorNote:"Rubric criteria must include 4 performance levels (Excellent / Proficient / Developing / Beginning). Each assessment must be explicitly linked to the competency it measures. Mastery threshold must be justified — not just stated.",
+    fields:[
+      {key:"formative", label:"Formative Assessments", type:"textarea",
+       placeholder:"Specific formative assessments with frequency and purpose…"},
+      {key:"summative", label:"Summative Assessments", type:"textarea",
+       placeholder:"Specific summative assessments with weightings and competencies assessed…"},
+      {key:"rubric", label:"Assessment Rubric / Criteria", type:"textarea",
+       hint:"Include 4 performance levels for each criterion: Excellent / Proficient / Developing / Beginning.",
+       placeholder:"Criterion 1 – Analysis\n  Excellent: …\n  Proficient: …\n  Developing: …\n  Beginning: …"},
+      {key:"evidenceType", label:"Types of Evidence Collected", type:"tags", placeholder:"Add evidence type…"},
+      {key:"passingCriteria", label:"Passing / Mastery Criteria", type:"text",
+       placeholder:"e.g. ≥75% overall with no criterion below Developing level"},
+      {key:"competencyAlignment", label:"Competency-to-Assessment Alignment Matrix", type:"textarea",
+       hint:"Explicitly map each assessment to the competency it measures.",
+       placeholder:"Quiz 1 → Competency 1\nCase Project A → Competency 3"},
+      {key:"masteryJustification", label:"Mastery Threshold Justification", type:"textarea",
+       hint:"Provide evidence-based rationale: institutional policy, industry standards, domain risk level, or CBE research.",
+       placeholder:"The 75% threshold is set because: (1) KIU policy requires ≥70% for credit…"}
+    ]
+  },
+  { id:6, title:"Select Appropriate Delivery Methods", icon:"🚀", color:"#16a085",
+    fields:[
+      {key:"modality", label:"Learning Modality", type:"select",
+       options:["Fully Online","Blended / Hybrid","Face-to-Face","Self-paced","Synchronous Virtual"]},
+      {key:"tools", label:"Tools & Platforms", type:"tags", placeholder:"Add platform/tool…"},
+      {key:"contentFormats", label:"Content Formats", type:"checkboxes",
+       options:["Video Lectures","Reading Materials","Interactive Simulations","Case Studies","Podcasts","Infographics","Live Webinars","Discussion Forums"]},
+      {key:"accessibilityNotes", label:"Accessibility Considerations", type:"textarea",
+       placeholder:"Captioning, screen-reader compatibility, alternative formats, low-bandwidth options…"}
+    ]
+  },
+  { id:7, title:"Design Engaging Learning Activities", icon:"⚡", color:"#5dade2",
+    fields:[
+      {key:"activities", label:"Core Learning Activities", type:"textarea",
+       placeholder:"Named activities with clear learning purpose and competency link…"},
+      {key:"collaboration", label:"Collaborative Elements", type:"textarea",
+       placeholder:"Group tasks: sizes, roles, how collaboration builds competency…"},
+      {key:"gamification", label:"Gamification / Engagement Strategies", type:"textarea",
+       placeholder:"Competency milestone badges, leaderboards, progress gates — with educational rationale…"},
+      {key:"realWorld", label:"Real-world Application Scenarios", type:"textarea",
+       placeholder:"Specific industry contexts, case organisations, simulated professional tasks…"}
+    ]
+  },
+  { id:8, title:"Facilitate Flexible Learning Paths", icon:"🔀", color:"#af7ac5",
+    evaluatorNote:"Paths must describe within-course branching based on diagnostics or gate results. Include self-paced progression, competency-based unlocking, and a concrete RPL/challenge exam provision.",
+    fields:[
+      {key:"prerequisites", label:"Prerequisites / Entry Points", type:"textarea",
+       placeholder:"Specific prerequisite knowledge with a suggested diagnostic or self-assessment…"},
+      {key:"paths", label:"Within-Course Flexible Progression", type:"textarea",
+       hint:"Describe branching routes INSIDE the course based on diagnostic results.",
+       placeholder:"Learners who score ≥85% on the diagnostic may skip the foundational module…"},
+      {key:"selfPacedProgression", label:"Self-paced Progression Mechanism", type:"textarea",
+       hint:"Describe how learners control pace within the course.",
+       placeholder:"Each module is available from the published start date…"},
+      {key:"competencyUnlocking", label:"Competency-based Unlocking / Branching", type:"textarea",
+       hint:"How demonstrating competency in one module gates access to the next.",
+       placeholder:"Module 2 unlocks only after the learner passes the Module 1 gate quiz with ≥70%…"},
+      {key:"optionalContent", label:"Optional / Enrichment Content", type:"textarea",
+       placeholder:"Resources for advanced learners: extended readings, research projects, certifications…"},
+      {key:"adaptations", label:"Adaptations for Different Learners", type:"textarea",
+       placeholder:"Extended time, reduced-workload equivalents, alternative assessment formats, language support…"},
+      {key:"rplProvision", label:"RPL & Challenge Exam Provision", type:"textarea",
+       hint:"Describe the Recognition of Prior Learning process and challenge exam.",
+       placeholder:"Learners with relevant prior experience may apply for RPL by submitting a portfolio…"}
+    ]
+  },
+  { id:9, title:"Integrate Continuous Feedback", icon:"🔄", color:"#82c341",
+    fields:[
+      {key:"feedbackMechanisms", label:"Feedback Mechanisms", type:"checkboxes",
+       options:["Automated Quiz Feedback","Instructor Comments","Peer Review","Self-Assessment","Learning Analytics","End-of-Unit Surveys","1-on-1 Check-ins"]},
+      {key:"feedbackSchedule", label:"Feedback Schedule", type:"textarea",
+       placeholder:"Specific feedback timeline: when formative feedback is given, turnaround time, schedule for check-ins…"},
+      {key:"improvementLoop", label:"Continuous Improvement Process", type:"textarea",
+       placeholder:"Concrete process for using feedback data to revise course content…"},
+      {key:"successMetrics", label:"Success Metrics (with baselines and targets)", type:"tags",
+       hint:"Every metric must include a baseline and a numeric target. Format: 'Metric: baseline X%, target ≥Y%'.",
+       placeholder:"Add metric with baseline and target, then press Enter…"}
+    ]
+  }
+];
+
+// ─────────────────────────────────────────────────────────────────
+// STATE & HELPERS
+// ─────────────────────────────────────────────────────────────────
+function emptyTopicPlanRow(){
+  return { topic:"", keyContent:"",
+    hoursDirected:"", hoursSelfDirected:"", hoursApplied:"", hoursAssessed:"",
+    learnerActivity:"", activityRationale:"", competencyLink:"" };
+}
+
+function defaultData(){
+  const d={};
+  STEPS.forEach(step=>{
+    d[step.id]={};
+    step.fields.forEach(field=>{
+      if(field.type==='tags'||field.type==='checkboxes') d[step.id][field.key]=[];
+      else if(field.type==='topicTable') d[step.id][field.key]=[];
+      else d[step.id][field.key]='';
+    });
+  });
+  return d;
+}
+
+let state={
+  units:[{id:1, name:"Unit 1: Introduction", description:"", data:defaultData(), aiGenerated:false}],
+  activeUnit:1, activeStep:1, sidebarOpen:true
+};
+let _dirty=false;
+let uploadedFileText='', uploadedFileName='';
+
+const getUnit=(id)=>state.units.find(u=>u.id===(id??state.activeUnit));
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function ringOffset(pct,r=16){ return 2*Math.PI*r*(1-pct/100); }
+
+// localStorage
+function saveState(){
+  try{ localStorage.setItem('cp_state_v2',JSON.stringify(state)); _dirty=false; updateSaveDot(); }
+  catch(e){ console.warn('Save failed:',e); }
+}
+function loadState(){
+  try{
+    const raw=localStorage.getItem('cp_state_v2');
+    if(!raw) return;
+    const s=JSON.parse(raw);
+    if(s&&s.units&&s.units.length){ state=s; }
+  }catch(e){ console.warn('Load failed:',e); }
+}
+function markDirty(){ _dirty=true; updateSaveDot(); }
+function updateSaveDot(){
+  const dot=document.getElementById('saveDot');
+  const lbl=document.getElementById('saveLabel');
+  if(!dot) return;
+  if(_dirty){ dot.classList.add('unsaved'); lbl.textContent='Unsaved'; }
+  else{ dot.classList.remove('unsaved'); lbl.textContent='Saved'; }
+}
+let _saveTimer=null;
+function debouncedSave(){ clearTimeout(_saveTimer); markDirty(); _saveTimer=setTimeout(saveState,900); }
+
+function normalizeArr(v){ return Array.isArray(v)?v.filter(Boolean):[]; }
+function normalizeSubset(v,allowed){ return Array.isArray(v)?v.filter(x=>allowed.includes(x)):[]; }
+function normalizeTopicPlans(v){
+  if(!Array.isArray(v)) return [];
+  return v.map(row=>({
+    topic:String(row?.topic||'').trim(),
+    keyContent:String(row?.keyContent||'').trim(),
+    hoursDirected:String(row?.hoursDirected||'').trim(),
+    hoursSelfDirected:String(row?.hoursSelfDirected||'').trim(),
+    hoursApplied:String(row?.hoursApplied||'').trim(),
+    hoursAssessed:String(row?.hoursAssessed||'').trim(),
+    learnerActivity:String(row?.learnerActivity||row?.engagementActivity||'').trim(),
+    activityRationale:String(row?.activityRationale||'').trim(),
+    competencyLink:String(row?.competencyLink||'').trim()
+  })).filter(r=>r.topic||r.keyContent||r.hoursApplied||r.learnerActivity);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// COMPLETION
+// ─────────────────────────────────────────────────────────────────
+function getCompletion(unit,stepId){
+  const step=STEPS.find(s=>s.id===stepId);
+  const data=unit.data[stepId]||{};
+  let filled=0, total=step.fields.length;
+  step.fields.forEach(field=>{
+    const v=data[field.key];
+    if(Array.isArray(v)){
+      if(field.type==='topicTable'){
+        if(v.filter(r=>r&&(r.topic||r.keyContent||r.hoursApplied||r.learnerActivity)).length>0) filled++;
+      } else if(v.length>0) filled++;
+    } else if(v&&String(v).trim()) filled++;
+  });
+  return total?Math.round((filled/total)*100):0;
+}
+function getTotalProgress(unit){ return Math.round(STEPS.reduce((a,s)=>a+getCompletion(unit,s.id),0)/STEPS.length); }
+
+// ─────────────────────────────────────────────────────────────────
+// RENDER SIDEBAR
+// ─────────────────────────────────────────────────────────────────
+function renderUnits(){
+  const el=document.getElementById('unitsList');
+  el.innerHTML='';
+  state.units.forEach(unit=>{
+    const prog=getTotalProgress(unit);
+    const active=unit.id===state.activeUnit;
+    const d=document.createElement('div');
+    d.className='unit-card'+(active?' active':'');
+    const cr=2*Math.PI*12;
+    d.innerHTML=`
+      <div class="unit-card-row">
+        <span class="unit-name">${esc(unit.name)}${unit.aiGenerated?'<span style="font-size:9px;color:#10b981;margin-left:4px;font-weight:700">✦AI</span>':''}</span>
+        <svg class="ring-svg" width="32" height="32" style="flex-shrink:0">
+          <circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2.5"/>
+          <circle cx="16" cy="16" r="12" fill="none" stroke="${active?'#10b981':'rgba(255,255,255,.25)'}" stroke-width="2.5"
+            stroke-dasharray="${cr.toFixed(1)}" stroke-dashoffset="${(cr*(1-prog/100)).toFixed(1)}" stroke-linecap="round"/>
+          <text x="16" y="16" text-anchor="middle" dominant-baseline="middle"
+            style="font-size:6px;font-weight:700;fill:${active?'#10b981':'rgba(255,255,255,.4)'};font-family:sans-serif;transform:rotate(90deg);transform-origin:center">${prog}%</text>
+        </svg>
+      </div>
+      ${unit.description?`<div class="unit-desc-preview">${esc(unit.description)}</div>`:''}
+      <div class="unit-bar"><div class="unit-bar-fill" style="width:${prog}%"></div></div>`;
+    d.addEventListener('click',()=>{ state.activeUnit=unit.id; state.activeStep=1; render(); });
+    el.appendChild(d);
+  });
+}
+
+function renderSteps(){
+  const el=document.getElementById('stepsList');
+  el.innerHTML='';
+  const unit=getUnit();
+  if(!unit) return;
+  STEPS.forEach(step=>{
+    const pct=getCompletion(unit,step.id);
+    const active=step.id===state.activeStep;
+    const item=document.createElement('div');
+    item.className='step-nav-item';
+    if(active) item.style.cssText=`background:${step.color}22;border-color:${step.color}55`;
+    item.innerHTML=`
+      <div class="step-dot" style="${active?`background:${step.color};border-color:${step.color};color:#fff`:''}">
+        ${pct===100?'✓':step.icon}
+      </div>
+      <div class="step-nav-text">
+        <div class="step-nav-num">STEP ${String(step.id).padStart(2,'0')}</div>
+        <div class="step-nav-title" style="color:${active?step.color:'rgba(255,255,255,.55)'}">${step.title}</div>
+        <div class="step-mini-bar"><div class="step-mini-fill" style="width:${pct}%;background:${step.color}"></div></div>
+      </div>`;
+    item.addEventListener('click',()=>{ state.activeStep=step.id; renderContent(); renderSteps(); });
+    el.appendChild(item);
+  });
+}
+
+function renderHeaderRing(){
+  const unit=getUnit();
+  const right=document.getElementById('headerRight');
+  if(!unit){ right.style.display='none'; return; }
+  right.style.display='flex';
+  document.getElementById('headerUnitName').textContent=unit.name;
+  const pct=getTotalProgress(unit);
+  document.getElementById('headerRingFill').setAttribute('stroke-dashoffset',ringOffset(pct,16).toFixed(1));
+  document.getElementById('headerRingTxt').textContent=pct+'%';
+}
+
+// ─────────────────────────────────────────────────────────────────
+// NOTIONAL HOURS TABLE BUILDER
+// ─────────────────────────────────────────────────────────────────
+function parseH(v){ const n=parseFloat(String(v||'').replace(/[^0-9.]/g,'')); return isNaN(n)?0:n; }
+
+function buildTopicTableField(value, onChange){
+  let rows=Array.isArray(value)?value.map(r=>({...emptyTopicPlanRow(),...r})):[];
+  if(!rows.length) rows=[emptyTopicPlanRow()];
+
+  const wrap=document.createElement('div');
+  wrap.className='topic-table-wrap';
+
+  const tools=document.createElement('div');
+  tools.className='topic-table-tools';
+  tools.innerHTML=`
+    <div>
+      <div style="font-size:12.5px;font-weight:700;color:var(--ink-mid);margin-bottom:3px">Topic Content Plan</div>
+      <div class="topic-table-note">Distribute hours across 4 activity types. CBE goal: Applied + Assessed &gt; 50% of total.</div>
+    </div>
+    <button type="button" class="btn-small btn-add-row">+ Add Topic Row</button>`;
+  wrap.appendChild(tools);
+
+  const tableScroll=document.createElement('div');
+  tableScroll.className='topic-table-scroll';
+  wrap.appendChild(tableScroll);
+
+  const blendDiv=document.createElement('div');
+  blendDiv.className='blend-summary';
+  wrap.appendChild(blendDiv);
+
+  function getBlend(){
+    let a=0,b=0,c=0,d=0;
+    rows.forEach(r=>{ a+=parseH(r.hoursDirected); b+=parseH(r.hoursSelfDirected); c+=parseH(r.hoursApplied); d+=parseH(r.hoursAssessed); });
+    const total=a+b+c+d;
+    return {a,b,c,d,total};
+  }
+
+  function renderBlend(){
+    const {a,b,c,d,total}=getBlend();
+    if(total===0){ blendDiv.innerHTML='<div style="font-size:12px;color:var(--muted)">Add hours above to see the CBE activity blend.</div>'; return; }
+    const ap=Math.round(a/total*100), bp=Math.round(b/total*100), cp=Math.round(c/total*100), dp=100-ap-bp-cp;
+    const applied_assessed_pct=Math.round((c+d)/total*100);
+    const ok=applied_assessed_pct>=50;
+    blendDiv.innerHTML=`
+      <div class="blend-row">
+        <div class="blend-total">Total: <strong>${total}h</strong></div>
+        <div class="blend-bar-wrap">
+          <div class="blend-bar">
+            <div class="blend-seg blend-seg-a" style="width:${ap}%"></div>
+            <div class="blend-seg blend-seg-b" style="width:${bp}%"></div>
+            <div class="blend-seg blend-seg-c" style="width:${cp}%"></div>
+            <div class="blend-seg blend-seg-d" style="width:${Math.max(0,dp)}%"></div>
+          </div>
+          <div class="blend-legend">
+            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-a)"></span>Directed ${ap}%</span>
+            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-b)"></span>Self-dir ${bp}%</span>
+            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-c)"></span>Applied ${cp}%</span>
+            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-d)"></span>Assessed ${Math.max(0,dp)}%</span>
+          </div>
+        </div>
+        <div class="blend-badge ${ok?'ok':'warn'}">${ok?'✓ CBE blend':'⚠ Applied+Assessed '+applied_assessed_pct+'%'}</div>
+      </div>`;
+  }
+
+  function sync(){ onChange(rows.map(r=>({...r}))); renderTable(); renderBlend(); }
+  function onlyBlend(){ onChange(rows.map(r=>({...r}))); renderBlend(); }
+
+  function renderTable(){
+    tableScroll.innerHTML=`
+      <table class="topic-table">
+        <thead>
+          <tr>
+            <th rowspan="2" class="th-main" style="width:170px;min-width:170px">Topic / Subtopic</th>
+            <th rowspan="2" class="th-main" style="width:190px;min-width:190px">Key Content</th>
+            <th colspan="1" class="th-hour-group hour-header-a" style="width:68px;min-width:68px">
+              <div class="th-hour-parent">A – Directed</div>
+            </th>
+            <th colspan="1" class="th-hour-group hour-header-b" style="width:68px;min-width:68px">
+              <div class="th-hour-parent">B – Self-dir</div>
+            </th>
+            <th colspan="1" class="th-hour-group hour-header-c" style="width:68px;min-width:68px">
+              <div class="th-hour-parent">C – Applied</div>
+            </th>
+            <th colspan="1" class="th-hour-group hour-header-d" style="width:68px;min-width:68px">
+              <div class="th-hour-parent">D – Assessed</div>
+            </th>
+            <th rowspan="2" class="th-total" style="width:58px;min-width:58px">Total h</th>
+            <th rowspan="2" class="th-main" style="width:210px;min-width:210px">Learner Activity<br><span style="font-weight:400;font-size:10px;color:var(--muted)">What learners DO</span></th>
+            <th rowspan="2" class="th-main" style="width:210px;min-width:210px">Activity Rationale<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Why it builds competency</span></th>
+            <th rowspan="2" class="th-main" style="width:130px;min-width:130px">Competency Link</th>
+            <th rowspan="2" class="th-main" style="width:72px;min-width:72px">Action</th>
+          </tr>
+          <tr>
+            <th class="th-hour-sub hour-header-a">hrs</th>
+            <th class="th-hour-sub hour-header-b">hrs</th>
+            <th class="th-hour-sub hour-header-c">hrs</th>
+            <th class="th-hour-sub hour-header-d">hrs</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>`;
+
+    const tbody=tableScroll.querySelector('tbody');
+    rows.forEach((row,idx)=>{
+      const totalH=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed)).toFixed(1);
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td><input class="table-input" placeholder="Topic or subtopic title…" value="${esc(row.topic||'')}"></td>
+        <td><textarea class="table-textarea" placeholder="Key concepts, procedures, or skills to be taught…">${esc(row.keyContent||'')}</textarea></td>
+        <td class="hour-cell-a"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursDirected||'')}"></td>
+        <td class="hour-cell-b"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursSelfDirected||'')}"></td>
+        <td class="hour-cell-c"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursApplied||'')}"></td>
+        <td class="hour-cell-d"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursAssessed||'')}"></td>
+        <td class="total-cell ${parseFloat(totalH)>0?'over':''}">${parseFloat(totalH)>0?totalH:'—'}</td>
+        <td><textarea class="table-textarea" placeholder="Learners will [active verb]…">${esc(row.learnerActivity||'')}</textarea></td>
+        <td><textarea class="table-textarea" placeholder="Why this activity builds the competency…">${esc(row.activityRationale||'')}</textarea></td>
+        <td><input class="table-input" placeholder="e.g. Competency 2" value="${esc(row.competencyLink||'')}"></td>
+        <td><button type="button" class="btn-small btn-remove-row">Remove</button></td>`;
+
+      const inputs=tr.querySelectorAll('input,textarea');
+      const [topicEl,contentEl,hA,hB,hC,hD,actEl,ratEl,compEl]=inputs;
+
+      topicEl.addEventListener('input',()=>{ rows[idx].topic=topicEl.value; debouncedSave(); onlyBlend(); });
+      contentEl.addEventListener('input',()=>{ rows[idx].keyContent=contentEl.value; debouncedSave(); });
+      hA.addEventListener('input',()=>{ rows[idx].hoursDirected=hA.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
+      hB.addEventListener('input',()=>{ rows[idx].hoursSelfDirected=hB.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
+      hC.addEventListener('input',()=>{ rows[idx].hoursApplied=hC.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
+      hD.addEventListener('input',()=>{ rows[idx].hoursAssessed=hD.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
+      actEl.addEventListener('input',()=>{ rows[idx].learnerActivity=actEl.value; debouncedSave(); });
+      ratEl.addEventListener('input',()=>{ rows[idx].activityRationale=ratEl.value; debouncedSave(); });
+      compEl.addEventListener('input',()=>{ rows[idx].competencyLink=compEl.value; debouncedSave(); });
+      tr.querySelector('.btn-remove-row').addEventListener('click',()=>{ rows.splice(idx,1); if(!rows.length) rows.push(emptyTopicPlanRow()); sync(); debouncedSave(); });
+      tbody.appendChild(tr);
+    });
+    renderBlend();
+  }
+
+  function updateTotalCell(tr,idx){
+    const row=rows[idx];
+    const t=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed));
+    const tc=tr.querySelector('.total-cell');
+    if(tc){ tc.textContent=t>0?t.toFixed(1):'—'; tc.className='total-cell'+(t>0?' over':''); }
+  }
+
+  tools.querySelector('.btn-add-row').addEventListener('click',()=>{ rows.push(emptyTopicPlanRow()); sync(); debouncedSave(); });
+  renderTable();
+  return wrap;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// FIELD BUILDER
+// ─────────────────────────────────────────────────────────────────
+const WEAK_PATTERNS={
+  activities:/\b(complete|watch|attend|read|listen|log in|submit|do the|take the|open)\b/i,
+  resources:/\b(moodle|canvas|google|computer|internet|laptop|projector|textbook is available|resources are|access to)\b/i
+};
+
+function buildField(field, value, onChange, aiPop){
+  const wrap=document.createElement('div');
+  wrap.className='field-group';
+  const label=document.createElement('label');
+  label.className='field-label';
+  label.textContent=field.label;
+  wrap.appendChild(label);
+
+  if(field.hint){
+    const hint=document.createElement('div');
+    hint.className='field-hint';
+    hint.textContent=field.hint;
+    wrap.appendChild(hint);
+  }
+
+  if(field.type==='textarea'){
+    const el=document.createElement('textarea');
+    el.className='field-textarea'+(aiPop?' ai-populated':'');
+    el.placeholder=field.placeholder||'';
+    el.value=value||'';
+    const warn=document.createElement('div');
+    warn.className='quality-warn';
+    if(field.qualityMsg) warn.textContent=field.qualityMsg;
+    el.addEventListener('input',()=>{
+      onChange(el.value);
+      debouncedSave();
+      if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck]){
+        warn.classList.toggle('show', WEAK_PATTERNS[field.qualityCheck].test(el.value));
+      }
+    });
+    if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck]&&el.value){
+      warn.classList.toggle('show', WEAK_PATTERNS[field.qualityCheck].test(el.value));
+    }
+    wrap.appendChild(el);
+    if(field.qualityMsg) wrap.appendChild(warn);
+  } else if(field.type==='text'){
+    const el=document.createElement('input');
+    el.type='text';
+    el.className='field-input'+(aiPop?' ai-populated':'');
+    el.placeholder=field.placeholder||'';
+    el.value=value||'';
+    el.addEventListener('input',()=>{ onChange(el.value); debouncedSave(); });
+    wrap.appendChild(el);
+  } else if(field.type==='select'){
+    const el=document.createElement('select');
+    el.className='field-select'+(aiPop?' ai-populated':'');
+    const blank=document.createElement('option');
+    blank.value=''; blank.textContent='Select…';
+    el.appendChild(blank);
+    field.options.forEach(opt=>{
+      const o=document.createElement('option');
+      o.value=opt; o.textContent=opt;
+      if(value===opt) o.selected=true;
+      el.appendChild(o);
+    });
+    el.addEventListener('change',()=>{ onChange(el.value); debouncedSave(); });
+    wrap.appendChild(el);
+  } else if(field.type==='tags'){
+    const tagWrap=document.createElement('div');
+    tagWrap.className='tag-wrap'+(aiPop?' ai-populated':'');
+    let tags=Array.isArray(value)?[...value]:[];
+    const refresh=()=>{
+      tagWrap.innerHTML='';
+      const row=document.createElement('div');
+      row.className='tags-row';
+      tags.forEach((tag,i)=>{
+        const pill=document.createElement('span');
+        pill.className='tag-pill';
+        pill.innerHTML=`${esc(tag)} <button class="tag-remove">×</button>`;
+        pill.querySelector('.tag-remove').addEventListener('click',()=>{ tags.splice(i,1); onChange([...tags]); debouncedSave(); refresh(); });
+        row.appendChild(pill);
+      });
+      tagWrap.appendChild(row);
+      const inp=document.createElement('input');
+      inp.type='text'; inp.className='tag-input-field';
+      inp.placeholder=tags.length?'':(field.placeholder||'');
+      inp.addEventListener('keydown',e=>{
+        if((e.key==='Enter'||e.key===',')&&inp.value.trim()){
+          e.preventDefault();
+          const t=inp.value.trim();
+          if(!tags.includes(t)){ tags.push(t); onChange([...tags]); debouncedSave(); refresh(); }
+          else inp.value='';
+        }
+      });
+      tagWrap.appendChild(inp);
+    };
+    refresh();
+    wrap.appendChild(tagWrap);
+  } else if(field.type==='checkboxes'){
+    let selected=Array.isArray(value)?[...value]:[];
+    const grid=document.createElement('div');
+    grid.className='checkbox-grid';
+    field.options.forEach(opt=>{
+      const item=document.createElement('div');
+      item.className='check-item'+(selected.includes(opt)?' checked':'');
+      item.innerHTML=`<div class="check-box"><span class="check-tick">✓</span></div><span class="check-label">${esc(opt)}</span>`;
+      item.addEventListener('click',()=>{
+        if(selected.includes(opt)) selected=selected.filter(v=>v!==opt);
+        else selected.push(opt);
+        item.classList.toggle('checked',selected.includes(opt));
+        onChange([...selected]); debouncedSave();
+      });
+      grid.appendChild(item);
+    });
+    wrap.appendChild(grid);
+  } else if(field.type==='topicTable'){
+    wrap.appendChild(buildTopicTableField(value, val=>{ onChange(val); debouncedSave(); }));
+  }
+  return wrap;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// RENDER CONTENT
+// ─────────────────────────────────────────────────────────────────
+function renderContent(){
+  const unit=getUnit();
+  const content=document.getElementById('stepContent');
+  const empty=document.getElementById('emptyState');
+  if(!unit){ empty.style.display='flex'; content.style.display='none'; return; }
+  empty.style.display='none'; content.style.display='block'; content.innerHTML='';
+
+  const descCard=document.createElement('div');
+  descCard.className='unit-desc-card';
+  descCard.innerHTML=`<div class="unit-desc-header"><span class="unit-desc-title">📝 Course Unit Description</span><span class="unit-desc-badge">${esc(unit.name)}</span></div>`;
+  const descTA=document.createElement('textarea');
+  descTA.className='unit-desc-textarea'+(unit.aiGenerated&&unit.description?' ai-populated':'');
+  descTA.placeholder='Write a 2–3 sentence description of this unit: what it covers, who it is for, and why it matters to learners…';
+  descTA.value=unit.description||'';
+  descTA.addEventListener('input',()=>{ unit.description=descTA.value; debouncedSave(); });
+  descCard.appendChild(descTA);
+  const descHint=document.createElement('div');
+  descHint.className='unit-desc-hint';
+  descHint.textContent='This description appears in the unit export. Keep it concise and purposeful.';
+  descCard.appendChild(descHint);
+  content.appendChild(descCard);
+
+  const step=STEPS.find(s=>s.id===state.activeStep);
+  const data=unit.data[step.id];
+  const pct=getCompletion(unit,step.id);
+  const header=document.createElement('div');
+  header.className='step-header';
+  header.style.background=`linear-gradient(135deg,${step.color}f0,${step.color}99)`;
+  header.innerHTML=`
+    <div class="step-header-inner">
+      <div class="step-icon-big">${step.icon}</div>
+      <div style="flex:1">
+        <div class="step-num-label">Step ${step.id} of ${STEPS.length}</div>
+        <div class="step-title">${step.title}</div>
+        ${unit.aiGenerated?'<div class="ai-filled-badge">✦ Dr. Adelani AI-Lab Enhanced</div>':''}
+        <div class="step-progress-row">
+          <div class="step-progress-bar"><div class="step-progress-fill" id="stepProgFill" style="width:${pct}%"></div></div>
+          <span class="step-pct-label" id="stepProgTxt">${pct}% complete</span>
+        </div>
+        ${step.evaluatorNote?`<div class="step-evaluator-note"><strong>📌 Design Guidance:</strong> ${esc(step.evaluatorNote)}</div>`:''}
+      </div>
+    </div>`;
+  content.appendChild(header);
+
+  const card=document.createElement('div');
+  card.className='form-card';
+  step.fields.forEach(field=>{
+    const ai=unit.aiGenerated&&(Array.isArray(data[field.key])?data[field.key].length>0:!!String(data[field.key]||'').trim());
+    card.appendChild(buildField(field, data[field.key], val=>{ unit.data[step.id][field.key]=val; updateProgress(); }, ai));
+  });
+  content.appendChild(card);
+
+  const nav=document.createElement('div');
+  nav.className='step-nav-btns';
+  const prevBtn=document.createElement('button');
+  prevBtn.className='btn-prev';
+  prevBtn.textContent='← Previous';
+  prevBtn.disabled=step.id===1;
+  prevBtn.addEventListener('click',()=>{ state.activeStep--; renderContent(); renderSteps(); });
+  nav.appendChild(prevBtn);
+  const dots=document.createElement('div');
+  dots.className='dots-nav';
+  STEPS.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='dot'+(s.id===step.id?' active':'')+(getCompletion(unit,s.id)===100?' done':'');
+    if(s.id===step.id) d.style.background=step.color;
+    d.addEventListener('click',()=>{ state.activeStep=s.id; renderContent(); renderSteps(); });
+    dots.appendChild(d);
+  });
+  nav.appendChild(dots);
+  if(step.id<STEPS.length){
+    const nextBtn=document.createElement('button');
+    nextBtn.className='btn-next';
+    nextBtn.style.background=`linear-gradient(135deg,${step.color},${STEPS[step.id].color})`;
+    nextBtn.textContent='Next →';
+    nextBtn.addEventListener('click',()=>{ state.activeStep++; renderContent(); renderSteps(); });
+    nav.appendChild(nextBtn);
+  } else {
+    const completeBtn=document.createElement('button');
+    completeBtn.className='btn-complete';
+    completeBtn.textContent='✓ Complete Unit';
+    completeBtn.addEventListener('click',()=>showCompleteModal(unit));
+    nav.appendChild(completeBtn);
+  }
+  content.appendChild(nav);
+}
+
+function updateProgress(){
+  renderSteps(); renderUnits(); renderHeaderRing();
+  const unit=getUnit();
+  const pct=getCompletion(unit,state.activeStep);
+  const fill=document.getElementById('stepProgFill');
+  const txt=document.getElementById('stepProgTxt');
+  if(fill) fill.style.width=pct+'%';
+  if(txt) txt.textContent=pct+'% complete';
+}
+
+function render(){ renderUnits(); renderSteps(); renderContent(); renderHeaderRing(); }
+
+function showCompleteModal(unit){
+  let html='';
+  STEPS.forEach(step=>{
+    const pct=getCompletion(unit,step.id);
+    html+=`<div class="modal-summary-row"><span>${step.icon} ${step.title}</span><span class="spct">${pct}%</span></div>`;
+  });
+  document.getElementById('completeSummary').innerHTML=html;
+  document.getElementById('completeModal').classList.add('open');
+}
+
+// ─────────────────────────────────────────────────────────────────
+// HTML EXPORT
+// ─────────────────────────────────────────────────────────────────
+function fmtVal(value){
+  if(Array.isArray(value)){
+    if(!value.length) return '<p style="color:#888">—</p>';
+    return `<ul style="margin:0;padding-left:20px">${value.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;
+  }
+  const txt=String(value||'').trim();
+  if(!txt) return '<p style="color:#888">—</p>';
+  return `<p style="margin:0;line-height:1.6">${esc(txt).replace(/\n/g,'<br>')}</p>`;
+}
+
+function topicTableHtml(rows){
+  const clean=normalizeTopicPlans(rows);
+  if(!clean.length) return '<p style="color:#888">—</p>';
+  let totalA=0,totalB=0,totalC=0,totalD=0;
+  clean.forEach(r=>{ totalA+=parseH(r.hoursDirected); totalB+=parseH(r.hoursSelfDirected); totalC+=parseH(r.hoursApplied); totalD+=parseH(r.hoursAssessed); });
+  const grand=totalA+totalB+totalC+totalD;
+  const rows_html=clean.map(r=>{
+    const th=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)).toFixed(1);
+    return `<tr>
+      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-weight:600">${esc(r.topic||'—')}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.keyContent||'—').replace(/\n/g,'<br>')}</td>
+      <td style="border:1px solid #e0f9ff;padding:10px;text-align:center;background:#f0fdff;font-weight:600">${r.hoursDirected||'—'}</td>
+      <td style="border:1px solid #ede9fe;padding:10px;text-align:center;background:#faf5ff;font-weight:600">${r.hoursSelfDirected||'—'}</td>
+      <td style="border:1px solid #fef3c7;padding:10px;text-align:center;background:#fffbeb;font-weight:600">${r.hoursApplied||'—'}</td>
+      <td style="border:1px solid #d1fae5;padding:10px;text-align:center;background:#f0fdf4;font-weight:600">${r.hoursAssessed||'—'}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${th}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.learnerActivity||'—').replace(/\n/g,'<br>')}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-style:italic;color:#555">${esc(r.activityRationale||'—').replace(/\n/g,'<br>')}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.competencyLink||'—')}</td>
+    </tr>`;
+  }).join('');
+  const ap_pct=grand>0?Math.round((totalC+totalD)/grand*100):0;
+  return `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:1100px;margin-top:6px">
+    <thead><tr>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:140px">Topic</th>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:160px">Key Content</th>
+      <th style="border:1px solid #e0f9ff;padding:10px;background:#e0f9ff;text-align:center;color:#0e7490;min-width:60px">A hrs<br><small>Directed</small></th>
+      <th style="border:1px solid #ede9fe;padding:10px;background:#ede9fe;text-align:center;color:#5b21b6;min-width:60px">B hrs<br><small>Self-dir</small></th>
+      <th style="border:1px solid #fef3c7;padding:10px;background:#fef3c7;text-align:center;color:#92400e;min-width:60px">C hrs<br><small>Applied</small></th>
+      <th style="border:1px solid #d1fae5;padding:10px;background:#d1fae5;text-align:center;color:#065f46;min-width:60px">D hrs<br><small>Assessed</small></th>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:center;min-width:55px">Total</th>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Learner Activity</th>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Activity Rationale</th>
+      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:120px">Competency Link</th>
+    </tr></thead>
+    <tbody>${rows_html}</tbody>
+    <tfoot><tr>
+      <td colspan="2" style="border:1px solid #dbe9ed;padding:10px;font-weight:700;background:#f8fcfd">TOTALS</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#e0f9ff">${totalA.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#ede9fe">${totalB.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#fef3c7">${totalC.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#d1fae5">${totalD.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${grand.toFixed(1)}</td>
+      <td colspan="3" style="border:1px solid #dbe9ed;padding:10px;background:#${ap_pct>=50?'ecfdf5':'fef9c3'}">
+        <strong>CBE Blend:</strong> Applied+Assessed = ${ap_pct}% of total hours
+        ${ap_pct>=50?'✅ Meets CBE threshold (≥50%)':'⚠️ Below CBE threshold — increase applied/assessed hours'}
+      </td>
+    </tr></tfoot>
+  </table></div>`;
+}
+
+function generateUnitHtml(unit){
+  const tp=getTotalProgress(unit);
+  const topicData=normalizeTopicPlans(unit.data[4]?.topicPlans||[]);
+  let totalA=0,totalB=0,totalC=0,totalD=0;
+  topicData.forEach(r=>{ totalA+=parseH(r.hoursDirected); totalB+=parseH(r.hoursSelfDirected); totalC+=parseH(r.hoursApplied); totalD+=parseH(r.hoursAssessed); });
+  const grand=totalA+totalB+totalC+totalD;
+  const ap_pct=grand>0?Math.round((totalC+totalD)/grand*100):0;
+  const sections=STEPS.map(step=>{
+    const data=unit.data[step.id]||{};
+    const fieldsHtml=step.fields.map(field=>{
+      const valueHtml=field.type==='topicTable'?topicTableHtml(data[field.key]):fmtVal(data[field.key]);
+      return `<div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #edf4f6"><div style="font-size:11px;font-weight:700;color:#0d7d8c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">${esc(field.label)}</div>${valueHtml}</div>`;
+    }).join('');
+    return `<section style="background:#fff;border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);border:1px solid #e3eef1">
+      <div style="color:#fff;padding:16px 20px;display:flex;gap:12px;align-items:center;background:${step.color}">
+        <div style="font-size:28px">${step.icon}</div>
+        <div><div style="font-size:11px;font-weight:700;opacity:.85;letter-spacing:.08em">STEP ${step.id}</div><div style="font-family:Georgia,serif;font-size:20px;font-weight:700;margin-top:3px">${esc(step.title)}</div></div>
+      </div>
+      <div style="padding:18px">${fieldsHtml}</div>
+    </section>`;
+  }).join('');
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>${esc(unit.name)} – CompetencyPath Export</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap');body{font-family:'Outfit',Arial,sans-serif;margin:0;background:#f0faf7;color:#1a3a42;line-height:1.55}.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}.hero{background:linear-gradient(135deg,#0e2433,#163348 55%,#1a4a3a);color:#fff;border-radius:20px;padding:28px;margin-bottom:24px}.hero h1{font-family:'Fraunces',Georgia,serif;margin:0 0 8px;font-size:32px}.hero .desc{margin:8px 0 16px;font-size:15px;opacity:.9;line-height:1.6;max-width:760px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 13px;border-radius:999px;font-size:12.5px}.time-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}.ts-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;border:1.5px solid #e3eef1}.ts-card .num{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;margin-bottom:4px}.ts-card .lbl{font-size:12px;color:#6b9aaa}.footer{margin-top:30px;text-align:center;color:#6e8b95;font-size:13px}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>${esc(unit.name)}</h1>
+    ${unit.description?`<div class="desc">${esc(unit.description)}</div>`:''}
+    <div class="meta">
+      <div class="badge">Completion: ${tp}%</div>
+      <div class="badge">AI-enhanced: ${unit.aiGenerated?'Yes (Gemini)':'No'}</div>
+      <div class="badge">Total study hours: ${grand.toFixed(1)}h</div>
+      <div class="badge">CBE blend (Applied+Assessed): ${ap_pct}%${ap_pct>=50?' ✅':' ⚠️'}</div>
+      <div class="badge">Kampala International University</div>
+    </div>
+  </div>
+  ${grand>0?`<div class="time-summary">
+    <div class="ts-card"><div class="num" style="color:#0e7490">${totalA.toFixed(1)}h</div><div class="lbl">A — Directed</div></div>
+    <div class="ts-card"><div class="num" style="color:#5b21b6">${totalB.toFixed(1)}h</div><div class="lbl">B — Self-directed</div></div>
+    <div class="ts-card"><div class="num" style="color:#92400e">${totalC.toFixed(1)}h</div><div class="lbl">C — Applied</div></div>
+    <div class="ts-card"><div class="num" style="color:#065f46">${totalD.toFixed(1)}h</div><div class="lbl">D — Assessed</div></div>
+    <div class="ts-card"><div class="num" style="color:#0e2433">${grand.toFixed(1)}h</div><div class="lbl">Total notional hours</div></div>
+  </div>`:''}
+  ${sections}
+  <div class="footer">Exported from CompetencyPath v2.0 · Powered by Dr. Michael Adelani Adewusi AI-Research Lab · Dr. Michael Adelani Adewusi · Kampala International University, Uganda</div>
+</div>
+</body>
+</html>`;
+}
+
+function downloadActiveUnitHtml(){
+  const unit=getUnit();
+  if(!unit){ alert('Please select a unit first.'); return; }
+  const html=generateUnitHtml(unit);
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`${(unit.name.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_'))||'course_unit'}.html`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// FILE UPLOAD
+// ─────────────────────────────────────────────────────────────────
+async function handleSelectedFile(file){
+  const meta=document.getElementById('fileMeta');
+  try{
+    const text=await file.text();
+    uploadedFileText=text.trim(); uploadedFileName=file.name;
+    meta.style.display='block';
+    meta.innerHTML=`<strong>✓ Loaded:</strong> ${esc(file.name)} — ${uploadedFileText.length.toLocaleString()} characters`;
+  }catch(err){
+    uploadedFileText=''; uploadedFileName='';
+    meta.style.display='block';
+    meta.innerHTML=`<span style="color:#a02020"><strong>Error:</strong> ${esc(err.message)}</span>`;
+  }
+}
+
+function buildCombinedInput(){
+  const pasted=document.getElementById('writeupInput').value.trim();
+  const blocks=[];
+  if(pasted) blocks.push(`PASTED TEXT:\n${pasted}`);
+  if(uploadedFileText) blocks.push(`UPLOADED FILE (${uploadedFileName}):\n${uploadedFileText}`);
+  return blocks.join('\n\n====================\n\n').trim();
+}
+
+// ─────────────────────────────────────────────────────────────────
+// CONFIG — app is served from the Render backend, so API calls
+// use relative URLs on the same origin. No CORS, no external URLs.
+// ─────────────────────────────────────────────────────────────────
+const API_BASE = '';   // relative — works on any host
+
+function getCfg(){
+  return { mode: 'render', groqKey: '', renderUrl: API_BASE };
+}
+function isConfigured(){ return true; }  // always configured
+
+function getGroqModel(){
+  return document.getElementById('groqModelSelect')?.value || 'llama-3.3-70b-versatile';
+}
+
+// ── Direct call: browser → Groq (uses stored key) ──
+async function directGroqRequest(promptText, stepLabel){
+  const { groqKey } = getCfg();
+  if(!groqKey) throw new Error('No Groq API key. Use the Setup panel to add your key.');
+  const model = getGroqModel();
+  const complexSteps = ['Step 4','Step 5','Step 7','Step 8'];
+  const maxTok = complexSteps.some(s => stepLabel.includes(s)) ? 4096 : 2048;
+
+  const res = await fetch(GROQ_DIRECT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + groqKey },
+    body: JSON.stringify({
+      model, messages:[{role:'user',content:promptText}],
+      response_format:{type:'json_object'}, temperature:0.7, max_tokens:maxTok
+    })
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    const raw = data?.choices?.[0]?.message?.content || '';
+    const cleaned = raw.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
+    try{ return JSON.parse(cleaned); }
+    catch(e){ throw new Error('Could not parse response for '+stepLabel+'. Try a shorter write-up.'); }
+  }
+  const err = await res.json().catch(()=>({}));
+  const msg = err?.error?.message || 'HTTP '+res.status;
+  if(res.status===401) throw new Error('Invalid Groq API key. Update it in the Setup panel.');
+  if(res.status===429) throw new Error('Rate limit on '+model+'. Switch to llama-3.1-8b-instant or wait 60s.');
+  throw new Error(stepLabel+': '+msg);
+}
+
+// ── Helpers ──
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+async function showCountdown(s,msg){
+  const el=document.getElementById('aiStatusText');
+  for(;s>0;s--){ if(el) el.innerHTML=msg+' <strong>'+s+'s</strong>'; await sleep(1000); }
+}
+
+// ── Render backend request — handles cold-start internally ──
+// Render queues requests during cold-start and serves them once awake (30–90s).
+// We send one request with a 100s timeout and show a live timer while waiting.
+async function renderBackendRequest(promptText, stepLabel){
+  const cfg = getCfg();
+  // API_BASE is '' (relative URL) — always valid when served from Render
+  const base  = (cfg.renderUrl || '');  // '' = relative = same origin
+  const model = getGroqModel();
+
+  const MAX_ATTEMPTS = 4;
+  for(let attempt=1; attempt<=MAX_ATTEMPTS; attempt++){
+    // Live elapsed timer shown in the status bar
+    let secs = 0;
+    const el = () => document.getElementById('aiStatusText');
+    const ticker = setInterval(()=>{
+      secs++;
+      if(el()) el().innerHTML =
+        (secs < 15 ? '' : '⏱ Cold-starting backend… ') +
+        '<strong>' + stepLabel + '</strong>' +
+        (secs > 5 ? ' (' + secs + 's)' : '');
+    }, 1000);
+
+    try{
+      const res = await fetch(base + '/api/generate-step', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ prompt: promptText, model, stepLabel }),
+        signal:  AbortSignal.timeout(300000)   // 5 min — server handles retries internally
+      });
+      clearInterval(ticker);
+
+      if(res.ok){
+        const data = await res.json();
+        if(data && typeof data === 'object') return data;
+        throw new Error('Empty response from server for ' + stepLabel);
+      }
+      const err = await res.json().catch(()=>({}));
+      const msg = err?.error || 'Server error ' + res.status;
+      if(res.status === 429) throw new Error('Rate limit — switch to llama-3.1-8b-instant or wait 60s.');
+      throw new Error(stepLabel + ': ' + msg);
+
+    }catch(e){
+      clearInterval(ticker);
+      const isTimeout = e.name==='AbortError' || e.message.includes('timed out') || e.message.includes('signal');
+      const isNetwork = e.name==='TypeError' || e.message.includes('fetch') || e.message.includes('network');
+
+      if(isTimeout && attempt < MAX_ATTEMPTS){
+        // Server is handling Groq rate-limit retries — just wait and try again
+        const retryEl = document.getElementById('aiStatusText');
+        if(retryEl) retryEl.textContent = stepLabel + ' — server busy with retries, waiting 30s…';
+        await sleep(30000);
+        continue;
+      }
+      if(isNetwork && attempt < MAX_ATTEMPTS){
+        const retryEl = document.getElementById('aiStatusText');
+        if(retryEl) retryEl.textContent = stepLabel + ' — reconnecting (' + attempt + '/' + MAX_ATTEMPTS + ')…';
+        await sleep(5000);
+        continue;
+      }
+      if(isTimeout){
+        throw new Error('Server is rate-limited across all models. Please wait 2 minutes and try again, or switch to a faster model.');
+      }
+      if(isNetwork){
+        throw new Error('Cannot reach the backend. Check your internet connection and try again.');
+      }
+      throw e;
+    }
+  }
+}
+
+// ── Dispatcher ──
+async function providerRequest(promptText, stepLabel){
+  const { mode } = getCfg();
+  if(mode === 'render') return renderBackendRequest(promptText, stepLabel);
+  return directGroqRequest(promptText, stepLabel);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 9 FOCUSED PROMPTS — one per design step
+// ─────────────────────────────────────────────────────────────────
+function p1(inp){ return `You are an expert CBE course designer for Kampala International University (KIU), Uganda.
+Analyse the course write-up below and return ONLY a valid JSON object — no markdown, no backticks, no commentary.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON structure with detailed, substantive content (not placeholder text):
+{
+  "unitName": "Full descriptive title of the unit",
+  "unitDescription": "2-3 sentence overview: what the unit covers, who it is for, and why it matters",
+  "step1": {
+    "currentState": "Detailed description of learners typical competency level on entry to this unit — knowledge gaps, misconceptions, prior experience",
+    "desiredState": "Precise description of the competency state learners must reach by the end — observable behaviours and performance standards",
+    "gaps": "Itemised list of specific knowledge gaps, skill deficits, and attitude/mindset gaps between current and desired state",
+    "priority": "Critical"
+  }
+}`; }
+
+function p2(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Analyse the write-up and return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON structure with rich, detailed content — do NOT use placeholder text:
+{
+  "step2": {
+    "competencies": [
+      "Competency 1: full sentence describing the observable, assessable competency",
+      "Competency 2: full sentence",
+      "Competency 3: full sentence",
+      "Competency 4: full sentence (add more if needed)"
+    ],
+    "knowledgeAreas": "Paragraph describing BOTH declarative knowledge (concepts, theories, principles, facts the learner must know) AND procedural knowledge (processes, methods, techniques the learner must be able to execute). Be specific to the unit subject matter.",
+    "skills": [
+      "Observable skill 1: specific, measurable, verb-led description",
+      "Observable skill 2: specific, measurable, verb-led description",
+      "Observable skill 3: specific, measurable, verb-led description",
+      "Observable skill 4: add more as needed"
+    ],
+    "mappingNotes": "Detailed explanation of how each knowledge area maps to a specific competency, and how each skill operationalises that competency in practice. Reference the relationship explicitly: e.g. Knowledge Area X → Competency 2 because... Skill Y demonstrates Competency 3 by..."
+  }
+}`; }
+
+function p3(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Competencies: ${(ctx.step2&&ctx.step2.competencies||[]).join('; ')}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON structure with substantive, non-placeholder content:
+{
+  "step3": {
+    "specific": "Precise, observable, action-based description of exactly what learners will DO by the end of the unit. Use strong action verbs (analyse, construct, evaluate, apply). State the scope and boundary clearly.",
+    "measurable": "Performance indicators with concrete evidence — scores, rubric levels, or demonstrated outcomes. Example: Learners will score >=75% on the summative assessment AND achieve Proficient or above on all rubric criteria. Do NOT list activities.",
+    "achievable": "Explanation of why these objectives are within learners reach — reference their entry knowledge, the scaffolding provided, cognitive load theory, and ZPD. Do NOT mention tools or software availability.",
+    "relevant": "Connection to learners professional roles, career progression, industry needs, and real-world East African practice contexts.",
+    "timeBound": "Specific deadline, e.g. By the end of Week 6 / Within the 8-week unit",
+    "completeObjectives": "Write 3-4 complete SMART objectives, one per line, in the format: By [deadline], learners will be able to [action verb] [specific outcome] as demonstrated by [performance evidence]."
+  }
+}`; }
+
+function p4(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Competencies: ${(ctx.step2&&ctx.step2.competencies||[]).join('; ')}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+CRITICAL: In topicPlans, the sum of hoursApplied + hoursAssessed across ALL rows MUST exceed 50% of total hours.
+Return exactly this JSON with at least 4 topic rows — use real content, not placeholders:
+{
+  "step4": {
+    "contentOverview": "Paragraph describing the full sequence of topics, the pedagogical logic for ordering them, and how they build progressively toward the competencies.",
+    "topicPlans": [
+      {
+        "topic": "Topic 1 title",
+        "keyContent": "Specific concepts, theories, procedures, and skills covered in this topic",
+        "hoursDirected": "2",
+        "hoursSelfDirected": "2",
+        "hoursApplied": "3",
+        "hoursAssessed": "1",
+        "learnerActivity": "Learners will [active verb] — specific description of what learners actively DO, not just what they read or watch",
+        "activityRationale": "Why this activity builds the target competency — cite a learning theory (Kolb experiential cycle, Vygotsky ZPD, deliberate practice, constructivism)",
+        "competencyLink": "Competency 1"
+      },
+      {
+        "topic": "Topic 2 title",
+        "keyContent": "Specific content for topic 2",
+        "hoursDirected": "1",
+        "hoursSelfDirected": "2",
+        "hoursApplied": "4",
+        "hoursAssessed": "1",
+        "learnerActivity": "Learners will [active verb] — specific description",
+        "activityRationale": "Learning theory rationale for topic 2",
+        "competencyLink": "Competency 2"
+      }
+    ],
+    "contentRationale": "Paragraph justifying the topic sequence, the hour distribution, and explaining why Applied + Assessed hours exceed 50% of total — referencing CBE principles."
+  }
+}`; }
+
+function p5(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Competencies: ${(ctx.step2&&ctx.step2.competencies||[]).join('; ')}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON — rubric MUST include all 4 levels for every criterion:
+{
+  "step5": {
+    "formative": "List specific formative assessments with frequency and purpose. E.g.: Weekly 10-question quizzes (Weeks 1-5) to check conceptual recall; peer review of draft reports (Week 3) to build analytical skills; reflective journals submitted fortnightly.",
+    "summative": "List summative assessments with weightings and which competencies each measures. E.g.: Case Study Analysis 40% (Competencies 1,2); Final Project 60% (Competencies 2,3,4).",
+    "rubric": "Criterion 1 – [Name]\n  Excellent (4): [specific observable descriptor]\n  Proficient (3): [specific observable descriptor]\n  Developing (2): [specific observable descriptor]\n  Beginning (1): [specific observable descriptor]\n\nCriterion 2 – [Name]\n  Excellent (4): [descriptor]\n  Proficient (3): [descriptor]\n  Developing (2): [descriptor]\n  Beginning (1): [descriptor]\n\nCriterion 3 – [Name]\n  Excellent (4): [descriptor]\n  Proficient (3): [descriptor]\n  Developing (2): [descriptor]\n  Beginning (1): [descriptor]",
+    "evidenceType": ["Portfolio of Work", "Case Analysis Report", "Practical Demonstration", "Reflective Journal"],
+    "passingCriteria": ">=75% overall with no individual criterion below Developing (2) level",
+    "competencyAlignment": "Assessment 1 name -> Competency 1, Competency 2\nAssessment 2 name -> Competency 3\nFinal assessment -> All competencies",
+    "masteryJustification": "Evidence-based rationale: cite KIU academic policy, relevant industry entry-level standards, domain risk level, and CBE research supporting the chosen threshold."
+  }
+}`; }
+
+function p6(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Context: university level, East Africa, mixed internet connectivity.
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+contentFormats values MUST only come from: Video Lectures, Reading Materials, Interactive Simulations, Case Studies, Podcasts, Infographics, Live Webinars, Discussion Forums.
+Return exactly this JSON:
+{
+  "step6": {
+    "modality": "Blended / Hybrid",
+    "tools": ["Moodle LMS", "Zoom", "Google Workspace", "WhatsApp groups for peer support"],
+    "contentFormats": ["Video Lectures", "Reading Materials", "Case Studies", "Discussion Forums"],
+    "accessibilityNotes": "Specific accessibility provisions: video captions, screen-reader compatible PDFs, mobile-first design for smartphone access, downloadable offline content for low-bandwidth areas in Uganda, alternative text for all images."
+  }
+}`; }
+
+function p7(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Competencies: ${(ctx.step2&&ctx.step2.competencies||[]).join('; ')}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON with rich, detailed content in every field — do NOT use placeholder text:
+{
+  "step7": {
+    "activities": "Describe 3-5 named core learning activities in detail. For each: state its name, what learners DO (use active verbs), how long it takes, which competency it builds, and how mastery is demonstrated. Example format: Activity 1 — Case Clinic (Week 2, 3h): Learners analyse three real company financial statements in pairs, identifying liquidity ratios and presenting findings to the group. Builds Competency 2 (financial analysis). Mastery shown by correctly identifying all key ratios with written justification.",
+    "collaboration": "Describe 2-3 specific collaborative elements: group sizes, how groups are formed, individual roles within groups (e.g. analyst, presenter, critic), how the collaboration is structured to build the target competencies, and how individual contributions are assessed to prevent free-riding.",
+    "gamification": "Describe specific engagement mechanisms with educational rationale: e.g. Competency milestone badges awarded on passing each gate quiz (reinforces mastery progression); leaderboard showing weekly participation scores (motivates consistent engagement, not just final performance); challenge bonus tasks unlocked after 90% quiz score (caters for advanced learners). Explain WHY each mechanism supports CBE pedagogy.",
+    "realWorld": "Describe 2-3 specific real-world application scenarios drawn from East African industry, public sector, or community contexts. Name real or realistic organisations, describe the scenario task, and explain how it mirrors authentic professional practice in Uganda/East Africa."
+  }
+}`; }
+
+function p8(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Competencies: ${(ctx.step2&&ctx.step2.competencies||[]).join('; ')}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+Return exactly this JSON — ALL 7 fields are required, with detailed substantive content:
+{
+  "step8": {
+    "prerequisites": "List specific prerequisite knowledge and skills learners must have before starting this unit. Include a suggested 10-question diagnostic quiz description that learners complete before Week 1 to assess readiness.",
+    "paths": "Describe TWO distinct within-course paths based on diagnostic results: (1) Fast-track path for learners scoring >=85% on diagnostic — which foundational modules they skip, what accelerated content they receive, how they demonstrate readiness. (2) Foundational path for learners scoring <60% — scaffolded exercises, additional worked examples, peer tutoring provision, extended timelines.",
+    "selfPacedProgression": "Explain the self-paced mechanism in detail: when modules become available, minimum engagement requirements per week, maximum timeline to complete the unit, how the LMS enforces minimum pacing while allowing acceleration, and what happens if a learner falls behind.",
+    "competencyUnlocking": "Describe the competency gate system: what score or demonstration is required to unlock each module (e.g. >=70% on gate quiz), what happens if a learner fails (access to a 2-hour remedial micro-module + one re-attempt), maximum attempts allowed, and escalation process if the learner still cannot progress.",
+    "optionalContent": "List 3-5 specific optional enrichment resources for advanced learners: name each resource, describe its content, why it deepens competency, and how it connects to professional development or further study.",
+    "adaptations": "Describe specific adaptations for: (1) learners with disabilities — extended time, alternative assessment formats, assistive technology support; (2) learners with low digital literacy — orientation module, peer buddy system; (3) learners in remote areas — offline-accessible content, SMS-based check-ins; (4) working professionals — flexible submission windows, work-based project options.",
+    "rplProvision": "Describe the full RPL (Recognition of Prior Learning) process: how learners apply, what portfolio evidence is required (types of documents, work samples, references), who assesses it, the timeline, and the challenge exam — including its format, pass mark (>=80%), and what exemptions it grants."
+  }
+}`; }
+
+function p9(inp,ctx){ return `You are an expert CBE course designer for KIU Uganda.
+Unit: ${ctx.unitName}
+Return ONLY a valid JSON object — no markdown, no backticks.
+
+COURSE WRITE-UP:
+${inp}
+
+feedbackMechanisms values MUST only come from: Automated Quiz Feedback, Instructor Comments, Peer Review, Self-Assessment, Learning Analytics, End-of-Unit Surveys, 1-on-1 Check-ins.
+Each successMetric MUST include a baseline value AND a numeric target.
+Return exactly this JSON:
+{
+  "step9": {
+    "feedbackMechanisms": ["Automated Quiz Feedback", "Instructor Comments", "Peer Review", "Learning Analytics", "End-of-Unit Surveys"],
+    "feedbackSchedule": "Detailed timeline: automated quiz feedback delivered immediately on submission; instructor comments on formative assignments within 48 hours; peer review conducted in Week 3 and Week 5 using structured rubric; learning analytics dashboard reviewed by instructor weekly; 1-on-1 check-ins for at-risk learners (below 60%) within 72 hours of identifying risk.",
+    "improvementLoop": "Concrete improvement process: (1) Weekly: instructor reviews LMS analytics for engagement drop-offs — trigger: any topic with >30% skip rate gets a supplementary explainer added within 3 days. (2) End of unit: survey data and grade distributions reviewed by course team within 2 weeks — trigger: pass rate below 75% initiates a content review cycle. (3) Annual: full course review incorporating cohort data, industry feedback, and KIU quality assurance process.",
+    "successMetrics": [
+      "Unit completion rate: baseline 65%, target >=85%",
+      "Summative assessment pass rate: baseline 60%, target >=80%",
+      "Learner satisfaction score: baseline 3.2/5, target >=4.0/5",
+      "Competency demonstration rate (>=Proficient): baseline 55%, target >=75%"
+    ]
+  }
+}`; }
+
+// ─────────────────────────────────────────────────────────────────
+// 9-CALL ORCHESTRATOR  — one tiny call per design step
+// ─────────────────────────────────────────────────────────────────
+async function callGemini(combinedInput){
+  const setTxt = t => { const el=document.getElementById('aiStatusText'); if(el) el.textContent=t; };
+  const PAUSE  = 1200; // ms between calls — gentle on free-tier RPM
+
+  const steps = [
+    { fn: ()=>p1(combinedInput),        label:'Step 1: Competency Gap Analysis',      gsIdx:1 },
+    { fn: ctx=>p2(combinedInput,ctx),   label:'Step 2: Knowledge & Skills Mapping',   gsIdx:2 },
+    { fn: ctx=>p3(combinedInput,ctx),   label:'Step 3: SMART Objectives',             gsIdx:3 },
+    { fn: ctx=>p4(combinedInput,ctx),   label:'Step 4: Content & Notional Hours',     gsIdx:4 },
+    { fn: ctx=>p5(combinedInput,ctx),   label:'Step 5: Evidence-based Assessments',   gsIdx:5 },
+    { fn: ctx=>p6(combinedInput,ctx),   label:'Step 6: Delivery Methods',             gsIdx:6 },
+    { fn: ctx=>p7(combinedInput,ctx),   label:'Step 7: Learning Activities',          gsIdx:6 },
+    { fn: ctx=>p8(combinedInput,ctx),   label:'Step 8: Flexible Learning Paths',      gsIdx:7 },
+    { fn: ctx=>p9(combinedInput,ctx),   label:'Step 9: Continuous Feedback',          gsIdx:7 },
+  ];
+
+  let ctx = {};
+
+  for(let i=0; i<steps.length; i++){
+    const { fn, label, gsIdx } = steps[i];
+    setTxt(`${label}...`);
+    setGenStep(gsIdx, false);
+
+    const result = await providerRequest(fn(ctx), label);
+
+    // Merge result into cumulative context
+    ctx = { ...ctx, ...result };
+    // Also flatten nested step objects into ctx for easy reference by later prompts
+    if(result.step1) ctx.step1 = result.step1;
+    if(result.step2) ctx.step2 = result.step2;
+
+    setGenStep(gsIdx, true);
+
+    // Small pause between calls (not needed after last step)
+    if(i < steps.length-1) await sleep(PAUSE);
+  }
+
+  return ctx;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// QUALITY CHECK
+// ─────────────────────────────────────────────────────────────────
+function checkQuality(parsed){
+  const warnings=[];
+  const meas=parsed.step3?.measurable||'';
+  if(WEAK_PATTERNS.activities.test(meas)) warnings.push('Step 3 Measurable still contains activity language. Check performance indicators.');
+  const plans=normalizeTopicPlans(parsed.step4?.topicPlans||[]);
+  let totalC=0,totalD=0,grand=0;
+  plans.forEach(r=>{ totalC+=parseH(r.hoursApplied); totalD+=parseH(r.hoursAssessed); grand+=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)); });
+  if(grand>0&&(totalC+totalD)/grand<0.5) warnings.push('Notional hours blend: Applied+Assessed is below 50%. Consider redistributing hours toward active learning.');
+  return warnings;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// AI GENERATION ORCHESTRATOR
+// ─────────────────────────────────────────────────────────────────
+function setGenStep(n,done){
+  for(let i=1;i<=7;i++){
+    const el=document.getElementById('gs'+i);
+    if(!el) continue;
+    if(i<n){ el.classList.add('done'); el.querySelector('.gs-icon').textContent='✅'; }
+    else if(i===n){ el.querySelector('.gs-icon').textContent=done?'✅':'⏳'; if(done) el.classList.add('done'); }
+    else{ el.classList.remove('done'); el.querySelector('.gs-icon').textContent='⏳'; }
+  }
+}
+
+async function runAIGeneration(){
+  const combinedInput=buildCombinedInput();
+  if(!combinedInput){ alert('Please paste text or upload a file first.'); return; }
+  const targetVal=document.getElementById('targetUnitSelect').value;
+  const btn=document.getElementById('generateBtn');
+  const statusEl=document.getElementById('aiStatus');
+  const genList=document.getElementById('genStepsList');
+  const statusTxt=document.getElementById('aiStatusText');
+  btn.disabled=true;
+  statusEl.className='ai-status loading';
+  statusEl.innerHTML=`<div class="spinner"></div><div id="aiStatusText">Checking backend connection...</div>`;
+  genList.style.display='block';
+  for(let i=1;i<=7;i++) setGenStep(i,false);
+
+  try{
+    const parsed = await callGemini(combinedInput);
+
+    const newData=defaultData();
+    newData[1]={ currentState:parsed.step1?.currentState||'', desiredState:parsed.step1?.desiredState||'', gaps:parsed.step1?.gaps||'', priority:parsed.step1?.priority||'' };
+    newData[2]={ competencies:normalizeArr(parsed.step2?.competencies), knowledgeAreas:parsed.step2?.knowledgeAreas||'', skills:normalizeArr(parsed.step2?.skills), mappingNotes:parsed.step2?.mappingNotes||'' };
+    newData[3]={ specific:parsed.step3?.specific||'', measurable:parsed.step3?.measurable||'', achievable:parsed.step3?.achievable||'', relevant:parsed.step3?.relevant||'', timeBound:parsed.step3?.timeBound||'', completeObjectives:parsed.step3?.completeObjectives||'' };
+    newData[4]={ contentOverview:parsed.step4?.contentOverview||'', topicPlans:normalizeTopicPlans(parsed.step4?.topicPlans), contentRationale:parsed.step4?.contentRationale||'' };
+    newData[5]={ formative:parsed.step5?.formative||'', summative:parsed.step5?.summative||'', rubric:parsed.step5?.rubric||'', evidenceType:normalizeArr(parsed.step5?.evidenceType), passingCriteria:parsed.step5?.passingCriteria||'', competencyAlignment:parsed.step5?.competencyAlignment||'', masteryJustification:parsed.step5?.masteryJustification||'' };
+    newData[6]={ modality:parsed.step6?.modality||'', tools:normalizeArr(parsed.step6?.tools), contentFormats:normalizeSubset(parsed.step6?.contentFormats,["Video Lectures","Reading Materials","Interactive Simulations","Case Studies","Podcasts","Infographics","Live Webinars","Discussion Forums"]), accessibilityNotes:parsed.step6?.accessibilityNotes||'' };
+    newData[7]={ activities:parsed.step7?.activities||'', collaboration:parsed.step7?.collaboration||'', gamification:parsed.step7?.gamification||'', realWorld:parsed.step7?.realWorld||'' };
+    newData[8]={ prerequisites:parsed.step8?.prerequisites||'', paths:parsed.step8?.paths||'', selfPacedProgression:parsed.step8?.selfPacedProgression||'', competencyUnlocking:parsed.step8?.competencyUnlocking||'', optionalContent:parsed.step8?.optionalContent||'', adaptations:parsed.step8?.adaptations||'', rplProvision:parsed.step8?.rplProvision||'' };
+    newData[9]={ feedbackMechanisms:normalizeSubset(parsed.step9?.feedbackMechanisms,["Automated Quiz Feedback","Instructor Comments","Peer Review","Self-Assessment","Learning Analytics","End-of-Unit Surveys","1-on-1 Check-ins"]), feedbackSchedule:parsed.step9?.feedbackSchedule||'', improvementLoop:parsed.step9?.improvementLoop||'', successMetrics:normalizeArr(parsed.step9?.successMetrics) };
+
+    const unitName=parsed.unitName||uploadedFileName.replace(/\.[^/.]+$/,'')||'AI-Generated Unit';
+    const unitDesc=parsed.unitDescription||'';
+
+    if(targetVal==='new'){
+      const newId=Date.now();
+      state.units.push({id:newId, name:unitName, description:unitDesc, data:newData, aiGenerated:true});
+      state.activeUnit=newId;
+    } else {
+      const target=getUnit(parseInt(targetVal,10));
+      if(target){ target.name=unitName; target.description=unitDesc; target.data=newData; target.aiGenerated=true; }
+    }
+    state.activeStep=1;
+    setGenStep(7,true);
+
+    const warnings=checkQuality(parsed);
+    if(warnings.length){
+      statusEl.className='ai-status warning';
+      statusEl.innerHTML=`<strong>⚠️ Generated with notes:</strong><br>${warnings.map(w=>`• ${esc(w)}`).join('<br>')}`;
+    } else {
+      statusEl.className='ai-status success';
+      statusEl.innerHTML=`<strong>✅ Done!</strong> "${esc(unitName)}" has been structured across all 9 design steps using Google Gemini.`;
+    }
+    saveState();
+    setTimeout(()=>{ document.getElementById('importModal').classList.remove('open'); render(); },1800);
+  }catch(err){
+    setGenStep(1,false);
+    statusEl.className='ai-status error';
+    statusEl.innerHTML=`<strong>⚠️ Error:</strong> ${esc(err.message)}`;
+    console.error(err);
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// EVENT LISTENERS
+// ─────────────────────────────────────────────────────────────────
+document.getElementById('menuBtn').addEventListener('click',()=>{
+  state.sidebarOpen=!state.sidebarOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed',!state.sidebarOpen);
+});
+document.getElementById('openImportBtn').addEventListener('click',()=>{
+  populateTargetSelect();
+  refreshSetupBanner();
+  document.getElementById('importModal').classList.add('open');
+});
+document.getElementById('closeImportModal').addEventListener('click',()=>{ document.getElementById('importModal').classList.remove('open'); });
+
+
+document.getElementById('importModal').addEventListener('click',e=>{ if(e.target===document.getElementById('importModal')) document.getElementById('importModal').classList.remove('open'); });
+document.getElementById('closeCompleteModal').addEventListener('click',()=>{ document.getElementById('completeModal').classList.remove('open'); });
+document.getElementById('completeModal').addEventListener('click',e=>{ if(e.target===document.getElementById('completeModal')) document.getElementById('completeModal').classList.remove('open'); });
+
+// Provider is Groq via Render — no client-side keys needed
+
+// ── SETUP BANNER LOGIC ──────────────────────────────────────────
+function refreshSetupBanner(){ /* no-op: app served from Render */ }
+
+function setSetupTab(){ }
+
+function showSetupStatus(){ }
+
+// Setup listeners not needed — served from Render
+
+
+
+document.querySelectorAll('.import-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.import-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    ['paste','upload','tips'].forEach(name=>{ document.getElementById(`tab-${name}`).style.display=tab.dataset.tab===name?'block':'none'; });
+  });
+});
+document.getElementById('showAddUnitBtn').addEventListener('click',()=>{
+  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='none';
+  document.getElementById('addUnitForm').style.display='block';
+  document.getElementById('newUnitInput').focus();
+});
+document.getElementById('cancelAddUnit').addEventListener('click',()=>{
+  document.getElementById('addUnitForm').style.display='none';
+  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';
+  document.getElementById('newUnitInput').value='';
+});
+function doAddUnit(){
+  const name=document.getElementById('newUnitInput').value.trim();
+  if(!name) return;
+  const id=Date.now();
+  state.units.push({id, name, description:'', data:defaultData(), aiGenerated:false});
+  state.activeUnit=id; state.activeStep=1;
+  document.getElementById('newUnitInput').value='';
+  document.getElementById('addUnitForm').style.display='none';
+  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';
+  render(); saveState();
+}
+document.getElementById('confirmAddUnit').addEventListener('click',doAddUnit);
+document.getElementById('newUnitInput').addEventListener('keydown',e=>{ if(e.key==='Enter') doAddUnit(); });
+
+function populateTargetSelect(){
+  const sel=document.getElementById('targetUnitSelect');
+  sel.innerHTML='';
+  state.units.forEach(u=>{ const o=document.createElement('option'); o.value=u.id; o.textContent=u.name; if(u.id===state.activeUnit) o.selected=true; sel.appendChild(o); });
+  const newOpt=document.createElement('option'); newOpt.value='new'; newOpt.textContent='+ Create new unit from this write-up'; sel.appendChild(newOpt);
+}
+
+document.getElementById('writeupInput').addEventListener('input',function(){ document.getElementById('charCount').textContent=this.value.length; });
+document.getElementById('chooseFileBtn').addEventListener('click',()=>{ document.getElementById('fileInput').click(); });
+document.getElementById('fileInput').addEventListener('change',async e=>{ const file=e.target.files?.[0]; if(file) await handleSelectedFile(file); });
+const fileBox=document.getElementById('fileBox');
+['dragenter','dragover'].forEach(evt=>fileBox.addEventListener(evt,e=>{ e.preventDefault(); fileBox.classList.add('dragover'); }));
+['dragleave','drop'].forEach(evt=>fileBox.addEventListener(evt,e=>{ e.preventDefault(); fileBox.classList.remove('dragover'); }));
+fileBox.addEventListener('drop',async e=>{ const file=e.dataTransfer.files?.[0]; if(file) await handleSelectedFile(file); });
+
+document.getElementById('downloadUnitBtn').addEventListener('click',downloadActiveUnitHtml);
+document.getElementById('generateBtn').addEventListener('click',runAIGeneration);
+
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') saveState(); });
+window.addEventListener('beforeunload',()=>saveState());
+
+// ─────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────
+loadState();
+render();
+saveState();
+</script>
+</body>
+</html>

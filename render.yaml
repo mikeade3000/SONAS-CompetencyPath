@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: competencypath-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false        # you paste this in Render dashboard — never committed to git
