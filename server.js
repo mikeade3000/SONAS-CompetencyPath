@@ -131,12 +131,28 @@ async function openRouterRequest({ prompt, model, stepLabel, req }) {
   throw lastError || new Error('OpenRouter request failed.');
 }
 
+function getHtmlEntryCandidates() {
+  return [
+    'index.html',
+    'public/index.html',
+    'CompetencyPath_OpenRouter_15_steps.html',
+    'public/CompetencyPath_OpenRouter_15_steps.html',
+    'CompetencyPath_15_steps.html',
+    'public/CompetencyPath_15_steps.html'
+  ];
+}
+
 app.get('/health', (_req, res) => {
+  const htmlEntry = firstExisting(getHtmlEntryCandidates());
   res.json({
     ok: true,
     provider: 'openrouter',
     hasApiKey: Boolean(getServerApiKey()),
-    app: getAppTitle()
+    model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct',
+    app: getAppTitle(),
+    htmlEntryFound: Boolean(htmlEntry),
+    htmlEntryPath: htmlEntry ? path.relative(ROOT, htmlEntry) : null,
+    rootFiles: fs.readdirSync(ROOT).filter((name) => !name.startsWith('.')).sort()
   });
 });
 
@@ -167,16 +183,15 @@ app.post('/api/generate-step', async (req, res) => {
 app.use(express.static(ROOT, {
   extensions: ['html']
 }));
+app.use(express.static(path.join(ROOT, 'public'), {
+  extensions: ['html']
+}));
 
 app.get('*', (req, res) => {
-  const file = firstExisting([
-    'index.html',
-    'CompetencyPath_OpenRouter_15_steps.html',
-    'CompetencyPath_15_steps.html'
-  ]);
+  const file = firstExisting(getHtmlEntryCandidates());
 
   if (!file) {
-    return res.status(404).send('No HTML entry file found.');
+    return res.status(404).send('No HTML entry file found. Add index.html to the repo root or public/index.html.');
   }
 
   return res.sendFile(file);
