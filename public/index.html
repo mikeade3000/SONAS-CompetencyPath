@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CompetencyPath 2.0 · Kampala International University</title>
+<title>CompetencyPath OpenRouter · Kampala International University</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,800;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -398,7 +398,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       <span></span><span></span><span></span>
     </button>
     <div class="brand">
-      <span class="brand-name">CompetencyPath</span>
+      <span class="brand-name">CompetencyPath OpenRouter</span>
       <span class="brand-sub">Competency-Based Course Designer · Dr. Michael Adelani Adewusi · KIU Uganda</span>
     </div>
   </div>
@@ -462,7 +462,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       <div class="empty-state" id="emptyState">
         <div class="empty-icon">🎓</div>
         <h2>Welcome to CompetencyPath</h2>
-        <p>Select a course unit from the sidebar, or use <strong>Import Write-up</strong> to generate a complete CBE course design from your existing materials.</p>
+        <p>Select a course unit from the sidebar, or use <strong>Import Write-up</strong> to generate a complete 15-step CBE course design through the OpenRouter-powered backend.</p>
       </div>
       <div id="stepContent" style="display:none"></div>
     </div>
@@ -475,7 +475,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
     <button class="modal-close-x" id="closeImportModal">✕</button>
     <div class="modal-head">
       <h2>✦ Course Import</h2>
-      <p>Paste or upload your course write-up — powered by Dr. Michael Adelani Adewusi AI-Research Lab</p>
+      <p>Paste or upload your course write-up — powered by the Render/OpenRouter backend · Dr. Michael Adelani Adewusi AI-Research Lab</p>
     </div>
     <div class="modal-body">
       <div class="import-tabs">
@@ -511,28 +511,14 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 
       <!-- App served from Render — no setup needed -->
       <div id="setupBanner" style="display:none"></div>
-      <div id="setupGroqKey" style="display:none"></div>
+      <div id="setupOpenRouterKey" style="display:none"></div>
       <div id="setupRenderUrl" style="display:none"></div>
       <div id="setupStatus" style="display:none"></div>
-      <div id="btnSaveGroqKey" style="display:none"></div>
+      <div id="btnSaveOpenRouterKey" style="display:none"></div>
       <div id="btnSaveRenderUrl" style="display:none"></div>
       <div id="setupPanel-direct" style="display:none"></div>
       <div id="setupPanel-render" style="display:none"></div>
 
-      <!-- ── GROQ MODEL SELECTOR ── -->
-      <div class="model-selector-row">
-        <div class="model-selector-top">
-          <span class="model-selector-label">🤖 Model</span>
-          <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:var(--teal-xlight);color:var(--teal-dark);border-radius:999px;font-weight:700">⚡ Free · Fast</span>
-        </div>
-        <select class="model-select" id="groqModelSelect">
-          <option value="llama-3.3-70b-versatile">Best quality</option>
-          <option value="llama-3.1-8b-instant">Fastest</option>
-          <option value="llama3-70b-8192">Super-Option A</option>
-          <option value="llama3-8b-8192">Super-Option B</option>
-        </select>
-        <div class="model-status" id="groqModelStatus"></div>
-      </div>
 
       <div class="target-unit-row">
         <label>Apply to unit:</label>
@@ -568,7 +554,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 <div class="modal-backdrop" id="completeModal">
   <div class="complete-modal">
     <h2>🎉 Unit Design Complete!</h2>
-    <p>Summary of completion across all 15 design steps.</p>
+    <p>Summary of completion across all 15 OpenRouter-generated design steps.</p>
     <div id="completeSummary"></div>
     <button class="btn-close-modal" id="closeCompleteModal">Close</button>
   </div>
@@ -1542,76 +1528,32 @@ function buildCombinedInput(){
 }
 
 // ─────────────────────────────────────────────────────────────────
-// CONFIG — app is served from the Render backend, so API calls
-// use relative URLs on the same origin. No CORS, no external URLs.
+// OPENROUTER BACKEND CONFIG
+// App is served from Render and calls a same-origin backend route,
+// which securely forwards each focused prompt to OpenRouter.
 // ─────────────────────────────────────────────────────────────────
-const API_BASE = '';   // relative — works on any host
+const API_BASE = '';
+const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
 
-function getCfg(){
-  return { mode: 'render', groqKey: '', renderUrl: API_BASE };
-}
-function isConfigured(){ return true; }  // always configured
-
-function getGroqModel(){
-  return document.getElementById('groqModelSelect')?.value || 'llama-3.3-70b-versatile';
+function getAIModel(){
+  return OPENROUTER_MODEL;
 }
 
-// ── Direct call: browser → Groq (uses stored key) ──
-async function directGroqRequest(promptText, stepLabel){
-  const { groqKey } = getCfg();
-  if(!groqKey) throw new Error('No Groq API key. Use the Setup panel to add your key.');
-  const model = getGroqModel();
-  const complexSteps = ['Step 4','Step 5','Step 7','Step 8'];
-  const maxTok = complexSteps.some(s => stepLabel.includes(s)) ? 4096 : 2048;
-
-  const res = await fetch(GROQ_DIRECT_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + groqKey },
-    body: JSON.stringify({
-      model, messages:[{role:'user',content:promptText}],
-      response_format:{type:'json_object'}, temperature:0.7, max_tokens:maxTok
-    })
-  });
-
-  if(res.ok){
-    const data = await res.json();
-    const raw = data?.choices?.[0]?.message?.content || '';
-    const cleaned = raw.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
-    try{ return JSON.parse(cleaned); }
-    catch(e){ throw new Error('Could not parse response for '+stepLabel+'. Try a shorter write-up.'); }
-  }
-  const err = await res.json().catch(()=>({}));
-  const msg = err?.error?.message || 'HTTP '+res.status;
-  if(res.status===401) throw new Error('Invalid Groq API key. Update it in the Setup panel.');
-  if(res.status===429) throw new Error('Rate limit on '+model+'. Switch to llama-3.1-8b-instant or wait 60s.');
-  throw new Error(stepLabel+': '+msg);
-}
-
-// ── Helpers ──
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
-async function showCountdown(s,msg){
-  const el=document.getElementById('aiStatusText');
-  for(;s>0;s--){ if(el) el.innerHTML=msg+' <strong>'+s+'s</strong>'; await sleep(1000); }
-}
 
-// ── Render backend request — handles cold-start internally ──
-// Render queues requests during cold-start and serves them once awake (30–90s).
-// We send one request with a 100s timeout and show a live timer while waiting.
-async function renderBackendRequest(promptText, stepLabel){
-  const cfg = getCfg();
-  // API_BASE is '' (relative URL) — always valid when served from Render
-  const base  = (cfg.renderUrl || '');  // '' = relative = same origin
-  const model = getGroqModel();
-
+// Render/OpenRouter backend request
+async function providerRequest(promptText, stepLabel){
+  const base  = API_BASE;
+  const model = getAIModel();
   const MAX_ATTEMPTS = 4;
+
   for(let attempt=1; attempt<=MAX_ATTEMPTS; attempt++){
-    // Live elapsed timer shown in the status bar
     let secs = 0;
     const el = () => document.getElementById('aiStatusText');
     const ticker = setInterval(()=>{
       secs++;
       if(el()) el().innerHTML =
-        (secs < 15 ? '' : '⏱ Cold-starting backend… ') +
+        (secs < 15 ? '' : '⏱ Waiting for backend… ') +
         '<strong>' + stepLabel + '</strong>' +
         (secs > 5 ? ' (' + secs + 's)' : '');
     }, 1000);
@@ -1621,7 +1563,7 @@ async function renderBackendRequest(promptText, stepLabel){
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ prompt: promptText, model, stepLabel }),
-        signal:  AbortSignal.timeout(300000)   // 5 min — server handles retries internally
+        signal:  AbortSignal.timeout(300000)
       });
       clearInterval(ticker);
 
@@ -1632,48 +1574,38 @@ async function renderBackendRequest(promptText, stepLabel){
       }
       const err = await res.json().catch(()=>({}));
       const msg = err?.error || 'Server error ' + res.status;
-      if(res.status === 429) throw new Error('Rate limit — switch to llama-3.1-8b-instant or wait 60s.');
+
+      if((res.status===429 || res.status===503) && attempt < MAX_ATTEMPTS){
+        if(el()) el().textContent = stepLabel + ' — provider busy, retrying...';
+        await sleep(5000 * attempt);
+        continue;
+      }
+
       throw new Error(stepLabel + ': ' + msg);
-
-    }catch(e){
+    } catch(err){
       clearInterval(ticker);
-      const isTimeout = e.name==='AbortError' || e.message.includes('timed out') || e.message.includes('signal');
-      const isNetwork = e.name==='TypeError' || e.message.includes('fetch') || e.message.includes('network');
 
-      if(isTimeout && attempt < MAX_ATTEMPTS){
-        // Server is handling Groq rate-limit retries — just wait and try again
-        const retryEl = document.getElementById('aiStatusText');
-        if(retryEl) retryEl.textContent = stepLabel + ' — server busy with retries, waiting 30s…';
-        await sleep(30000);
+      if((err.name === 'AbortError' || String(err.message||'').includes('signal')) && attempt < MAX_ATTEMPTS){
+        if(el()) el().textContent = stepLabel + ' timed out — retrying...';
+        await sleep(4000 * attempt);
         continue;
       }
-      if(isNetwork && attempt < MAX_ATTEMPTS){
-        const retryEl = document.getElementById('aiStatusText');
-        if(retryEl) retryEl.textContent = stepLabel + ' — reconnecting (' + attempt + '/' + MAX_ATTEMPTS + ')…';
-        await sleep(5000);
+      if(err.name === 'TypeError' && String(err.message||'').includes('fetch') && attempt < MAX_ATTEMPTS){
+        if(el()) el().textContent = stepLabel + ' — reconnecting to backend...';
+        await sleep(4000 * attempt);
         continue;
       }
-      if(isTimeout){
-        throw new Error('Server is rate-limited across all models. Please wait 2 minutes and try again, or switch to a faster model.');
-      }
-      if(isNetwork){
-        throw new Error('Cannot reach the backend. Check your internet connection and try again.');
-      }
-      throw e;
+      throw err;
     }
   }
-}
 
-// ── Dispatcher ──
-async function providerRequest(promptText, stepLabel){
-  const { mode } = getCfg();
-  if(mode === 'render') return renderBackendRequest(promptText, stepLabel);
-  return directGroqRequest(promptText, stepLabel);
+  throw new Error('OpenRouter backend could not complete ' + stepLabel + '.');
 }
 
 // ─────────────────────────────────────────────────────────────────
-// 9 FOCUSED PROMPTS — one per design step
+// 15 FOCUSED PROMPTS — one per design step
 // ─────────────────────────────────────────────────────────────────
+
 // ─────────────────────────────────────────────────────────────────
 // 15 FOCUSED PROMPTS — one per design step
 // ─────────────────────────────────────────────────────────────────
@@ -2007,7 +1939,7 @@ Return exactly this JSON:
 // ─────────────────────────────────────────────────────────────────
 // 15-CALL ORCHESTRATOR — one focused AI call per design step
 // ─────────────────────────────────────────────────────────────────
-async function callGemini(combinedInput){
+async function callOpenRouterSequence(combinedInput){
   const setTxt = t => { const el=document.getElementById('aiStatusText'); if(el) el.textContent=t; };
   const PAUSE  = 900;
 
@@ -2108,12 +2040,12 @@ async function runAIGeneration(){
   const genList=document.getElementById('genStepsList');
   btn.disabled=true;
   statusEl.className='ai-status loading';
-  statusEl.innerHTML=`<div class="spinner"></div><div id="aiStatusText">Checking backend connection...</div>`;
+  statusEl.innerHTML=`<div class="spinner"></div><div id="aiStatusText">Connecting to OpenRouter backend...</div>`;
   genList.style.display='block';
   for(let i=1;i<=15;i++) setGenStep(i,false);
 
   try{
-    const parsed = await callGemini(combinedInput);
+    const parsed = await callOpenRouterSequence(combinedInput);
 
     const newData=defaultData();
     newData[1]={
@@ -2241,7 +2173,7 @@ async function runAIGeneration(){
       statusEl.innerHTML=`<strong>⚠️ Generated with notes:</strong><br>${warnings.map(w=>`• ${esc(w)}`).join('<br>')}`;
     } else {
       statusEl.className='ai-status success';
-      statusEl.innerHTML=`<strong>✅ Done!</strong> "${esc(unitName)}" has been structured across all ${STEPS.length} design steps using AI.`;
+      statusEl.innerHTML=`<strong>✅ Done!</strong> "${esc(unitName)}" has been structured across all ${STEPS.length} design steps through OpenRouter AI.`;
     }
     saveState();
     setTimeout(()=>{ document.getElementById('importModal').classList.remove('open'); render(); },1800);
@@ -2274,7 +2206,7 @@ document.getElementById('importModal').addEventListener('click',e=>{ if(e.target
 document.getElementById('closeCompleteModal').addEventListener('click',()=>{ document.getElementById('completeModal').classList.remove('open'); });
 document.getElementById('completeModal').addEventListener('click',e=>{ if(e.target===document.getElementById('completeModal')) document.getElementById('completeModal').classList.remove('open'); });
 
-// Provider is Groq via Render — no client-side keys needed
+// Provider is OpenRouter via Render — no client-side keys needed
 
 // ── SETUP BANNER LOGIC ──────────────────────────────────────────
 function refreshSetupBanner(){ /* no-op: app served from Render */ }
