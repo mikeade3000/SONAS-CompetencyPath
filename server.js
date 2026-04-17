@@ -1,3 +1,4 @@
+
 const express = require('express');
 const compression = require('compression');
 const path = require('path');
@@ -6,7 +7,6 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
-const PUBLIC_DIR = path.join(ROOT, 'public');
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free';
 
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false, limit: '5mb' }));
 
 function firstExisting(candidates) {
   for (const rel of candidates) {
-    const full = path.isAbsolute(rel) ? rel : path.join(ROOT, rel);
+    const full = path.join(ROOT, rel);
     if (fs.existsSync(full)) return full;
   }
   return null;
@@ -25,12 +25,12 @@ function firstExisting(candidates) {
 
 function resolveHtmlEntry() {
   return firstExisting([
-    'index.html',
     'public/index.html',
-    'CompetencyPath_OpenRouter_15_steps.html',
-    'CompetencyPath_15_steps.html',
+    'index.html',
     'public/CompetencyPath_OpenRouter_15_steps.html',
-    'public/CompetencyPath_15_steps.html'
+    'CompetencyPath_OpenRouter_15_steps.html',
+    'public/CompetencyPath_15_steps.html',
+    'CompetencyPath_15_steps.html'
   ]);
 }
 
@@ -48,7 +48,7 @@ function getServerApiKey() {
 
 function parseMaxTokens(stepLabel = '') {
   const longSteps = ['Step 8', 'Step 9', 'Step 11', 'Step 12', 'Step 13', 'Step 15'];
-  return longSteps.some((step) => stepLabel.includes(step)) ? 4500 : 2500;
+  return longSteps.some((step) => stepLabel.includes(step)) ? 3200 : 1800;
 }
 
 function cleanJsonContent(raw) {
@@ -56,6 +56,110 @@ function cleanJsonContent(raw) {
     .replace(/^```(?:json)?\s*/i, '')
     .replace(/\s*```$/i, '')
     .trim();
+}
+
+function extractFirstJsonObject(raw) {
+  const text = cleanJsonContent(raw);
+  if (!text) return null;
+
+  try {
+    return JSON.parse(text);
+  } catch {}
+
+  const start = text.indexOf('{');
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < text.length; i += 1) {
+    const ch = text[i];
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (ch === '\\') {
+        escaped = true;
+      } else if (ch === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (ch === '"') {
+      inString = true;
+      continue;
+    }
+    if (ch === '{') depth += 1;
+    if (ch === '}') {
+      depth -= 1;
+      if (depth === 0) {
+        const candidate = text.slice(start, i + 1);
+        try {
+          return JSON.parse(candidate);
+        } catch {
+          return null;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+function buildMessages(prompt, mode) {
+  const system = [
+    'You are an expert competency-based curriculum designer for Kampala International University (KIU), Uganda.',
+    'Return only valid JSON.',
+    'Do not include markdown fences, prose, commentary, headings, or explanations outside JSON.'
+  ].join(' ');
+
+  const user =
+    mode === 'json'
+      ? `${prompt}\n\nReturn only a valid JSON object.`
+      : `${prompt}\n\nIMPORTANT: Return only a single valid JSON object and nothing else.`;
+
+  return [
+    { role: 'system', content: system },
+    { role: 'user', content: user }
+  ];
+}
+
+async function postToOpenRouter({ payload, headers }) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 180000);
+
+  try {
+    const response = await fetch(OPENROUTER_API_URL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+
+    const data = await response.json().catch(() => ({}));
+    return { response, data };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function shouldRetryWithRelaxedMode(status, message) {
+  const msg = String(message || '').toLowerCase();
+  return (
+    status === 400 ||
+    status === 422 ||
+    status === 502 ||
+    status === 503 ||
+    status === 529 ||
+    msg.includes('provider returned error') ||
+    msg.includes('no endpoints found') ||
+    msg.includes('does not support') ||
+    msg.includes('response_format') ||
+    msg.includes('structured output') ||
+    msg.includes('json mode')
+  );
 }
 
 async function openRouterRequest({ prompt, stepLabel, req }) {
@@ -66,77 +170,101 @@ async function openRouterRequest({ prompt, stepLabel, req }) {
     throw err;
   }
 
-  const payload = {
-    model: OPENROUTER_MODEL,
-    messages: [{ role: 'user', content: prompt }],
-    response_format: { type: 'json_object' },
-    temperature: 0.4,
-    max_tokens: parseMaxTokens(stepLabel)
-  };
-
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${apiKey}`,
+    Authorization: `Bearer ${apiKey}`,
     'HTTP-Referer': getReferer(req),
     'X-Title': getAppTitle()
   };
 
+  const modes = ['json', 'relaxed'];
   let lastError = null;
 
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 180000);
+  for (const mode of modes) {
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      const payload = {
+        model: OPENROUTER_MODEL,
+        messages: buildMessages(prompt, mode),
+        temperature: 0.2,
+        max_tokens: parseMaxTokens(stepLabel),
+        stream: false,
+        provider: {
+          sort: 'throughput',
+          allow_fallbacks: true,
+          require_parameters: mode === 'json'
+        },
+        plugins: [{ id: 'response-healing' }]
+      };
 
-    try {
-      const response = await fetch(OPENROUTER_API_URL, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      });
+      if (mode === 'json') {
+        payload.response_format = { type: 'json_object' };
+      }
 
-      clearTimeout(timeout);
-      const data = await response.json().catch(() => ({}));
+      try {
+        const { response, data } = await postToOpenRouter({ payload, headers });
 
-      if (!response.ok) {
-        const message =
-          data?.error?.message ||
-          data?.error ||
-          `OpenRouter HTTP ${response.status}`;
+        if (!response.ok) {
+          const message =
+            data?.error?.message ||
+            data?.error ||
+            data?.message ||
+            `OpenRouter HTTP ${response.status}`;
 
-        if ((response.status === 429 || response.status === 503) && attempt < 3) {
+          if ([429, 503, 529].includes(response.status) && attempt < 3) {
+            await new Promise((resolve) => setTimeout(resolve, attempt * 4000));
+            continue;
+          }
+
+          if (mode === 'json' && shouldRetryWithRelaxedMode(response.status, message)) {
+            lastError = new Error(message);
+            lastError.status = response.status;
+            break;
+          }
+
+          const err = new Error(message);
+          err.status = response.status;
+          throw err;
+        }
+
+        const raw = data?.choices?.[0]?.message?.content || '';
+        const parsed = extractFirstJsonObject(raw);
+
+        if (parsed && typeof parsed === 'object') {
+          return parsed;
+        }
+
+        if (mode === 'json') {
+          lastError = new Error(`Could not parse JSON for ${stepLabel || 'request'}.`);
+          lastError.status = 502;
+          break;
+        }
+
+        const err = new Error(`Could not parse AI response for ${stepLabel || 'request'}.`);
+        err.status = 502;
+        throw err;
+      } catch (error) {
+        lastError = error;
+
+        const aborted =
+          error?.name === 'AbortError' ||
+          String(error?.message || '').toLowerCase().includes('aborted');
+
+        if ((aborted || [429, 503, 529].includes(error?.status)) && attempt < 3) {
           await new Promise((resolve) => setTimeout(resolve, attempt * 4000));
           continue;
         }
 
-        const err = new Error(message);
-        err.status = response.status;
-        throw err;
-      }
+        if (mode === 'json' && shouldRetryWithRelaxedMode(error?.status, error?.message)) {
+          break;
+        }
 
-      const raw = data?.choices?.[0]?.message?.content || '';
-      const cleaned = cleanJsonContent(raw);
+        if (attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * 2500));
+          continue;
+        }
 
-      try {
-        return JSON.parse(cleaned);
-      } catch {
-        const err = new Error(`Could not parse JSON for ${stepLabel || 'request'}.`);
-        err.status = 502;
-        throw err;
+        break;
       }
-    } catch (error) {
-      clearTimeout(timeout);
-      lastError = error;
-
-      if ((error.name === 'AbortError' || String(error.message || '').includes('aborted')) && attempt < 3) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 3000));
-        continue;
-      }
-      if (attempt < 3 && error.status && [429, 503].includes(error.status)) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 4000));
-        continue;
-      }
-      break;
     }
   }
 
@@ -144,15 +272,13 @@ async function openRouterRequest({ prompt, stepLabel, req }) {
 }
 
 app.get('/health', (_req, res) => {
-  const entry = resolveHtmlEntry();
   res.json({
     ok: true,
     provider: 'openrouter',
     model: OPENROUTER_MODEL,
     hasApiKey: Boolean(getServerApiKey()),
-    app: getAppTitle(),
-    htmlEntryFound: Boolean(entry),
-    htmlEntryPath: entry ? path.relative(ROOT, entry) : null
+    htmlEntryFound: Boolean(resolveHtmlEntry()),
+    app: getAppTitle()
   });
 });
 
@@ -173,50 +299,31 @@ app.post('/api/generate-step', async (req, res) => {
     return res.json(result);
   } catch (error) {
     const status = error.status || 500;
+    console.error('[generate-step]', {
+      status,
+      message: error.message,
+      step: req.body?.stepLabel || 'unknown'
+    });
     return res.status(status).json({
       error: error.message || 'Unexpected server error.'
     });
   }
 });
 
-app.use(express.static(ROOT, { extensions: ['html'] }));
-if (fs.existsSync(PUBLIC_DIR)) {
-  app.use(express.static(PUBLIC_DIR, { extensions: ['html'] }));
+const publicDir = path.join(ROOT, 'public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir, { extensions: ['html'] }));
 }
+app.use(express.static(ROOT, { extensions: ['html'] }));
 
 app.get('*', (_req, res) => {
   const file = resolveHtmlEntry();
-
   if (!file) {
-    return res.status(500).send(`
-      <!doctype html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width,initial-scale=1">
-          <title>CompetencyPath Deployment Check</title>
-          <style>
-            body{font-family:Arial,sans-serif;background:#f6faf8;color:#14313d;padding:32px;line-height:1.5}
-            .card{max-width:760px;margin:40px auto;background:#fff;border:1px solid #d9ebe3;border-radius:16px;padding:28px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
-            code{background:#eef7f3;padding:2px 6px;border-radius:6px}
-          </style>
-        </head>
-        <body>
-          <div class="card">
-            <h1>CompetencyPath cannot find its HTML app file</h1>
-            <p>Upload one of these files into the service root or <code>public/</code> folder:</p>
-            <p><code>index.html</code> or <code>CompetencyPath_OpenRouter_15_steps.html</code></p>
-            <p>This backend is running correctly, but the frontend file is missing from the deployed service.</p>
-          </div>
-        </body>
-      </html>
-    `);
+    return res.status(404).send('No HTML entry file found.');
   }
-
   return res.sendFile(file);
 });
 
 app.listen(PORT, () => {
   console.log(`CompetencyPath OpenRouter server listening on port ${PORT}`);
-  console.log(`HTML entry: ${resolveHtmlEntry() ? path.relative(ROOT, resolveHtmlEntry()) : 'NOT FOUND'}`);
 });
