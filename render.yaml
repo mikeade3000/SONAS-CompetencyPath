@@ -1,9 +1,19 @@
 services:
   - type: web
-    name: competencypath-api
-    runtime: node
+    name: competencypath-openrouter
+    env: node
+    plan: free
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
+    healthCheckPath: /health
     envVars:
-      - key: GROQ_API_KEY
-        sync: false        # you paste this in Render dashboard — never committed to git
+      - key: NODE_VERSION
+        value: 20
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_APP_NAME
+        value: CompetencyPath OpenRouter
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: meta-llama/llama-3.3-70b-instruct:free
