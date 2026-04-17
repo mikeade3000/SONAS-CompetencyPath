@@ -27,38 +27,17 @@
 html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text)}
 body{display:flex;flex-direction:column;min-height:100vh;overflow:auto}
 ::selection{background:var(--teal-light);color:var(--teal-dark)}
-
-/* ── HEADER ── */
-header{
-  height:var(--header-h);flex-shrink:0;
-  background:linear-gradient(100deg,#0e2433 0%,#163348 55%,#1a4a3a 100%);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;
-  box-shadow:0 2px 20px rgba(14,36,51,.4);
-  position:relative;z-index:10;
-}
-header::after{
-  content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  pointer-events:none;
-}
+header{height:var(--header-h);flex-shrink:0;background:linear-gradient(100deg,#0e2433 0%,#163348 55%,#1a4a3a 100%);display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:0 2px 20px rgba(14,36,51,.4);position:relative;z-index:10;}
+header::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
 .hdr-left{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
-.menu-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);
-  border-radius:10px;width:38px;height:38px;cursor:pointer;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
-  transition:all .2s}
+.menu-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;width:38px;height:38px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;transition:all .2s}
 .menu-btn:hover{background:rgba(255,255,255,.18)}
 .menu-btn span{display:block;width:16px;height:1.5px;background:#fff;border-radius:2px}
 .brand{display:flex;flex-direction:column}
 .brand-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.3px;line-height:1}
 .brand-sub{font-size:9.5px;color:rgba(255,255,255,.5);font-weight:400;letter-spacing:.04em;margin-top:3px}
 .hdr-right{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
-.btn-import{display:flex;align-items:center;gap:7px;
-  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
-  border:none;color:#fff;border-radius:10px;padding:9px 16px;
-  cursor:pointer;font-weight:600;font-size:13px;font-family:'Outfit',sans-serif;
-  box-shadow:0 3px 12px rgba(16,185,129,.35);
-  transition:all .2s}
+.btn-import{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));border:none;color:#fff;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:13px;font-family:'Outfit',sans-serif;box-shadow:0 3px 12px rgba(16,185,129,.35);transition:all .2s}
 .btn-import:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(16,185,129,.45)}
 .btn-import svg{width:15px;height:15px;flex-shrink:0}
 .hdr-unit-info{display:none;align-items:center;gap:10px}
@@ -69,18 +48,8 @@ header::after{
 .save-dot.unsaved{background:var(--gold);animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .save-label{font-size:11px;color:rgba(255,255,255,.5)}
-
-/* ── LAYOUT ── */
 .layout{display:flex;flex:1;min-height:0;overflow:hidden}
-
-/* ── SIDEBAR ── */
-aside{
-  width:var(--sidebar-w);min-width:var(--sidebar-w);
-  background:linear-gradient(180deg,#0e2433 0%,#122233 100%);
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:width .28s ease,min-width .28s ease;
-  border-right:1px solid rgba(255,255,255,.06);
-}
+aside{width:var(--sidebar-w);min-width:var(--sidebar-w);background:linear-gradient(180deg,#0e2433 0%,#122233 100%);display:flex;flex-direction:column;overflow:hidden;transition:width .28s ease,min-width .28s ease;border-right:1px solid rgba(255,255,255,.06);}
 aside.collapsed{width:0;min-width:0}
 .sidebar-inner{width:var(--sidebar-w);min-width:var(--sidebar-w);display:flex;flex-direction:column;height:100%}
 .sidebar-units{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,.07)}
@@ -98,97 +67,57 @@ aside.collapsed{width:0;min-width:0}
 .unit-desc-preview{font-size:10.5px;color:rgba(255,255,255,.38);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none}
 .unit-card.active .unit-desc-preview{display:block}
 .unit-tools{margin-top:10px;display:flex;flex-direction:column;gap:6px}
-.btn-sidebar{width:100%;background:none;border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.65);
-  border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Outfit',sans-serif;text-align:left;
-  transition:all .2s;display:flex;align-items:center;gap:8px}
+.btn-sidebar{width:100%;background:none;border:1.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.65);border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Outfit',sans-serif;text-align:left;transition:all .2s;display:flex;align-items:center;gap:8px}
 .btn-sidebar:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.25)}
 .add-unit-form{display:none;margin-top:8px}
-.add-unit-input{width:100%;border:1.5px solid var(--teal);border-radius:9px;padding:9px 10px;font-size:13px;outline:none;
-  background:rgba(255,255,255,.06);color:#fff;font-family:'Outfit',sans-serif;margin-bottom:7px}
+.add-unit-input{width:100%;border:1.5px solid var(--teal);border-radius:9px;padding:9px 10px;font-size:13px;outline:none;background:rgba(255,255,255,.06);color:#fff;font-family:'Outfit',sans-serif;margin-bottom:7px}
 .add-unit-input::placeholder{color:rgba(255,255,255,.3)}
 .add-unit-btns{display:flex;gap:6px}
-.btn-confirm{flex:1;border:none;border-radius:8px;padding:8px;cursor:pointer;font-size:12px;font-weight:600;
-  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Outfit',sans-serif}
-.btn-cancel-sm{flex:1;border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:8px;cursor:pointer;
-  font-size:12px;font-weight:500;background:none;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif}
-.step-nav-item{display:flex;gap:10px;align-items:center;padding:8px 9px;border-radius:9px;
-  border:1.5px solid transparent;margin-bottom:3px;cursor:pointer;transition:all .18s}
+.btn-confirm{flex:1;border:none;border-radius:8px;padding:8px;cursor:pointer;font-size:12px;font-weight:600;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Outfit',sans-serif}
+.btn-cancel-sm{flex:1;border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:8px;cursor:pointer;font-size:12px;font-weight:500;background:none;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif}
+.step-nav-item{display:flex;gap:10px;align-items:center;padding:8px 9px;border-radius:9px;border:1.5px solid transparent;margin-bottom:3px;cursor:pointer;transition:all .18s}
 .step-nav-item:hover{background:rgba(255,255,255,.06)}
-.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:12px;flex-shrink:0;color:rgba(255,255,255,.5)}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font-size:12px;flex-shrink:0;color:rgba(255,255,255,.5)}
 .step-nav-text{flex:1;min-width:0}
 .step-nav-num{font-size:9px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.08em}
 .step-nav-title{font-size:11.5px;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .step-mini-bar{height:2px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:5px;overflow:hidden}
 .step-mini-fill{height:100%;border-radius:2px;transition:width .3s}
-
-/* ── MAIN ── */
 main{flex:1;overflow-y:auto;overflow-x:hidden;padding:24px 28px;scrollbar-width:thin;scrollbar-color:#c7dde4 transparent}
 main::-webkit-scrollbar{width:8px}
 main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .content-wrap{max-width:1000px;margin:0 auto}
-.empty-state{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;gap:14px}
-.empty-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--teal-light),var(--teal-xlight));
-  border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;
-  box-shadow:var(--shadow-md)}
+.empty-state{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:14px}
+.empty-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--teal-light),var(--teal-xlight));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:var(--shadow-md)}
 .empty-state h2{font-family:'Fraunces',serif;font-size:22px;color:var(--ink);font-weight:700}
 .empty-state p{font-size:14px;color:var(--muted);max-width:340px;line-height:1.6}
-
-/* ── UNIT DESC CARD ── */
-.unit-desc-card{
-  background:var(--surface);border-radius:var(--radius-lg);
-  border:1.5px solid var(--border-light);padding:18px 22px;margin-bottom:18px;
-  box-shadow:var(--shadow);
-  background:linear-gradient(135deg,#fff 0%,#f7fffe 100%);
-}
+.unit-desc-card{background:var(--surface);border-radius:var(--radius-lg);border:1.5px solid var(--border-light);padding:18px 22px;margin-bottom:18px;box-shadow:var(--shadow);background:linear-gradient(135deg,#fff 0%,#f7fffe 100%);}
 .unit-desc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .unit-desc-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-mid)}
-.unit-desc-badge{font-size:10px;padding:3px 10px;border-radius:999px;
-  background:var(--teal-xlight);color:var(--teal-dark);font-weight:600;
-  max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.unit-desc-textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;
-  font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);background:#fafffe;
-  outline:none;resize:vertical;min-height:72px;transition:border-color .18s,box-shadow .18s;line-height:1.6}
+.unit-desc-badge{font-size:10px;padding:3px 10px;border-radius:999px;background:var(--teal-xlight);color:var(--teal-dark);font-weight:600;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unit-desc-textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);background:#fafffe;outline:none;resize:vertical;min-height:72px;transition:border-color .18s,box-shadow .18s;line-height:1.6}
 .unit-desc-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .unit-desc-textarea.ai-populated{border-color:var(--teal);background:#f0fdf9}
 .unit-desc-hint{font-size:11px;color:var(--muted);margin-top:6px}
-
-/* ── STEP HEADER ── */
 .step-header{border-radius:var(--radius-lg);padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
-.step-header::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;
-  border-radius:50%;background:rgba(255,255,255,.07)}
-.step-header::after{content:'';position:absolute;left:-20px;bottom:-30px;width:120px;height:120px;
-  border-radius:50%;background:rgba(255,255,255,.04)}
+.step-header::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.07)}
+.step-header::after{content:'';position:absolute;left:-20px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04)}
 .step-header-inner{display:flex;gap:16px;position:relative;z-index:1}
 .step-icon-big{font-size:38px;line-height:1;flex-shrink:0}
 .step-num-label{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
 .step-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;line-height:1.2}
-.ai-filled-badge{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 11px;
-  border-radius:999px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);
-  color:#fde68a;font-size:11px;font-weight:600}
+.ai-filled-badge{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 11px;border-radius:999px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:#fde68a;font-size:11px;font-weight:600}
 .step-progress-row{margin-top:12px;display:flex;align-items:center;gap:10px}
 .step-progress-bar{flex:1;height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
 .step-progress-fill{height:100%;background:#fff;border-radius:3px;transition:width .4s ease}
 .step-pct-label{font-size:12px;color:rgba(255,255,255,.9);font-weight:600}
-.step-evaluator-note{margin-top:12px;padding:9px 13px;border-radius:9px;
-  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);
-  font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.55}
+.step-evaluator-note{margin-top:12px;padding:9px 13px;border-radius:9px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.55}
 .step-evaluator-note strong{font-weight:700}
-
-/* ── FORM CARD ── */
-.form-card{background:var(--surface);border-radius:var(--radius-lg);padding:26px 28px;
-  border:1.5px solid var(--border-light);box-shadow:var(--shadow)}
+.form-card{background:var(--surface);border-radius:var(--radius-lg);padding:26px 28px;border:1.5px solid var(--border-light);box-shadow:var(--shadow)}
 .field-group{margin-bottom:22px}
-.field-label{display:block;margin-bottom:6px;font-size:11px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.09em;color:var(--ink-mid)}
-.field-hint{font-size:11.5px;color:var(--ink-muted);margin-bottom:9px;line-height:1.55;
-  padding:8px 12px;background:rgba(16,185,129,.06);
-  border-left:3px solid var(--teal);border-radius:0 7px 7px 0}
-.field-input,.field-textarea,.field-select{
-  width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;
-  font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);
-  background:#fafffe;outline:none;transition:border-color .18s,box-shadow .18s}
+.field-label{display:block;margin-bottom:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-mid)}
+.field-hint{font-size:11.5px;color:var(--ink-muted);margin-bottom:9px;line-height:1.55;padding:8px 12px;background:rgba(16,185,129,.06);border-left:3px solid var(--teal);border-radius:0 7px 7px 0}
+.field-input,.field-textarea,.field-select{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);background:#fafffe;outline:none;transition:border-color .18s,box-shadow .18s}
 .field-textarea{min-height:88px;resize:vertical;line-height:1.6}
 .field-input:focus,.field-textarea:focus,.field-select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .field-input.ai-populated,.field-textarea.ai-populated,.field-select.ai-populated{border-color:var(--teal);background:#f0fdf9}
@@ -196,32 +125,22 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .tag-wrap.ai-populated{border-color:var(--teal);background:#f0fdf9}
 .tag-wrap:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-.tag-pill{display:flex;align-items:center;gap:5px;
-  background:linear-gradient(135deg,var(--ink),var(--ink-mid));
-  color:#fff;border-radius:999px;padding:4px 10px;font-size:12px}
+.tag-pill{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--ink),var(--ink-mid));color:#fff;border-radius:999px;padding:4px 10px;font-size:12px}
 .tag-remove{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:14px;line-height:1}
 .tag-input-field{border:none;background:transparent;outline:none;width:100%;font-size:14px;font-family:'Outfit',sans-serif}
 .checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.check-item{display:flex;align-items:center;gap:9px;border:1.5px solid var(--border);
-  background:#fafffe;border-radius:9px;padding:9px 11px;cursor:pointer;transition:all .18s}
+.check-item{display:flex;align-items:center;gap:9px;border:1.5px solid var(--border);background:#fafffe;border-radius:9px;padding:9px 11px;cursor:pointer;transition:all .18s}
 .check-item:hover{border-color:var(--teal);background:var(--teal-xlight)}
 .check-item.checked{border-color:var(--teal);background:var(--teal-xlight)}
-.check-box{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
+.check-box{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
 .check-item.checked .check-box{background:var(--teal);border-color:var(--teal)}
 .check-tick{display:none;color:#fff;font-size:10px;font-weight:700}
 .check-item.checked .check-tick{display:block}
 .check-label{font-size:13px;color:var(--text)}
-
-/* ── QUALITY WARNINGS ── */
-.quality-warn{display:none;margin-top:6px;padding:7px 11px;border-radius:7px;
-  background:#fef3c7;border:1px solid #fcd34d;font-size:11.5px;color:#92400e}
+.quality-warn{display:none;margin-top:6px;padding:7px 11px;border-radius:7px;background:#fef3c7;border:1px solid #fcd34d;font-size:11.5px;color:#92400e}
 .quality-warn.show{display:block}
-
-/* ── NOTIONAL HOURS TABLE ── */
 .topic-table-wrap{border:1.5px solid var(--border);border-radius:var(--radius-lg);background:#fafffe;overflow:hidden}
-.topic-table-tools{display:flex;justify-content:space-between;align-items:center;
-  padding:13px 16px;border-bottom:1px solid var(--border-light);background:#f4fdfa;gap:10px;flex-wrap:wrap}
+.topic-table-tools{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--border-light);background:#f4fdfa;gap:10px;flex-wrap:wrap}
 .topic-table-note{font-size:12px;color:var(--muted)}
 .btn-small{border:none;border-radius:9px;padding:8px 14px;cursor:pointer;font-size:12px;font-weight:700;font-family:'Outfit',sans-serif}
 .btn-add-row{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff}
@@ -242,9 +161,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .hour-header-c{background:var(--hour-c-bg);color:var(--hour-c-text)}
 .hour-header-d{background:var(--hour-d-bg);color:var(--hour-d-text)}
 .th-total{color:var(--ink-mid);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-align:center;padding:10px 8px}
-.table-input,.table-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;
-  font-size:13px;font-family:'Outfit',sans-serif;background:#fff;color:var(--text);outline:none;
-  transition:border-color .18s,box-shadow .18s}
+.table-input,.table-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;font-family:'Outfit',sans-serif;background:#fff;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
 .table-input:focus,.table-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(16,185,129,.1)}
 .table-textarea{min-height:72px;resize:vertical;line-height:1.5}
 .hour-input{text-align:center;padding:8px 4px;font-weight:600}
@@ -254,8 +171,6 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .hour-cell-d{background:rgba(16,185,129,.04)}
 .total-cell{text-align:center;font-weight:700;color:var(--ink);font-size:14px;padding:8px 4px}
 .total-cell.over{color:var(--teal-mid)}
-
-/* ── BLEND BAR ── */
 .blend-summary{padding:14px 16px;background:linear-gradient(135deg,#f0faf7,#f7fff9);border-top:1px solid var(--border-light)}
 .blend-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .blend-total{font-size:13px;font-weight:700;color:var(--ink);min-width:100px}
@@ -272,44 +187,31 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .blend-badge{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700}
 .blend-badge.ok{background:var(--teal-xlight);color:var(--teal-dark)}
 .blend-badge.warn{background:#fef3c7;color:#92400e}
-
-/* ── NAV BUTTONS ── */
 .step-nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:12px}
-.btn-prev{border:1.5px solid var(--border);background:#fff;color:var(--ink-mid);
-  border-radius:10px;padding:11px 22px;cursor:pointer;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-prev{border:1.5px solid var(--border);background:#fff;color:var(--ink-mid);border-radius:10px;padding:11px 22px;cursor:pointer;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
 .btn-prev:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
 .btn-prev:disabled{opacity:.4;cursor:not-allowed}
-.btn-next,.btn-complete{border:none;color:#fff;border-radius:10px;padding:11px 22px;cursor:pointer;
-  font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-next,.btn-complete{border:none;color:#fff;border-radius:10px;padding:11px 22px;cursor:pointer;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
 .btn-next:hover,.btn-complete:hover{transform:translateY(-1px)}
 .btn-complete{background:linear-gradient(135deg,var(--teal),var(--hour-a))}
 .dots-nav{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
 .dot{width:8px;height:8px;border-radius:6px;background:var(--border);cursor:pointer;transition:all .2s}
 .dot.active{width:22px}
 .dot.done{background:var(--teal-mid)}
-
-/* ── MODALS ── */
-.modal-backdrop{position:fixed;inset:0;background:rgba(10,24,36,.65);display:none;
-  align-items:center;justify-content:center;padding:16px;z-index:100;backdrop-filter:blur(3px)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,24,36,.65);display:none;align-items:center;justify-content:center;padding:16px;z-index:100;backdrop-filter:blur(3px)}
 .modal-backdrop.open{display:flex}
-.modal{width:100%;max-width:740px;background:#fff;border-radius:22px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(10,24,36,.3);max-height:92vh;display:flex;flex-direction:column}
+.modal{width:100%;max-width:740px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(10,24,36,.3);max-height:92vh;display:flex;flex-direction:column}
 .modal-head{padding:24px 28px 20px;background:linear-gradient(135deg,#0e2433,#163348 60%,#1a4a3a)}
 .modal-head h2{font-family:'Fraunces',serif;color:#fff;font-size:22px;margin-bottom:5px;font-weight:700}
 .modal-head p{font-size:13px;color:rgba(255,255,255,.65)}
-.modal-close-x{position:absolute;right:18px;top:18px;width:30px;height:30px;border:none;border-radius:8px;
-  background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:16px}
+.modal-close-x{position:absolute;right:18px;top:18px;width:30px;height:30px;border:none;border-radius:8px;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:16px}
 .modal-body{padding:22px 28px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c7dde4 transparent}
 .import-tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:18px}
-.import-tab{flex:1;border:none;border-radius:8px;padding:8px;background:transparent;color:var(--muted);
-  cursor:pointer;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
+.import-tab{flex:1;border:none;border-radius:8px;padding:8px;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;transition:all .2s}
 .import-tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 8px rgba(14,36,51,.1)}
-.hint-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18);border-radius:10px;
-  padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:14px;color:var(--text)}
+.hint-box{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.55;margin-bottom:14px;color:var(--text)}
 .hint-box strong{color:var(--teal-dark)}
-.import-textarea{width:100%;min-height:220px;border:1.5px solid var(--border);border-radius:12px;
-  padding:14px 16px;background:#fafffe;font-family:'Outfit',sans-serif;font-size:14px;
-  color:var(--text);line-height:1.6;resize:vertical;outline:none}
+.import-textarea{width:100%;min-height:220px;border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;background:#fafffe;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);line-height:1.6;resize:vertical;outline:none}
 .import-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .char-count{text-align:right;font-size:11px;color:var(--muted);margin-top:5px}
 .file-box{border:2px dashed var(--border);border-radius:12px;padding:20px;background:#fafffe;text-align:center}
@@ -317,41 +219,25 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .file-meta{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--teal-xlight);font-size:13px;display:none}
 .target-unit-row{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 .target-unit-row label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
-.target-unit-select{flex:1;min-width:180px;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;
-  background:#fafffe;outline:none;font-size:13px;font-family:'Outfit',sans-serif}
-
-/* ── API KEY SECTION (NEW) ── */
-.api-key-section{margin-top:16px;padding:14px 16px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(6,182,212,.04));
-  border:1.5px solid rgba(16,185,129,.2)}
+.target-unit-select{flex:1;min-width:180px;border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;background:#fafffe;outline:none;font-size:13px;font-family:'Outfit',sans-serif}
+.api-key-section{margin-top:16px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(6,182,212,.04));border:1.5px solid rgba(16,185,129,.2)}
 .api-key-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .api-key-label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.08em}
 .api-key-badge{font-size:10px;padding:2px 8px;border-radius:999px;background:var(--teal-xlight);color:var(--teal-dark);font-weight:700}
-.api-key-input{width:100%;border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;
-  font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;
-  transition:border-color .18s,box-shadow .18s;color:var(--text)}
+.api-key-input{width:100%;border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;transition:border-color .18s,box-shadow .18s;color:var(--text)}
 .api-key-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
 .api-key-hint{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5}
 .api-key-hint a{color:var(--teal-mid);text-decoration:none;font-weight:600}
 .api-key-hint a:hover{text-decoration:underline}
 .api-key-saved{display:none;align-items:center;gap:5px;font-size:11px;color:var(--teal-mid);font-weight:600;margin-top:5px}
 .api-key-saved.show{display:flex}
-
-.btn-generate{width:100%;margin-top:16px;padding:15px;border:none;border-radius:13px;
-  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:700;font-size:15px;
-  cursor:pointer;box-shadow:0 4px 18px rgba(16,185,129,.35);font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-generate{width:100%;margin-top:16px;padding:15px;border:none;border-radius:13px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 18px rgba(16,185,129,.35);font-family:'Outfit',sans-serif;transition:all .2s}
 .btn-generate:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(16,185,129,.45)}
 .btn-generate:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.model-selector-row{margin-top:12px;padding:10px 14px;border-radius:10px;
-  background:rgba(16,185,129,.04);border:1.5px solid var(--border-light)}
+.model-selector-row{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(16,185,129,.04);border:1.5px solid var(--border-light)}
 .model-selector-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .model-selector-label{font-size:11px;font-weight:700;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.08em}
-.btn-discover{border:1.5px solid var(--teal);background:transparent;color:var(--teal-mid);
-  border-radius:7px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;transition:all .2s}
-.btn-discover:hover{background:var(--teal-xlight)}
-.model-select-row{display:flex;gap:8px;align-items:center}
-.model-select{flex:1;border:1.5px solid var(--border);border-radius:9px;padding:8px 10px;
-  font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;min-width:0}
+.model-select{flex:1;border:1.5px solid var(--border);border-radius:9px;padding:8px 10px;font-size:13px;font-family:'Outfit',sans-serif;background:#fafffe;outline:none;min-width:0;width:100%}
 .model-select:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(16,185,129,.12)}
 .model-status{font-size:11px;color:var(--muted);margin-top:5px;min-height:16px}
 .ai-status{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.55}
@@ -359,44 +245,28 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .ai-status.success{display:block;background:var(--teal-xlight);border:1px solid rgba(16,185,129,.3);color:var(--teal-dark)}
 .ai-status.error{display:block;background:#fef2f2;border:1px solid rgba(239,68,68,.25);color:#991b1b}
 .ai-status.warning{display:block;background:#fef3c7;border:1px solid rgba(245,158,11,.3);color:#92400e}
-.spinner{width:20px;height:20px;border:2.5px solid rgba(16,185,129,.2);border-top-color:var(--teal);
-  border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+.spinner{width:20px;height:20px;border:2.5px solid rgba(16,185,129,.2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 .gen-steps{list-style:none;margin-top:10px;display:none}
 .gen-step{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12.5px;color:#888}
 .gen-step.done{color:var(--teal-mid);font-weight:600}
 .gs-icon{width:18px;text-align:center}
-.complete-modal{background:#fff;border-radius:20px;padding:28px 30px;max-width:500px;width:100%;
-  box-shadow:0 24px 70px rgba(10,24,36,.25)}
+.complete-modal{background:#fff;border-radius:20px;padding:28px 30px;max-width:500px;width:100%;box-shadow:0 24px 70px rgba(10,24,36,.25)}
 .complete-modal h2{font-family:'Fraunces',serif;color:var(--ink);font-size:24px;margin-bottom:6px;font-weight:700}
 .complete-modal p{font-size:13px;color:var(--muted);margin-bottom:18px}
-.modal-summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;
-  padding:7px 0;border-bottom:1px solid var(--border-light);font-size:13px}
+.modal-summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--border-light);font-size:13px}
 .modal-summary-row:last-child{border-bottom:none}
 .spct{font-weight:700;color:var(--teal-mid)}
-.btn-close-modal{width:100%;margin-top:16px;border:none;border-radius:11px;padding:13px;cursor:pointer;
-  color:#fff;font-weight:600;font-family:'Outfit',sans-serif;font-size:14px;
-  background:linear-gradient(135deg,var(--ink),var(--ink-mid))}
-
-@media(max-width:900px){
-  .checkbox-grid{grid-template-columns:1fr}
-  .target-unit-row{flex-direction:column;align-items:stretch}
-}
-@media(max-width:700px){
-  main{padding:14px}
-  .form-card{padding:18px 16px}
-  .step-nav-btns{flex-direction:column}
-  .btn-prev,.btn-next,.btn-complete{width:100%}
-}
+.btn-close-modal{width:100%;margin-top:16px;border:none;border-radius:11px;padding:13px;cursor:pointer;color:#fff;font-weight:600;font-family:'Outfit',sans-serif;font-size:14px;background:linear-gradient(135deg,var(--ink),var(--ink-mid))}
+@media(max-width:900px){.checkbox-grid{grid-template-columns:1fr}.target-unit-row{flex-direction:column;align-items:stretch}}
+@media(max-width:700px){main{padding:14px}.form-card{padding:18px 16px}.step-nav-btns{flex-direction:column}.btn-prev,.btn-next,.btn-complete{width:100%}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="hdr-left">
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar"><span></span><span></span><span></span></button>
     <div class="brand">
       <span class="brand-name">CompetencyPath OpenRouter</span>
       <span class="brand-sub">Competency-Based Course Designer · Dr. Michael Adelani Adewusi · KIU Uganda</span>
@@ -416,11 +286,8 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       </div>
       <svg class="ring-svg" width="44" height="44">
         <circle cx="22" cy="22" r="16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
-        <circle cx="22" cy="22" r="16" fill="none" stroke="#10b981" stroke-width="3"
-          stroke-dasharray="100.5" stroke-dashoffset="100.5" stroke-linecap="round" id="headerRingFill"/>
-        <text x="22" y="22" text-anchor="middle" dominant-baseline="middle"
-          style="font-size:8px;font-weight:700;fill:#10b981;font-family:sans-serif;transform:rotate(90deg);transform-origin:center"
-          id="headerRingTxt">0%</text>
+        <circle cx="22" cy="22" r="16" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="100.5" stroke-dashoffset="100.5" stroke-linecap="round" id="headerRingFill"/>
+        <text x="22" y="22" text-anchor="middle" dominant-baseline="middle" style="font-size:8px;font-weight:700;fill:#10b981;font-family:sans-serif;transform:rotate(90deg);transform-origin:center" id="headerRingTxt">0%</text>
       </svg>
     </div>
   </div>
@@ -500,7 +367,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       </div>
       <div id="tab-tips" style="display:none">
         <div style="display:flex;flex-direction:column;gap:10px">
-          <div class="hint-box"><strong>📌 Course title & unit topic</strong><br>E.g. Unit 3: Introduction to Financial Reporting</div>
+          <div class="hint-box"><strong>📌 Course title &amp; unit topic</strong><br>E.g. Unit 3: Introduction to Financial Reporting</div>
           <div class="hint-box"><strong>👥 Target learner profile</strong><br>Level, prior knowledge, professional context</div>
           <div class="hint-box"><strong>📚 Content outline</strong><br>Topics, subtopics, syllabus points, readings</div>
           <div class="hint-box"><strong>⏱ Duration information</strong><br>Weeks, hours, or notional study time if known</div>
@@ -509,17 +376,6 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
         </div>
       </div>
 
-      <!-- App served from Render — no setup needed -->
-      <div id="setupBanner" style="display:none"></div>
-      <div id="setupOpenRouterKey" style="display:none"></div>
-      <div id="setupRenderUrl" style="display:none"></div>
-      <div id="setupStatus" style="display:none"></div>
-      <div id="btnSaveOpenRouterKey" style="display:none"></div>
-      <div id="btnSaveRenderUrl" style="display:none"></div>
-      <div id="setupPanel-direct" style="display:none"></div>
-      <div id="setupPanel-render" style="display:none"></div>
-
-      <!-- ── GROQ MODEL SELECTOR ── -->
       <div class="model-selector-row">
         <div class="model-selector-top">
           <span class="model-selector-label">🤖 Model</span>
@@ -533,7 +389,6 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
             <option value="qwen/qwen-2.5-72b-instruct:free">Qwen 2.5 72B – High quality free</option>
           </optgroup>
           <optgroup label="💎 Premium Models">
-            <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B – Premium</option>
             <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku – Fast &amp; smart</option>
             <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet – Most capable</option>
             <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash – Fast reasoning</option>
@@ -552,7 +407,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
         <div class="spinner"></div>
         <div id="aiStatusText">Analysing your write-up…</div>
       </div>
-            <ul class="gen-steps" id="genStepsList">
+      <ul class="gen-steps" id="genStepsList">
         <li class="gen-step" id="gs1"><span class="gs-icon">⏳</span> Analysing course identity, credits, and aims</li>
         <li class="gen-step" id="gs2"><span class="gs-icon">⏳</span> Drafting cognitive domain outcomes</li>
         <li class="gen-step" id="gs3"><span class="gs-icon">⏳</span> Drafting affective domain outcomes</li>
@@ -585,49 +440,64 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 
 <script>
 // ─────────────────────────────────────────────────────────────────
-// STEPS DEFINITION
+// CONSTANTS
 // ─────────────────────────────────────────────────────────────────
 const BLOOM_LEVEL_OPTIONS = ["Remember","Understand","Apply","Analyze","Evaluate","Create"];
 const CONTENT_FORMAT_OPTIONS = ["Video Lectures","Reading Materials","Interactive Simulations","Case Studies","Podcasts","Infographics","Live Webinars","Discussion Forums"];
 const FEEDBACK_OPTIONS = ["Automated Quiz Feedback","Instructor Comments","Peer Review","Self-Assessment","Learning Analytics","End-of-Unit Surveys","1-on-1 Check-ins"];
 
+// ─────────────────────────────────────────────────────────────────
+// STEPS DEFINITION  — 15 steps matching the KIU Word document format
+// NOTE: Step 1 has NO courseCode / creditUnits / notionalHours fields.
+//       Those belong in the export header, not the editable form.
+// ─────────────────────────────────────────────────────────────────
 const STEPS = [
   { id:1, title:"Course Justification & Aims", icon:"📘", color:"#0d7d8c",
-    evaluatorNote:"Anchor the course in institutional purpose. State the academic identity, credit load, notional hours, and a concise justification that explains why this course matters within the programme.",
+    evaluatorNote:"Anchor the course in institutional purpose. Write a compelling justification explaining why this course is necessary, who it serves, and what broad aims it pursues within the programme.",
     fields:[
-      {key:"courseCode", label:"Course Code", type:"text", placeholder:"e.g. CSC 312"},
-      {key:"creditUnits", label:"Credit Units", type:"text", placeholder:"e.g. 3 CU"},
-      {key:"notionalHours", label:"Notional Hours", type:"text", placeholder:"e.g. 45 hours"},
-      {key:"justification", label:"Course Justification", type:"textarea", placeholder:"Explain why this course is needed, which programme gap it addresses, and the value it adds to learners and the profession…"},
-      {key:"courseAims", label:"Course Aims", type:"textarea", placeholder:"List or describe the broad aims the course seeks to achieve…"},
-      {key:"courseDescription", label:"Course Description", type:"textarea", placeholder:"Write a concise paragraph describing what the course covers, who it serves, and why it matters…"}
+      {key:"justification", label:"Course Justification", type:"textarea",
+       placeholder:"Explain why this course is needed, which programme gap it addresses, and the value it adds to learners and the profession…"},
+      {key:"courseAims", label:"Course Aims", type:"textarea",
+       placeholder:"List or describe the broad aims the course seeks to achieve…"},
+      {key:"courseDescription", label:"Course Description", type:"textarea",
+       placeholder:"Write a concise paragraph describing what the course covers, who it serves, and why it matters…"}
     ]
   },
   { id:2, title:"Cognitive Domain Outcomes", icon:"🧠", color:"#1a9baf",
     evaluatorNote:"Use Bloom's taxonomy action verbs and keep each outcome assessable. Outcomes should focus on knowledge, reasoning, analysis, judgement, and intellectual performance.",
     fields:[
-      {key:"cognitiveOutcomes", label:"Cognitive Learning Outcomes", type:"textarea", placeholder:"State knowledge and intellectual outcomes using observable Bloom verbs. Write one outcome per line…"},
+      {key:"cognitiveOutcomes", label:"Cognitive Learning Outcomes", type:"textarea",
+       placeholder:"State knowledge and intellectual outcomes using observable Bloom verbs. Write one outcome per line…"},
       {key:"bloomVerbs", label:"Bloom Verbs Used", type:"tags", placeholder:"Add Bloom verb and press Enter…"},
       {key:"bloomLevels", label:"Bloom Levels", type:"checkboxes", options:BLOOM_LEVEL_OPTIONS},
-      {key:"assessmentLinkage", label:"Assessment Linkage", type:"textarea", placeholder:"Explain how each cognitive outcome will be assessed and where the evidence will come from…"}
+      {key:"assessmentLinkage", label:"Assessment Linkage", type:"textarea",
+       placeholder:"Explain how each cognitive outcome will be assessed and where the evidence will come from…"}
     ]
   },
   { id:3, title:"Affective Domain Outcomes", icon:"❤️", color:"#27ae87",
     evaluatorNote:"Capture values, attitudes, ethical reasoning, and professional dispositions that learners are expected to demonstrate in authentic academic or workplace settings.",
     fields:[
-      {key:"affectiveOutcomes", label:"Affective Learning Outcomes", type:"textarea", placeholder:"Describe the values, attitudes, or dispositions learners should demonstrate. Write one outcome per line…"},
-      {key:"professionalValues", label:"Values / Dispositions", type:"tags", placeholder:"Add value or disposition and press Enter…"},
-      {key:"developmentStrategies", label:"Strategies to Develop Affective Outcomes", type:"textarea", placeholder:"Explain how the course will nurture these attitudes and dispositions through activities, facilitation, and reflection…"},
-      {key:"evidenceMethods", label:"Evidence / Measurement Methods", type:"textarea", placeholder:"State how achievement will be evidenced: observation, reflection, peer feedback, supervisor ratings, professionalism rubric, etc.…"}
+      {key:"affectiveOutcomes", label:"Affective Learning Outcomes", type:"textarea",
+       placeholder:"Describe the values, attitudes, or dispositions learners should demonstrate. Write one outcome per line…"},
+      {key:"professionalValues", label:"Values / Dispositions", type:"tags",
+       placeholder:"Add value or disposition and press Enter…"},
+      {key:"developmentStrategies", label:"Strategies to Develop Affective Outcomes", type:"textarea",
+       placeholder:"Explain how the course will nurture these attitudes and dispositions through activities, facilitation, and reflection…"},
+      {key:"evidenceMethods", label:"Evidence / Measurement Methods", type:"textarea",
+       placeholder:"State how achievement will be evidenced: observation, reflection, peer feedback, supervisor ratings, professionalism rubric, etc.…"}
     ]
   },
   { id:4, title:"Psychomotor Domain Outcomes", icon:"🛠️", color:"#1abc9c",
     evaluatorNote:"Focus on practical, technical, manipulative, procedural, or laboratory skills. Outcomes should make it clear what the learner can physically or technically perform.",
     fields:[
-      {key:"psychomotorOutcomes", label:"Psychomotor Learning Outcomes", type:"textarea", placeholder:"Describe the practical or technical skills learners should demonstrate. Write one outcome per line…"},
-      {key:"handsOnActivities", label:"Hands-on / Practical Activities", type:"textarea", placeholder:"Describe the practical tasks, lab work, fieldwork, simulations, or demonstrations learners will undertake…"},
-      {key:"practicalAssessmentMethods", label:"Practical Assessment Methods", type:"textarea", placeholder:"Explain how psychomotor outcomes will be assessed: demonstrations, OSPE/OSCE, practicum checklists, skills stations, product evaluation, etc.…"},
-      {key:"equipmentMaterials", label:"Equipment / Materials / Practice Environment", type:"textarea", placeholder:"List the tools, equipment, materials, or practice environments needed to support these outcomes…"}
+      {key:"psychomotorOutcomes", label:"Psychomotor Learning Outcomes", type:"textarea",
+       placeholder:"Describe the practical or technical skills learners should demonstrate. Write one outcome per line…"},
+      {key:"handsOnActivities", label:"Hands-on / Practical Activities", type:"textarea",
+       placeholder:"Describe the practical tasks, lab work, fieldwork, simulations, or demonstrations learners will undertake…"},
+      {key:"practicalAssessmentMethods", label:"Practical Assessment Methods", type:"textarea",
+       placeholder:"Explain how psychomotor outcomes will be assessed: demonstrations, OSPE/OSCE, practicum checklists, skills stations, product evaluation, etc.…"},
+      {key:"equipmentMaterials", label:"Equipment / Materials / Practice Environment", type:"textarea",
+       placeholder:"List the tools, equipment, materials, or practice environments needed to support these outcomes…"}
     ]
   },
   { id:5, title:"Conduct a Competency Gap Analysis", icon:"🔍", color:"#2ecc71",
@@ -710,8 +580,7 @@ const STEPS = [
       {key:"modality", label:"Learning Modality", type:"select",
        options:["Fully Online","Blended / Hybrid","Face-to-Face","Self-paced","Synchronous Virtual"]},
       {key:"tools", label:"Tools & Platforms", type:"tags", placeholder:"Add platform/tool…"},
-      {key:"contentFormats", label:"Content Formats", type:"checkboxes",
-       options:CONTENT_FORMAT_OPTIONS},
+      {key:"contentFormats", label:"Content Formats", type:"checkboxes", options:CONTENT_FORMAT_OPTIONS},
       {key:"accessibilityNotes", label:"Accessibility Considerations", type:"textarea",
        placeholder:"Captioning, screen-reader compatibility, alternative formats, low-bandwidth options…"}
     ]
@@ -765,8 +634,7 @@ const STEPS = [
   },
   { id:14, title:"Integrate Continuous Feedback", icon:"🔄", color:"#7f8c8d",
     fields:[
-      {key:"feedbackMechanisms", label:"Feedback Mechanisms", type:"checkboxes",
-       options:FEEDBACK_OPTIONS},
+      {key:"feedbackMechanisms", label:"Feedback Mechanisms", type:"checkboxes", options:FEEDBACK_OPTIONS},
       {key:"feedbackSchedule", label:"Feedback Schedule", type:"textarea",
        placeholder:"Specific feedback timeline: when formative feedback is given, turnaround time, schedule for check-ins…"},
       {key:"improvementLoop", label:"Continuous Improvement Process", type:"textarea",
@@ -795,11 +663,8 @@ const STEPS = [
 // STATE & HELPERS
 // ─────────────────────────────────────────────────────────────────
 function emptyTopicPlanRow(){
-  return { topic:"", keyContent:"",
-    hoursDirected:"", hoursSelfDirected:"", hoursApplied:"", hoursAssessed:"",
-    learnerActivity:"", activityRationale:"", competencyLink:"" };
+  return {topic:"",keyContent:"",hoursDirected:"",hoursSelfDirected:"",hoursApplied:"",hoursAssessed:"",learnerActivity:"",activityRationale:"",competencyLink:""};
 }
-
 function defaultData(){
   const d={};
   STEPS.forEach(step=>{
@@ -812,99 +677,48 @@ function defaultData(){
   });
   return d;
 }
-
-let state={
-  units:[{id:1, name:"Unit 1: Introduction", description:"", data:defaultData(), aiGenerated:false}],
-  activeUnit:1, activeStep:1, sidebarOpen:true
-};
+let state={units:[{id:1,name:"Unit 1: Introduction",description:"",data:defaultData(),aiGenerated:false}],activeUnit:1,activeStep:1,sidebarOpen:true};
 let _dirty=false;
-let uploadedFileText='', uploadedFileName='';
-
+let uploadedFileText='',uploadedFileName='';
 const getUnit=(id)=>state.units.find(u=>u.id===(id??state.activeUnit));
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function ringOffset(pct,r=16){ return 2*Math.PI*r*(1-pct/100); }
-
-// localStorage
-function saveState(){
-  try{ localStorage.setItem('cp_state_v2',JSON.stringify(state)); _dirty=false; updateSaveDot(); }
-  catch(e){ console.warn('Save failed:',e); }
-}
-function loadState(){
-  try{
-    const raw=localStorage.getItem('cp_state_v2');
-    if(!raw) return;
-    const s=JSON.parse(raw);
-    if(s&&s.units&&s.units.length){ state=s; }
-    normalizeStateShape();
-  }catch(e){ console.warn('Load failed:',e); }
-}
-function markDirty(){ _dirty=true; updateSaveDot(); }
-function updateSaveDot(){
-  const dot=document.getElementById('saveDot');
-  const lbl=document.getElementById('saveLabel');
-  if(!dot) return;
-  if(_dirty){ dot.classList.add('unsaved'); lbl.textContent='Unsaved'; }
-  else{ dot.classList.remove('unsaved'); lbl.textContent='Saved'; }
-}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function ringOffset(pct,r=16){return 2*Math.PI*r*(1-pct/100);}
+function saveState(){try{localStorage.setItem('cp_or_v1',JSON.stringify(state));_dirty=false;updateSaveDot();}catch(e){}}
+function loadState(){try{const raw=localStorage.getItem('cp_or_v1');if(!raw)return;const s=JSON.parse(raw);if(s&&s.units&&s.units.length){state=s;}normalizeStateShape();}catch(e){}}
+function markDirty(){_dirty=true;updateSaveDot();}
+function updateSaveDot(){const dot=document.getElementById('saveDot');const lbl=document.getElementById('saveLabel');if(!dot)return;if(_dirty){dot.classList.add('unsaved');lbl.textContent='Unsaved';}else{dot.classList.remove('unsaved');lbl.textContent='Saved';}}
 let _saveTimer=null;
-function debouncedSave(){ clearTimeout(_saveTimer); markDirty(); _saveTimer=setTimeout(saveState,900); }
-
-function normalizeArr(v){ return Array.isArray(v)?v.filter(Boolean):[]; }
-function normalizeSubset(v,allowed){ return Array.isArray(v)?v.filter(x=>allowed.includes(x)):[]; }
+function debouncedSave(){clearTimeout(_saveTimer);markDirty();_saveTimer=setTimeout(saveState,900);}
+function normalizeArr(v){return Array.isArray(v)?v.filter(Boolean):[];}
+function normalizeSubset(v,allowed){return Array.isArray(v)?v.filter(x=>allowed.includes(x)):[];}
 function normalizeTopicPlans(v){
-  if(!Array.isArray(v)) return [];
+  if(!Array.isArray(v))return[];
   return v.map(row=>({
-    topic:String(row?.topic||'').trim(),
-    keyContent:String(row?.keyContent||'').trim(),
-    hoursDirected:String(row?.hoursDirected||'').trim(),
-    hoursSelfDirected:String(row?.hoursSelfDirected||'').trim(),
-    hoursApplied:String(row?.hoursApplied||'').trim(),
-    hoursAssessed:String(row?.hoursAssessed||'').trim(),
+    topic:String(row?.topic||'').trim(),keyContent:String(row?.keyContent||'').trim(),
+    hoursDirected:String(row?.hoursDirected||'').trim(),hoursSelfDirected:String(row?.hoursSelfDirected||'').trim(),
+    hoursApplied:String(row?.hoursApplied||'').trim(),hoursAssessed:String(row?.hoursAssessed||'').trim(),
     learnerActivity:String(row?.learnerActivity||row?.engagementActivity||'').trim(),
     activityRationale:String(row?.activityRationale||'').trim(),
     competencyLink:String(row?.competencyLink||'').trim()
   })).filter(r=>r.topic||r.keyContent||r.hoursApplied||r.learnerActivity);
 }
-
-function mergeStepDataShape(template, incoming){
-  const out={...template};
-  const src=incoming&&typeof incoming==='object'?incoming:{};
+function mergeStepDataShape(template,incoming){
+  const out={...template};const src=incoming&&typeof incoming==='object'?incoming:{};
   Object.keys(template).forEach(key=>{
-    const dv=template[key];
-    const sv=src[key];
-    if(Array.isArray(dv)) out[key]=Array.isArray(sv)?sv.filter(v=>v!==null&&v!==undefined&&String(v).trim()!==''):[];
+    const dv=template[key];const sv=src[key];
+    if(Array.isArray(dv))out[key]=Array.isArray(sv)?sv.filter(v=>v!==null&&v!==undefined&&String(v).trim()!==''):[];
     else out[key]=typeof sv==='string'?sv:(sv??dv);
   });
   return out;
 }
-
 function normalizeStateShape(){
   if(!Array.isArray(state.units)||!state.units.length){
-    state.units=[{id:1, name:"Unit 1: Introduction", description:"", data:defaultData(), aiGenerated:false}];
+    state.units=[{id:1,name:"Unit 1: Introduction",description:"",data:defaultData(),aiGenerated:false}];
   }
-
   state.units=state.units.map((unit,idx)=>{
     const fresh=defaultData();
     const src=(unit&&typeof unit.data==='object'&&unit.data)?unit.data:{};
-    const isLegacy = src[1] && typeof src[1]==='object' && ('currentState' in src[1] || 'desiredState' in src[1]) && !('courseCode' in src[1]);
-
-    if(isLegacy){
-      fresh[1].courseDescription = unit?.description||'';
-      if(src[1]) fresh[5]=mergeStepDataShape(fresh[5],src[1]);
-      if(src[2]) fresh[6]=mergeStepDataShape(fresh[6],src[2]);
-      if(src[3]) fresh[7]=mergeStepDataShape(fresh[7],src[3]);
-      if(src[4]) fresh[8]=mergeStepDataShape(fresh[8],{...src[4], topicPlans:normalizeTopicPlans(src[4]?.topicPlans)});
-      if(src[5]) fresh[9]=mergeStepDataShape(fresh[9],src[5]);
-      if(src[6]) fresh[10]=mergeStepDataShape(fresh[10],src[6]);
-      if(src[7]) fresh[11]=mergeStepDataShape(fresh[11],src[7]);
-      if(src[8]) fresh[12]=mergeStepDataShape(fresh[12],src[8]);
-      if(src[9]) fresh[14]=mergeStepDataShape(fresh[14],src[9]);
-    } else {
-      STEPS.forEach(step=>{
-        fresh[step.id]=mergeStepDataShape(fresh[step.id],src[step.id]);
-      });
-    }
-
+    STEPS.forEach(step=>{fresh[step.id]=mergeStepDataShape(fresh[step.id],src[step.id]);});
     fresh[2].bloomVerbs=normalizeArr(fresh[2].bloomVerbs);
     fresh[2].bloomLevels=normalizeSubset(fresh[2].bloomLevels,BLOOM_LEVEL_OPTIONS);
     fresh[3].professionalValues=normalizeArr(fresh[3].professionalValues);
@@ -916,1390 +730,403 @@ function normalizeStateShape(){
     fresh[10].contentFormats=normalizeSubset(fresh[10].contentFormats,CONTENT_FORMAT_OPTIONS);
     fresh[14].feedbackMechanisms=normalizeSubset(fresh[14].feedbackMechanisms,FEEDBACK_OPTIONS);
     fresh[14].successMetrics=normalizeArr(fresh[14].successMetrics);
-
-    return {
-      id:unit?.id||Date.now()+idx,
-      name:unit?.name||`Unit ${idx+1}`,
-      description:unit?.description||fresh[1].courseDescription||'',
-      data:fresh,
-      aiGenerated:!!unit?.aiGenerated
-    };
+    return {id:unit?.id||Date.now()+idx,name:unit?.name||`Unit ${idx+1}`,description:unit?.description||'',data:fresh,aiGenerated:!!unit?.aiGenerated};
   });
-
-  if(!state.units.some(u=>u.id===state.activeUnit)) state.activeUnit=state.units[0].id;
-  if(!STEPS.some(s=>s.id===state.activeStep)) state.activeStep=1;
+  if(!state.units.some(u=>u.id===state.activeUnit))state.activeUnit=state.units[0].id;
+  if(!STEPS.some(s=>s.id===state.activeStep))state.activeStep=1;
 }
 
-// ─────────────────────────────────────────────────────────────────
 // COMPLETION
-// ─────────────────────────────────────────────────────────────────
 function getCompletion(unit,stepId){
-  const step=STEPS.find(s=>s.id===stepId);
-  const data=unit.data[stepId]||{};
-  let filled=0, total=step.fields.length;
+  const step=STEPS.find(s=>s.id===stepId);const data=unit.data[stepId]||{};let filled=0,total=step.fields.length;
   step.fields.forEach(field=>{
     const v=data[field.key];
-    if(Array.isArray(v)){
-      if(field.type==='topicTable'){
-        if(v.filter(r=>r&&(r.topic||r.keyContent||r.hoursApplied||r.learnerActivity)).length>0) filled++;
-      } else if(v.length>0) filled++;
-    } else if(v&&String(v).trim()) filled++;
+    if(Array.isArray(v)){if(field.type==='topicTable'){if(v.filter(r=>r&&(r.topic||r.keyContent||r.hoursApplied||r.learnerActivity)).length>0)filled++;}else if(v.length>0)filled++;}
+    else if(v&&String(v).trim())filled++;
   });
   return total?Math.round((filled/total)*100):0;
 }
-function getTotalProgress(unit){ return Math.round(STEPS.reduce((a,s)=>a+getCompletion(unit,s.id),0)/STEPS.length); }
+function getTotalProgress(unit){return Math.round(STEPS.reduce((a,s)=>a+getCompletion(unit,s.id),0)/STEPS.length);}
 
-// ─────────────────────────────────────────────────────────────────
 // RENDER SIDEBAR
-// ─────────────────────────────────────────────────────────────────
 function renderUnits(){
-  const el=document.getElementById('unitsList');
-  el.innerHTML='';
+  const el=document.getElementById('unitsList');el.innerHTML='';
   state.units.forEach(unit=>{
-    const prog=getTotalProgress(unit);
-    const active=unit.id===state.activeUnit;
-    const d=document.createElement('div');
-    d.className='unit-card'+(active?' active':'');
+    const prog=getTotalProgress(unit);const active=unit.id===state.activeUnit;
+    const d=document.createElement('div');d.className='unit-card'+(active?' active':'');
     const cr=2*Math.PI*12;
-    d.innerHTML=`
-      <div class="unit-card-row">
-        <span class="unit-name">${esc(unit.name)}${unit.aiGenerated?'<span style="font-size:9px;color:#10b981;margin-left:4px;font-weight:700">✦AI</span>':''}</span>
-        <svg class="ring-svg" width="32" height="32" style="flex-shrink:0">
-          <circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2.5"/>
-          <circle cx="16" cy="16" r="12" fill="none" stroke="${active?'#10b981':'rgba(255,255,255,.25)'}" stroke-width="2.5"
-            stroke-dasharray="${cr.toFixed(1)}" stroke-dashoffset="${(cr*(1-prog/100)).toFixed(1)}" stroke-linecap="round"/>
-          <text x="16" y="16" text-anchor="middle" dominant-baseline="middle"
-            style="font-size:6px;font-weight:700;fill:${active?'#10b981':'rgba(255,255,255,.4)'};font-family:sans-serif;transform:rotate(90deg);transform-origin:center">${prog}%</text>
-        </svg>
-      </div>
-      ${unit.description?`<div class="unit-desc-preview">${esc(unit.description)}</div>`:''}
-      <div class="unit-bar"><div class="unit-bar-fill" style="width:${prog}%"></div></div>`;
-    d.addEventListener('click',()=>{ state.activeUnit=unit.id; state.activeStep=1; render(); });
+    d.innerHTML=`<div class="unit-card-row"><span class="unit-name">${esc(unit.name)}${unit.aiGenerated?'<span style="font-size:9px;color:#10b981;margin-left:4px;font-weight:700">✦AI</span>':''}</span><svg class="ring-svg" width="32" height="32" style="flex-shrink:0"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2.5"/><circle cx="16" cy="16" r="12" fill="none" stroke="${active?'#10b981':'rgba(255,255,255,.25)'}" stroke-width="2.5" stroke-dasharray="${cr.toFixed(1)}" stroke-dashoffset="${(cr*(1-prog/100)).toFixed(1)}" stroke-linecap="round"/><text x="16" y="16" text-anchor="middle" dominant-baseline="middle" style="font-size:6px;font-weight:700;fill:${active?'#10b981':'rgba(255,255,255,.4)'};font-family:sans-serif;transform:rotate(90deg);transform-origin:center">${prog}%</text></svg></div>${unit.description?`<div class="unit-desc-preview">${esc(unit.description)}</div>`:''}<div class="unit-bar"><div class="unit-bar-fill" style="width:${prog}%"></div></div>`;
+    d.addEventListener('click',()=>{state.activeUnit=unit.id;state.activeStep=1;render();});
     el.appendChild(d);
   });
 }
-
 function renderSteps(){
-  const el=document.getElementById('stepsList');
-  el.innerHTML='';
-  const unit=getUnit();
-  if(!unit) return;
+  const el=document.getElementById('stepsList');el.innerHTML='';const unit=getUnit();if(!unit)return;
   STEPS.forEach(step=>{
-    const pct=getCompletion(unit,step.id);
-    const active=step.id===state.activeStep;
-    const item=document.createElement('div');
-    item.className='step-nav-item';
-    if(active) item.style.cssText=`background:${step.color}22;border-color:${step.color}55`;
-    item.innerHTML=`
-      <div class="step-dot" style="${active?`background:${step.color};border-color:${step.color};color:#fff`:''}">
-        ${pct===100?'✓':step.icon}
-      </div>
-      <div class="step-nav-text">
-        <div class="step-nav-num">STEP ${String(step.id).padStart(2,'0')}</div>
-        <div class="step-nav-title" style="color:${active?step.color:'rgba(255,255,255,.55)'}">${step.title}</div>
-        <div class="step-mini-bar"><div class="step-mini-fill" style="width:${pct}%;background:${step.color}"></div></div>
-      </div>`;
-    item.addEventListener('click',()=>{ state.activeStep=step.id; renderContent(); renderSteps(); });
+    const pct=getCompletion(unit,step.id);const active=step.id===state.activeStep;
+    const item=document.createElement('div');item.className='step-nav-item';
+    if(active)item.style.cssText=`background:${step.color}22;border-color:${step.color}55`;
+    item.innerHTML=`<div class="step-dot" style="${active?`background:${step.color};border-color:${step.color};color:#fff`:''}">${pct===100?'✓':step.icon}</div><div class="step-nav-text"><div class="step-nav-num">STEP ${String(step.id).padStart(2,'0')}</div><div class="step-nav-title" style="color:${active?step.color:'rgba(255,255,255,.55)'}">${step.title}</div><div class="step-mini-bar"><div class="step-mini-fill" style="width:${pct}%;background:${step.color}"></div></div></div>`;
+    item.addEventListener('click',()=>{state.activeStep=step.id;renderContent();renderSteps();});
     el.appendChild(item);
   });
 }
-
 function renderHeaderRing(){
-  const unit=getUnit();
-  const right=document.getElementById('headerRight');
-  if(!unit){ right.style.display='none'; return; }
-  right.style.display='flex';
-  document.getElementById('headerUnitName').textContent=unit.name;
+  const unit=getUnit();const right=document.getElementById('headerRight');
+  if(!unit){right.style.display='none';return;}
+  right.style.display='flex';document.getElementById('headerUnitName').textContent=unit.name;
   const pct=getTotalProgress(unit);
   document.getElementById('headerRingFill').setAttribute('stroke-dashoffset',ringOffset(pct,16).toFixed(1));
   document.getElementById('headerRingTxt').textContent=pct+'%';
 }
 
-// ─────────────────────────────────────────────────────────────────
-// NOTIONAL HOURS TABLE BUILDER
-// ─────────────────────────────────────────────────────────────────
-function parseH(v){ const n=parseFloat(String(v||'').replace(/[^0-9.]/g,'')); return isNaN(n)?0:n; }
-
-function buildTopicTableField(value, onChange){
+// NOTIONAL HOURS TABLE
+function parseH(v){const n=parseFloat(String(v||'').replace(/[^0-9.]/g,''));return isNaN(n)?0:n;}
+function buildTopicTableField(value,onChange){
   let rows=Array.isArray(value)?value.map(r=>({...emptyTopicPlanRow(),...r})):[];
-  if(!rows.length) rows=[emptyTopicPlanRow()];
-
-  const wrap=document.createElement('div');
-  wrap.className='topic-table-wrap';
-
-  const tools=document.createElement('div');
-  tools.className='topic-table-tools';
-  tools.innerHTML=`
-    <div>
-      <div style="font-size:12.5px;font-weight:700;color:var(--ink-mid);margin-bottom:3px">Topic Content Plan</div>
-      <div class="topic-table-note">Distribute hours across 4 activity types. CBE goal: Applied + Assessed &gt; 50% of total.</div>
-    </div>
-    <button type="button" class="btn-small btn-add-row">+ Add Topic Row</button>`;
+  if(!rows.length)rows=[emptyTopicPlanRow()];
+  const wrap=document.createElement('div');wrap.className='topic-table-wrap';
+  const tools=document.createElement('div');tools.className='topic-table-tools';
+  tools.innerHTML=`<div><div style="font-size:12.5px;font-weight:700;color:var(--ink-mid);margin-bottom:3px">Topic Content Plan</div><div class="topic-table-note">Distribute hours across 4 activity types. CBE goal: Applied + Assessed &gt; 50% of total.</div></div><button type="button" class="btn-small btn-add-row">+ Add Topic Row</button>`;
   wrap.appendChild(tools);
-
-  const tableScroll=document.createElement('div');
-  tableScroll.className='topic-table-scroll';
-  wrap.appendChild(tableScroll);
-
-  const blendDiv=document.createElement('div');
-  blendDiv.className='blend-summary';
-  wrap.appendChild(blendDiv);
-
-  function getBlend(){
-    let a=0,b=0,c=0,d=0;
-    rows.forEach(r=>{ a+=parseH(r.hoursDirected); b+=parseH(r.hoursSelfDirected); c+=parseH(r.hoursApplied); d+=parseH(r.hoursAssessed); });
-    const total=a+b+c+d;
-    return {a,b,c,d,total};
-  }
-
+  const tableScroll=document.createElement('div');tableScroll.className='topic-table-scroll';wrap.appendChild(tableScroll);
+  const blendDiv=document.createElement('div');blendDiv.className='blend-summary';wrap.appendChild(blendDiv);
+  function getBlend(){let a=0,b=0,c=0,d=0;rows.forEach(r=>{a+=parseH(r.hoursDirected);b+=parseH(r.hoursSelfDirected);c+=parseH(r.hoursApplied);d+=parseH(r.hoursAssessed);});return{a,b,c,d,total:a+b+c+d};}
   function renderBlend(){
-    const {a,b,c,d,total}=getBlend();
-    if(total===0){ blendDiv.innerHTML='<div style="font-size:12px;color:var(--muted)">Add hours above to see the CBE activity blend.</div>'; return; }
-    const ap=Math.round(a/total*100), bp=Math.round(b/total*100), cp=Math.round(c/total*100), dp=100-ap-bp-cp;
-    const applied_assessed_pct=Math.round((c+d)/total*100);
-    const ok=applied_assessed_pct>=50;
-    blendDiv.innerHTML=`
-      <div class="blend-row">
-        <div class="blend-total">Total: <strong>${total}h</strong></div>
-        <div class="blend-bar-wrap">
-          <div class="blend-bar">
-            <div class="blend-seg blend-seg-a" style="width:${ap}%"></div>
-            <div class="blend-seg blend-seg-b" style="width:${bp}%"></div>
-            <div class="blend-seg blend-seg-c" style="width:${cp}%"></div>
-            <div class="blend-seg blend-seg-d" style="width:${Math.max(0,dp)}%"></div>
-          </div>
-          <div class="blend-legend">
-            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-a)"></span>Directed ${ap}%</span>
-            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-b)"></span>Self-dir ${bp}%</span>
-            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-c)"></span>Applied ${cp}%</span>
-            <span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-d)"></span>Assessed ${Math.max(0,dp)}%</span>
-          </div>
-        </div>
-        <div class="blend-badge ${ok?'ok':'warn'}">${ok?'✓ CBE blend':'⚠ Applied+Assessed '+applied_assessed_pct+'%'}</div>
-      </div>`;
+    const{a,b,c,d,total}=getBlend();
+    if(total===0){blendDiv.innerHTML='<div style="font-size:12px;color:var(--muted)">Add hours above to see the CBE activity blend.</div>';return;}
+    const ap=Math.round(a/total*100),bp=Math.round(b/total*100),cp=Math.round(c/total*100),dp=100-ap-bp-cp;
+    const aap=Math.round((c+d)/total*100);const ok=aap>=50;
+    blendDiv.innerHTML=`<div class="blend-row"><div class="blend-total">Total: <strong>${total}h</strong></div><div class="blend-bar-wrap"><div class="blend-bar"><div class="blend-seg blend-seg-a" style="width:${ap}%"></div><div class="blend-seg blend-seg-b" style="width:${bp}%"></div><div class="blend-seg blend-seg-c" style="width:${cp}%"></div><div class="blend-seg blend-seg-d" style="width:${Math.max(0,dp)}%"></div></div><div class="blend-legend"><span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-a)"></span>Directed ${ap}%</span><span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-b)"></span>Self-dir ${bp}%</span><span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-c)"></span>Applied ${cp}%</span><span class="blend-lbl"><span class="blend-dot" style="background:var(--hour-d)"></span>Assessed ${Math.max(0,dp)}%</span></div></div><div class="blend-badge ${ok?'ok':'warn'}">${ok?'✓ CBE blend':'⚠ Applied+Assessed '+aap+'%'}</div></div>`;
   }
-
-  function sync(){ onChange(rows.map(r=>({...r}))); renderTable(); renderBlend(); }
-  function onlyBlend(){ onChange(rows.map(r=>({...r}))); renderBlend(); }
-
+  function sync(){onChange(rows.map(r=>({...r})));renderTable();renderBlend();}
+  function onlyBlend(){onChange(rows.map(r=>({...r})));renderBlend();}
   function renderTable(){
-    tableScroll.innerHTML=`
-      <table class="topic-table">
-        <thead>
-          <tr>
-            <th rowspan="2" class="th-main" style="width:170px;min-width:170px">Topic / Subtopic</th>
-            <th rowspan="2" class="th-main" style="width:190px;min-width:190px">Key Content</th>
-            <th colspan="1" class="th-hour-group hour-header-a" style="width:68px;min-width:68px">
-              <div class="th-hour-parent">A – Directed</div>
-            </th>
-            <th colspan="1" class="th-hour-group hour-header-b" style="width:68px;min-width:68px">
-              <div class="th-hour-parent">B – Self-dir</div>
-            </th>
-            <th colspan="1" class="th-hour-group hour-header-c" style="width:68px;min-width:68px">
-              <div class="th-hour-parent">C – Applied</div>
-            </th>
-            <th colspan="1" class="th-hour-group hour-header-d" style="width:68px;min-width:68px">
-              <div class="th-hour-parent">D – Assessed</div>
-            </th>
-            <th rowspan="2" class="th-total" style="width:58px;min-width:58px">Total h</th>
-            <th rowspan="2" class="th-main" style="width:210px;min-width:210px">Learner Activity<br><span style="font-weight:400;font-size:10px;color:var(--muted)">What learners DO</span></th>
-            <th rowspan="2" class="th-main" style="width:210px;min-width:210px">Activity Rationale<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Why it builds competency</span></th>
-            <th rowspan="2" class="th-main" style="width:130px;min-width:130px">Competency Link</th>
-            <th rowspan="2" class="th-main" style="width:72px;min-width:72px">Action</th>
-          </tr>
-          <tr>
-            <th class="th-hour-sub hour-header-a">hrs</th>
-            <th class="th-hour-sub hour-header-b">hrs</th>
-            <th class="th-hour-sub hour-header-c">hrs</th>
-            <th class="th-hour-sub hour-header-d">hrs</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>`;
-
+    tableScroll.innerHTML=`<table class="topic-table"><thead><tr><th rowspan="2" class="th-main" style="width:170px;min-width:170px">Topic / Subtopic</th><th rowspan="2" class="th-main" style="width:190px;min-width:190px">Key Content</th><th colspan="1" class="th-hour-group hour-header-a" style="width:68px;min-width:68px"><div class="th-hour-parent">A – Directed</div></th><th colspan="1" class="th-hour-group hour-header-b" style="width:68px;min-width:68px"><div class="th-hour-parent">B – Self-dir</div></th><th colspan="1" class="th-hour-group hour-header-c" style="width:68px;min-width:68px"><div class="th-hour-parent">C – Applied</div></th><th colspan="1" class="th-hour-group hour-header-d" style="width:68px;min-width:68px"><div class="th-hour-parent">D – Assessed</div></th><th rowspan="2" class="th-total" style="width:58px;min-width:58px">Total h</th><th rowspan="2" class="th-main" style="width:210px;min-width:210px">Learner Activity<br><span style="font-weight:400;font-size:10px;color:var(--muted)">What learners DO</span></th><th rowspan="2" class="th-main" style="width:210px;min-width:210px">Activity Rationale<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Why it builds competency</span></th><th rowspan="2" class="th-main" style="width:130px;min-width:130px">Competency Link</th><th rowspan="2" class="th-main" style="width:72px;min-width:72px">Action</th></tr><tr><th class="th-hour-sub hour-header-a">hrs</th><th class="th-hour-sub hour-header-b">hrs</th><th class="th-hour-sub hour-header-c">hrs</th><th class="th-hour-sub hour-header-d">hrs</th></tr></thead><tbody></tbody></table>`;
     const tbody=tableScroll.querySelector('tbody');
     rows.forEach((row,idx)=>{
       const totalH=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed)).toFixed(1);
       const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td><input class="table-input" placeholder="Topic or subtopic title…" value="${esc(row.topic||'')}"></td>
-        <td><textarea class="table-textarea" placeholder="Key concepts, procedures, or skills to be taught…">${esc(row.keyContent||'')}</textarea></td>
-        <td class="hour-cell-a"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursDirected||'')}"></td>
-        <td class="hour-cell-b"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursSelfDirected||'')}"></td>
-        <td class="hour-cell-c"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursApplied||'')}"></td>
-        <td class="hour-cell-d"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursAssessed||'')}"></td>
-        <td class="total-cell ${parseFloat(totalH)>0?'over':''}">${parseFloat(totalH)>0?totalH:'—'}</td>
-        <td><textarea class="table-textarea" placeholder="Learners will [active verb]…">${esc(row.learnerActivity||'')}</textarea></td>
-        <td><textarea class="table-textarea" placeholder="Why this activity builds the competency…">${esc(row.activityRationale||'')}</textarea></td>
-        <td><input class="table-input" placeholder="e.g. Competency 2" value="${esc(row.competencyLink||'')}"></td>
-        <td><button type="button" class="btn-small btn-remove-row">Remove</button></td>`;
-
+      tr.innerHTML=`<td><input class="table-input" placeholder="Topic or subtopic title…" value="${esc(row.topic||'')}"></td><td><textarea class="table-textarea" placeholder="Key concepts, procedures, or skills to be taught…">${esc(row.keyContent||'')}</textarea></td><td class="hour-cell-a"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursDirected||'')}"></td><td class="hour-cell-b"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursSelfDirected||'')}"></td><td class="hour-cell-c"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursApplied||'')}"></td><td class="hour-cell-d"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursAssessed||'')}"></td><td class="total-cell ${parseFloat(totalH)>0?'over':''}">${parseFloat(totalH)>0?totalH:'—'}</td><td><textarea class="table-textarea" placeholder="Learners will [active verb]…">${esc(row.learnerActivity||'')}</textarea></td><td><textarea class="table-textarea" placeholder="Why this activity builds the competency…">${esc(row.activityRationale||'')}</textarea></td><td><input class="table-input" placeholder="e.g. Competency 2" value="${esc(row.competencyLink||'')}"></td><td><button type="button" class="btn-small btn-remove-row">Remove</button></td>`;
       const inputs=tr.querySelectorAll('input,textarea');
-      const [topicEl,contentEl,hA,hB,hC,hD,actEl,ratEl,compEl]=inputs;
-
-      topicEl.addEventListener('input',()=>{ rows[idx].topic=topicEl.value; debouncedSave(); onlyBlend(); });
-      contentEl.addEventListener('input',()=>{ rows[idx].keyContent=contentEl.value; debouncedSave(); });
-      hA.addEventListener('input',()=>{ rows[idx].hoursDirected=hA.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
-      hB.addEventListener('input',()=>{ rows[idx].hoursSelfDirected=hB.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
-      hC.addEventListener('input',()=>{ rows[idx].hoursApplied=hC.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
-      hD.addEventListener('input',()=>{ rows[idx].hoursAssessed=hD.value; updateTotalCell(tr,idx); onlyBlend(); debouncedSave(); });
-      actEl.addEventListener('input',()=>{ rows[idx].learnerActivity=actEl.value; debouncedSave(); });
-      ratEl.addEventListener('input',()=>{ rows[idx].activityRationale=ratEl.value; debouncedSave(); });
-      compEl.addEventListener('input',()=>{ rows[idx].competencyLink=compEl.value; debouncedSave(); });
-      tr.querySelector('.btn-remove-row').addEventListener('click',()=>{ rows.splice(idx,1); if(!rows.length) rows.push(emptyTopicPlanRow()); sync(); debouncedSave(); });
+      const[topicEl,contentEl,hA,hB,hC,hD,actEl,ratEl,compEl]=inputs;
+      topicEl.addEventListener('input',()=>{rows[idx].topic=topicEl.value;debouncedSave();onlyBlend();});
+      contentEl.addEventListener('input',()=>{rows[idx].keyContent=contentEl.value;debouncedSave();});
+      hA.addEventListener('input',()=>{rows[idx].hoursDirected=hA.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
+      hB.addEventListener('input',()=>{rows[idx].hoursSelfDirected=hB.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
+      hC.addEventListener('input',()=>{rows[idx].hoursApplied=hC.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
+      hD.addEventListener('input',()=>{rows[idx].hoursAssessed=hD.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
+      actEl.addEventListener('input',()=>{rows[idx].learnerActivity=actEl.value;debouncedSave();});
+      ratEl.addEventListener('input',()=>{rows[idx].activityRationale=ratEl.value;debouncedSave();});
+      compEl.addEventListener('input',()=>{rows[idx].competencyLink=compEl.value;debouncedSave();});
+      tr.querySelector('.btn-remove-row').addEventListener('click',()=>{rows.splice(idx,1);if(!rows.length)rows.push(emptyTopicPlanRow());sync();debouncedSave();});
       tbody.appendChild(tr);
     });
     renderBlend();
   }
-
-  function updateTotalCell(tr,idx){
-    const row=rows[idx];
-    const t=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed));
-    const tc=tr.querySelector('.total-cell');
-    if(tc){ tc.textContent=t>0?t.toFixed(1):'—'; tc.className='total-cell'+(t>0?' over':''); }
-  }
-
-  tools.querySelector('.btn-add-row').addEventListener('click',()=>{ rows.push(emptyTopicPlanRow()); sync(); debouncedSave(); });
-  renderTable();
-  return wrap;
+  function updateTotalCell(tr,idx){const row=rows[idx];const t=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed));const tc=tr.querySelector('.total-cell');if(tc){tc.textContent=t>0?t.toFixed(1):'—';tc.className='total-cell'+(t>0?' over':'');}}
+  tools.querySelector('.btn-add-row').addEventListener('click',()=>{rows.push(emptyTopicPlanRow());sync();debouncedSave();});
+  renderTable();return wrap;
 }
 
-// ─────────────────────────────────────────────────────────────────
 // FIELD BUILDER
-// ─────────────────────────────────────────────────────────────────
-const WEAK_PATTERNS={
-  activities:/\b(complete|watch|attend|read|listen|log in|submit|do the|take the|open)\b/i,
-  resources:/\b(moodle|canvas|google|computer|internet|laptop|projector|textbook is available|resources are|access to)\b/i
-};
-
-function buildField(field, value, onChange, aiPop){
-  const wrap=document.createElement('div');
-  wrap.className='field-group';
-  const label=document.createElement('label');
-  label.className='field-label';
-  label.textContent=field.label;
-  wrap.appendChild(label);
-
-  if(field.hint){
-    const hint=document.createElement('div');
-    hint.className='field-hint';
-    hint.textContent=field.hint;
-    wrap.appendChild(hint);
-  }
-
+const WEAK_PATTERNS={activities:/\b(complete|watch|attend|read|listen|log in|submit|do the|take the|open)\b/i,resources:/\b(moodle|canvas|google|computer|internet|laptop|projector|textbook is available|resources are|access to)\b/i};
+function buildField(field,value,onChange,aiPop){
+  const wrap=document.createElement('div');wrap.className='field-group';
+  const label=document.createElement('label');label.className='field-label';label.textContent=field.label;wrap.appendChild(label);
+  if(field.hint){const hint=document.createElement('div');hint.className='field-hint';hint.textContent=field.hint;wrap.appendChild(hint);}
   if(field.type==='textarea'){
-    const el=document.createElement('textarea');
-    el.className='field-textarea'+(aiPop?' ai-populated':'');
-    el.placeholder=field.placeholder||'';
-    el.value=value||'';
-    const warn=document.createElement('div');
-    warn.className='quality-warn';
-    if(field.qualityMsg) warn.textContent=field.qualityMsg;
-    el.addEventListener('input',()=>{
-      onChange(el.value);
-      debouncedSave();
-      if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck]){
-        warn.classList.toggle('show', WEAK_PATTERNS[field.qualityCheck].test(el.value));
-      }
-    });
-    if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck]&&el.value){
-      warn.classList.toggle('show', WEAK_PATTERNS[field.qualityCheck].test(el.value));
-    }
-    wrap.appendChild(el);
-    if(field.qualityMsg) wrap.appendChild(warn);
-  } else if(field.type==='text'){
-    const el=document.createElement('input');
-    el.type='text';
-    el.className='field-input'+(aiPop?' ai-populated':'');
-    el.placeholder=field.placeholder||'';
-    el.value=value||'';
-    el.addEventListener('input',()=>{ onChange(el.value); debouncedSave(); });
-    wrap.appendChild(el);
-  } else if(field.type==='select'){
-    const el=document.createElement('select');
-    el.className='field-select'+(aiPop?' ai-populated':'');
-    const blank=document.createElement('option');
-    blank.value=''; blank.textContent='Select…';
-    el.appendChild(blank);
-    field.options.forEach(opt=>{
-      const o=document.createElement('option');
-      o.value=opt; o.textContent=opt;
-      if(value===opt) o.selected=true;
-      el.appendChild(o);
-    });
-    el.addEventListener('change',()=>{ onChange(el.value); debouncedSave(); });
-    wrap.appendChild(el);
-  } else if(field.type==='tags'){
-    const tagWrap=document.createElement('div');
-    tagWrap.className='tag-wrap'+(aiPop?' ai-populated':'');
+    const el=document.createElement('textarea');el.className='field-textarea'+(aiPop?' ai-populated':'');el.placeholder=field.placeholder||'';el.value=value||'';
+    const warn=document.createElement('div');warn.className='quality-warn';if(field.qualityMsg)warn.textContent=field.qualityMsg;
+    el.addEventListener('input',()=>{onChange(el.value);debouncedSave();if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck])warn.classList.toggle('show',WEAK_PATTERNS[field.qualityCheck].test(el.value));});
+    if(field.qualityCheck&&WEAK_PATTERNS[field.qualityCheck]&&el.value)warn.classList.toggle('show',WEAK_PATTERNS[field.qualityCheck].test(el.value));
+    wrap.appendChild(el);if(field.qualityMsg)wrap.appendChild(warn);
+  }else if(field.type==='text'){
+    const el=document.createElement('input');el.type='text';el.className='field-input'+(aiPop?' ai-populated':'');el.placeholder=field.placeholder||'';el.value=value||'';
+    el.addEventListener('input',()=>{onChange(el.value);debouncedSave();});wrap.appendChild(el);
+  }else if(field.type==='select'){
+    const el=document.createElement('select');el.className='field-select'+(aiPop?' ai-populated':'');
+    const blank=document.createElement('option');blank.value='';blank.textContent='Select…';el.appendChild(blank);
+    field.options.forEach(opt=>{const o=document.createElement('option');o.value=opt;o.textContent=opt;if(value===opt)o.selected=true;el.appendChild(o);});
+    el.addEventListener('change',()=>{onChange(el.value);debouncedSave();});wrap.appendChild(el);
+  }else if(field.type==='tags'){
+    const tagWrap=document.createElement('div');tagWrap.className='tag-wrap'+(aiPop?' ai-populated':'');
     let tags=Array.isArray(value)?[...value]:[];
     const refresh=()=>{
-      tagWrap.innerHTML='';
-      const row=document.createElement('div');
-      row.className='tags-row';
-      tags.forEach((tag,i)=>{
-        const pill=document.createElement('span');
-        pill.className='tag-pill';
-        pill.innerHTML=`${esc(tag)} <button class="tag-remove">×</button>`;
-        pill.querySelector('.tag-remove').addEventListener('click',()=>{ tags.splice(i,1); onChange([...tags]); debouncedSave(); refresh(); });
-        row.appendChild(pill);
-      });
+      tagWrap.innerHTML='';const row=document.createElement('div');row.className='tags-row';
+      tags.forEach((tag,i)=>{const pill=document.createElement('span');pill.className='tag-pill';pill.innerHTML=`${esc(tag)} <button class="tag-remove">×</button>`;pill.querySelector('.tag-remove').addEventListener('click',()=>{tags.splice(i,1);onChange([...tags]);debouncedSave();refresh();});row.appendChild(pill);});
       tagWrap.appendChild(row);
-      const inp=document.createElement('input');
-      inp.type='text'; inp.className='tag-input-field';
-      inp.placeholder=tags.length?'':(field.placeholder||'');
-      inp.addEventListener('keydown',e=>{
-        if((e.key==='Enter'||e.key===',')&&inp.value.trim()){
-          e.preventDefault();
-          const t=inp.value.trim();
-          if(!tags.includes(t)){ tags.push(t); onChange([...tags]); debouncedSave(); refresh(); }
-          else inp.value='';
-        }
-      });
+      const inp=document.createElement('input');inp.type='text';inp.className='tag-input-field';inp.placeholder=tags.length?'':(field.placeholder||'');
+      inp.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===',')&&inp.value.trim()){e.preventDefault();const t=inp.value.trim();if(!tags.includes(t)){tags.push(t);onChange([...tags]);debouncedSave();refresh();}else inp.value='';}});
       tagWrap.appendChild(inp);
     };
-    refresh();
-    wrap.appendChild(tagWrap);
-  } else if(field.type==='checkboxes'){
+    refresh();wrap.appendChild(tagWrap);
+  }else if(field.type==='checkboxes'){
     let selected=Array.isArray(value)?[...value]:[];
-    const grid=document.createElement('div');
-    grid.className='checkbox-grid';
-    field.options.forEach(opt=>{
-      const item=document.createElement('div');
-      item.className='check-item'+(selected.includes(opt)?' checked':'');
-      item.innerHTML=`<div class="check-box"><span class="check-tick">✓</span></div><span class="check-label">${esc(opt)}</span>`;
-      item.addEventListener('click',()=>{
-        if(selected.includes(opt)) selected=selected.filter(v=>v!==opt);
-        else selected.push(opt);
-        item.classList.toggle('checked',selected.includes(opt));
-        onChange([...selected]); debouncedSave();
-      });
-      grid.appendChild(item);
-    });
+    const grid=document.createElement('div');grid.className='checkbox-grid';
+    field.options.forEach(opt=>{const item=document.createElement('div');item.className='check-item'+(selected.includes(opt)?' checked':'');item.innerHTML=`<div class="check-box"><span class="check-tick">✓</span></div><span class="check-label">${esc(opt)}</span>`;item.addEventListener('click',()=>{if(selected.includes(opt))selected=selected.filter(v=>v!==opt);else selected.push(opt);item.classList.toggle('checked',selected.includes(opt));onChange([...selected]);debouncedSave();});grid.appendChild(item);});
     wrap.appendChild(grid);
-  } else if(field.type==='topicTable'){
-    wrap.appendChild(buildTopicTableField(value, val=>{ onChange(val); debouncedSave(); }));
+  }else if(field.type==='topicTable'){
+    wrap.appendChild(buildTopicTableField(value,val=>{onChange(val);debouncedSave();}));
   }
   return wrap;
 }
 
-// ─────────────────────────────────────────────────────────────────
 // RENDER CONTENT
-// ─────────────────────────────────────────────────────────────────
 function renderContent(){
-  const unit=getUnit();
-  const content=document.getElementById('stepContent');
-  const empty=document.getElementById('emptyState');
-  if(!unit){ empty.style.display='flex'; content.style.display='none'; return; }
-  empty.style.display='none'; content.style.display='block'; content.innerHTML='';
-
-  const descCard=document.createElement('div');
-  descCard.className='unit-desc-card';
+  const unit=getUnit();const content=document.getElementById('stepContent');const empty=document.getElementById('emptyState');
+  if(!unit){empty.style.display='flex';content.style.display='none';return;}
+  empty.style.display='none';content.style.display='block';content.innerHTML='';
+  const descCard=document.createElement('div');descCard.className='unit-desc-card';
   descCard.innerHTML=`<div class="unit-desc-header"><span class="unit-desc-title">📝 Course Unit Description</span><span class="unit-desc-badge">${esc(unit.name)}</span></div>`;
-  const descTA=document.createElement('textarea');
-  descTA.className='unit-desc-textarea'+(unit.aiGenerated&&unit.description?' ai-populated':'');
-  descTA.placeholder='Write a 2–3 sentence description of this unit: what it covers, who it is for, and why it matters to learners…';
-  descTA.value=unit.description||'';
-  descTA.addEventListener('input',()=>{ unit.description=descTA.value; debouncedSave(); });
-  descCard.appendChild(descTA);
-  const descHint=document.createElement('div');
-  descHint.className='unit-desc-hint';
-  descHint.textContent='This description appears in the unit export. Keep it concise and purposeful.';
-  descCard.appendChild(descHint);
+  const descTA=document.createElement('textarea');descTA.className='unit-desc-textarea'+(unit.aiGenerated&&unit.description?' ai-populated':'');descTA.placeholder='Write a 2–3 sentence description of this unit: what it covers, who it is for, and why it matters to learners…';descTA.value=unit.description||'';
+  descTA.addEventListener('input',()=>{unit.description=descTA.value;debouncedSave();});descCard.appendChild(descTA);
+  const descHint=document.createElement('div');descHint.className='unit-desc-hint';descHint.textContent='This description appears in the unit export. Keep it concise and purposeful.';descCard.appendChild(descHint);
   content.appendChild(descCard);
-
-  const step=STEPS.find(s=>s.id===state.activeStep);
-  const data=unit.data[step.id];
-  const pct=getCompletion(unit,step.id);
-  const header=document.createElement('div');
-  header.className='step-header';
-  header.style.background=`linear-gradient(135deg,${step.color}f0,${step.color}99)`;
-  header.innerHTML=`
-    <div class="step-header-inner">
-      <div class="step-icon-big">${step.icon}</div>
-      <div style="flex:1">
-        <div class="step-num-label">Step ${step.id} of ${STEPS.length}</div>
-        <div class="step-title">${step.title}</div>
-        ${unit.aiGenerated?'<div class="ai-filled-badge">✦ Dr. Adelani AI-Lab Enhanced</div>':''}
-        <div class="step-progress-row">
-          <div class="step-progress-bar"><div class="step-progress-fill" id="stepProgFill" style="width:${pct}%"></div></div>
-          <span class="step-pct-label" id="stepProgTxt">${pct}% complete</span>
-        </div>
-        ${step.evaluatorNote?`<div class="step-evaluator-note"><strong>📌 Design Guidance:</strong> ${esc(step.evaluatorNote)}</div>`:''}
-      </div>
-    </div>`;
+  const step=STEPS.find(s=>s.id===state.activeStep);const data=unit.data[step.id];const pct=getCompletion(unit,step.id);
+  const header=document.createElement('div');header.className='step-header';header.style.background=`linear-gradient(135deg,${step.color}f0,${step.color}99)`;
+  header.innerHTML=`<div class="step-header-inner"><div class="step-icon-big">${step.icon}</div><div style="flex:1"><div class="step-num-label">Step ${step.id} of ${STEPS.length}</div><div class="step-title">${step.title}</div>${unit.aiGenerated?'<div class="ai-filled-badge">✦ Dr. Adelani AI-Lab Enhanced</div>':''}<div class="step-progress-row"><div class="step-progress-bar"><div class="step-progress-fill" id="stepProgFill" style="width:${pct}%"></div></div><span class="step-pct-label" id="stepProgTxt">${pct}% complete</span></div>${step.evaluatorNote?`<div class="step-evaluator-note"><strong>📌 Design Guidance:</strong> ${esc(step.evaluatorNote)}</div>`:''}</div></div>`;
   content.appendChild(header);
-
-  const card=document.createElement('div');
-  card.className='form-card';
-  step.fields.forEach(field=>{
-    const ai=unit.aiGenerated&&(Array.isArray(data[field.key])?data[field.key].length>0:!!String(data[field.key]||'').trim());
-    card.appendChild(buildField(field, data[field.key], val=>{ unit.data[step.id][field.key]=val; updateProgress(); }, ai));
-  });
+  const card=document.createElement('div');card.className='form-card';
+  step.fields.forEach(field=>{const ai=unit.aiGenerated&&(Array.isArray(data[field.key])?data[field.key].length>0:!!String(data[field.key]||'').trim());card.appendChild(buildField(field,data[field.key],val=>{unit.data[step.id][field.key]=val;updateProgress();},ai));});
   content.appendChild(card);
-
-  const nav=document.createElement('div');
-  nav.className='step-nav-btns';
-  const prevBtn=document.createElement('button');
-  prevBtn.className='btn-prev';
-  prevBtn.textContent='← Previous';
-  prevBtn.disabled=step.id===1;
-  prevBtn.addEventListener('click',()=>{ state.activeStep--; renderContent(); renderSteps(); });
-  nav.appendChild(prevBtn);
-  const dots=document.createElement('div');
-  dots.className='dots-nav';
-  STEPS.forEach(s=>{
-    const d=document.createElement('div');
-    d.className='dot'+(s.id===step.id?' active':'')+(getCompletion(unit,s.id)===100?' done':'');
-    if(s.id===step.id) d.style.background=step.color;
-    d.addEventListener('click',()=>{ state.activeStep=s.id; renderContent(); renderSteps(); });
-    dots.appendChild(d);
-  });
+  const nav=document.createElement('div');nav.className='step-nav-btns';
+  const prevBtn=document.createElement('button');prevBtn.className='btn-prev';prevBtn.textContent='← Previous';prevBtn.disabled=step.id===1;
+  prevBtn.addEventListener('click',()=>{state.activeStep--;renderContent();renderSteps();});nav.appendChild(prevBtn);
+  const dots=document.createElement('div');dots.className='dots-nav';
+  STEPS.forEach(s=>{const d=document.createElement('div');d.className='dot'+(s.id===step.id?' active':'')+(getCompletion(unit,s.id)===100?' done':'');if(s.id===step.id)d.style.background=step.color;d.addEventListener('click',()=>{state.activeStep=s.id;renderContent();renderSteps();});dots.appendChild(d);});
   nav.appendChild(dots);
-  if(step.id<STEPS.length){
-    const nextBtn=document.createElement('button');
-    nextBtn.className='btn-next';
-    nextBtn.style.background=`linear-gradient(135deg,${step.color},${STEPS[step.id].color})`;
-    nextBtn.textContent='Next →';
-    nextBtn.addEventListener('click',()=>{ state.activeStep++; renderContent(); renderSteps(); });
-    nav.appendChild(nextBtn);
-  } else {
-    const completeBtn=document.createElement('button');
-    completeBtn.className='btn-complete';
-    completeBtn.textContent='✓ Complete Unit';
-    completeBtn.addEventListener('click',()=>showCompleteModal(unit));
-    nav.appendChild(completeBtn);
-  }
+  if(step.id<STEPS.length){const nextBtn=document.createElement('button');nextBtn.className='btn-next';nextBtn.style.background=`linear-gradient(135deg,${step.color},${STEPS[step.id].color})`;nextBtn.textContent='Next →';nextBtn.addEventListener('click',()=>{state.activeStep++;renderContent();renderSteps();});nav.appendChild(nextBtn);}
+  else{const completeBtn=document.createElement('button');completeBtn.className='btn-complete';completeBtn.textContent='✓ Complete Unit';completeBtn.addEventListener('click',()=>showCompleteModal(unit));nav.appendChild(completeBtn);}
   content.appendChild(nav);
 }
+function updateProgress(){renderSteps();renderUnits();renderHeaderRing();const unit=getUnit();const pct=getCompletion(unit,state.activeStep);const fill=document.getElementById('stepProgFill');const txt=document.getElementById('stepProgTxt');if(fill)fill.style.width=pct+'%';if(txt)txt.textContent=pct+'% complete';}
+function render(){renderUnits();renderSteps();renderContent();renderHeaderRing();}
+function showCompleteModal(unit){let html='';STEPS.forEach(step=>{const pct=getCompletion(unit,step.id);html+=`<div class="modal-summary-row"><span>${step.icon} ${step.title}</span><span class="spct">${pct}%</span></div>`;});document.getElementById('completeSummary').innerHTML=html;document.getElementById('completeModal').classList.add('open');}
 
-function updateProgress(){
-  renderSteps(); renderUnits(); renderHeaderRing();
-  const unit=getUnit();
-  const pct=getCompletion(unit,state.activeStep);
-  const fill=document.getElementById('stepProgFill');
-  const txt=document.getElementById('stepProgTxt');
-  if(fill) fill.style.width=pct+'%';
-  if(txt) txt.textContent=pct+'% complete';
-}
-
-function render(){ renderUnits(); renderSteps(); renderContent(); renderHeaderRing(); }
-
-function showCompleteModal(unit){
-  let html='';
-  STEPS.forEach(step=>{
-    const pct=getCompletion(unit,step.id);
-    html+=`<div class="modal-summary-row"><span>${step.icon} ${step.title}</span><span class="spct">${pct}%</span></div>`;
-  });
-  document.getElementById('completeSummary').innerHTML=html;
-  document.getElementById('completeModal').classList.add('open');
-}
-
-// ─────────────────────────────────────────────────────────────────
 // HTML EXPORT
-// ─────────────────────────────────────────────────────────────────
 function fmtVal(value){
-  if(Array.isArray(value)){
-    if(!value.length) return '<p style="color:#888">—</p>';
-    return `<ul style="margin:0;padding-left:20px">${value.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;
-  }
-  const txt=String(value||'').trim();
-  if(!txt) return '<p style="color:#888">—</p>';
+  if(Array.isArray(value)){if(!value.length)return '<p style="color:#888">—</p>';return `<ul style="margin:0;padding-left:20px">${value.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`;}
+  const txt=String(value||'').trim();if(!txt)return '<p style="color:#888">—</p>';
   return `<p style="margin:0;line-height:1.6">${esc(txt).replace(/\n/g,'<br>')}</p>`;
 }
-
 function topicTableHtml(rows){
-  const clean=normalizeTopicPlans(rows);
-  if(!clean.length) return '<p style="color:#888">—</p>';
-  let totalA=0,totalB=0,totalC=0,totalD=0;
-  clean.forEach(r=>{ totalA+=parseH(r.hoursDirected); totalB+=parseH(r.hoursSelfDirected); totalC+=parseH(r.hoursApplied); totalD+=parseH(r.hoursAssessed); });
-  const grand=totalA+totalB+totalC+totalD;
-  const rows_html=clean.map(r=>{
-    const th=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)).toFixed(1);
-    return `<tr>
-      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-weight:600">${esc(r.topic||'—')}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.keyContent||'—').replace(/\n/g,'<br>')}</td>
-      <td style="border:1px solid #e0f9ff;padding:10px;text-align:center;background:#f0fdff;font-weight:600">${r.hoursDirected||'—'}</td>
-      <td style="border:1px solid #ede9fe;padding:10px;text-align:center;background:#faf5ff;font-weight:600">${r.hoursSelfDirected||'—'}</td>
-      <td style="border:1px solid #fef3c7;padding:10px;text-align:center;background:#fffbeb;font-weight:600">${r.hoursApplied||'—'}</td>
-      <td style="border:1px solid #d1fae5;padding:10px;text-align:center;background:#f0fdf4;font-weight:600">${r.hoursAssessed||'—'}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${th}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.learnerActivity||'—').replace(/\n/g,'<br>')}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-style:italic;color:#555">${esc(r.activityRationale||'—').replace(/\n/g,'<br>')}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.competencyLink||'—')}</td>
-    </tr>`;
-  }).join('');
-  const ap_pct=grand>0?Math.round((totalC+totalD)/grand*100):0;
-  return `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:1100px;margin-top:6px">
-    <thead><tr>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:140px">Topic</th>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:160px">Key Content</th>
-      <th style="border:1px solid #e0f9ff;padding:10px;background:#e0f9ff;text-align:center;color:#0e7490;min-width:60px">A hrs<br><small>Directed</small></th>
-      <th style="border:1px solid #ede9fe;padding:10px;background:#ede9fe;text-align:center;color:#5b21b6;min-width:60px">B hrs<br><small>Self-dir</small></th>
-      <th style="border:1px solid #fef3c7;padding:10px;background:#fef3c7;text-align:center;color:#92400e;min-width:60px">C hrs<br><small>Applied</small></th>
-      <th style="border:1px solid #d1fae5;padding:10px;background:#d1fae5;text-align:center;color:#065f46;min-width:60px">D hrs<br><small>Assessed</small></th>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:center;min-width:55px">Total</th>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Learner Activity</th>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Activity Rationale</th>
-      <th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:120px">Competency Link</th>
-    </tr></thead>
-    <tbody>${rows_html}</tbody>
-    <tfoot><tr>
-      <td colspan="2" style="border:1px solid #dbe9ed;padding:10px;font-weight:700;background:#f8fcfd">TOTALS</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#e0f9ff">${totalA.toFixed(1)}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#ede9fe">${totalB.toFixed(1)}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#fef3c7">${totalC.toFixed(1)}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#d1fae5">${totalD.toFixed(1)}</td>
-      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${grand.toFixed(1)}</td>
-      <td colspan="3" style="border:1px solid #dbe9ed;padding:10px;background:#${ap_pct>=50?'ecfdf5':'fef9c3'}">
-        <strong>CBE Blend:</strong> Applied+Assessed = ${ap_pct}% of total hours
-        ${ap_pct>=50?'✅ Meets CBE threshold (≥50%)':'⚠️ Below CBE threshold — increase applied/assessed hours'}
-      </td>
-    </tr></tfoot>
-  </table></div>`;
+  const clean=normalizeTopicPlans(rows);if(!clean.length)return '<p style="color:#888">—</p>';
+  let tA=0,tB=0,tC=0,tD=0;clean.forEach(r=>{tA+=parseH(r.hoursDirected);tB+=parseH(r.hoursSelfDirected);tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);});
+  const grand=tA+tB+tC+tD;
+  const rh=clean.map(r=>{const th=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)).toFixed(1);return `<tr><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-weight:600">${esc(r.topic||'—')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.keyContent||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #e0f9ff;padding:10px;text-align:center;background:#f0fdff;font-weight:600">${r.hoursDirected||'—'}</td><td style="border:1px solid #ede9fe;padding:10px;text-align:center;background:#faf5ff;font-weight:600">${r.hoursSelfDirected||'—'}</td><td style="border:1px solid #fef3c7;padding:10px;text-align:center;background:#fffbeb;font-weight:600">${r.hoursApplied||'—'}</td><td style="border:1px solid #d1fae5;padding:10px;text-align:center;background:#f0fdf4;font-weight:600">${r.hoursAssessed||'—'}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${th}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.learnerActivity||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-style:italic;color:#555">${esc(r.activityRationale||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.competencyLink||'—')}</td></tr>`;}).join('');
+  const ap_pct=grand>0?Math.round((tC+tD)/grand*100):0;
+  return `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:1100px;margin-top:6px"><thead><tr><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:140px">Topic</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:160px">Key Content</th><th style="border:1px solid #e0f9ff;padding:10px;background:#e0f9ff;text-align:center;color:#0e7490;min-width:60px">A hrs<br><small>Directed</small></th><th style="border:1px solid #ede9fe;padding:10px;background:#ede9fe;text-align:center;color:#5b21b6;min-width:60px">B hrs<br><small>Self-dir</small></th><th style="border:1px solid #fef3c7;padding:10px;background:#fef3c7;text-align:center;color:#92400e;min-width:60px">C hrs<br><small>Applied</small></th><th style="border:1px solid #d1fae5;padding:10px;background:#d1fae5;text-align:center;color:#065f46;min-width:60px">D hrs<br><small>Assessed</small></th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:center;min-width:55px">Total</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Learner Activity</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Activity Rationale</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:120px">Competency Link</th></tr></thead><tbody>${rh}</tbody><tfoot><tr><td colspan="2" style="border:1px solid #dbe9ed;padding:10px;font-weight:700;background:#f8fcfd">TOTALS</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#e0f9ff">${tA.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#ede9fe">${tB.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#fef3c7">${tC.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#d1fae5">${tD.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${grand.toFixed(1)}</td><td colspan="3" style="border:1px solid #dbe9ed;padding:10px;background:#${ap_pct>=50?'ecfdf5':'fef9c3'}"><strong>CBE Blend:</strong> Applied+Assessed = ${ap_pct}% of total hours ${ap_pct>=50?'✅ Meets CBE threshold (≥50%)':'⚠️ Below CBE threshold — increase applied/assessed hours'}</td></tr></tfoot></table></div>`;
 }
-
 function generateUnitHtml(unit){
-  const tp=getTotalProgress(unit);
-  const topicData=normalizeTopicPlans(unit.data[8]?.topicPlans||[]);
-  let totalA=0,totalB=0,totalC=0,totalD=0;
-  topicData.forEach(r=>{ totalA+=parseH(r.hoursDirected); totalB+=parseH(r.hoursSelfDirected); totalC+=parseH(r.hoursApplied); totalD+=parseH(r.hoursAssessed); });
-  const grand=totalA+totalB+totalC+totalD;
-  const ap_pct=grand>0?Math.round((totalC+totalD)/grand*100):0;
-  const sections=STEPS.map(step=>{
-    const data=unit.data[step.id]||{};
-    const fieldsHtml=step.fields.map(field=>{
-      const valueHtml=field.type==='topicTable'?topicTableHtml(data[field.key]):fmtVal(data[field.key]);
-      return `<div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #edf4f6"><div style="font-size:11px;font-weight:700;color:#0d7d8c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">${esc(field.label)}</div>${valueHtml}</div>`;
-    }).join('');
-    return `<section style="background:#fff;border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);border:1px solid #e3eef1">
-      <div style="color:#fff;padding:16px 20px;display:flex;gap:12px;align-items:center;background:${step.color}">
-        <div style="font-size:28px">${step.icon}</div>
-        <div><div style="font-size:11px;font-weight:700;opacity:.85;letter-spacing:.08em">STEP ${step.id}</div><div style="font-family:Georgia,serif;font-size:20px;font-weight:700;margin-top:3px">${esc(step.title)}</div></div>
-      </div>
-      <div style="padding:18px">${fieldsHtml}</div>
-    </section>`;
-  }).join('');
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>${esc(unit.name)} – CompetencyPath Export</title>
-<style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap');body{font-family:'Outfit',Arial,sans-serif;margin:0;background:#f0faf7;color:#1a3a42;line-height:1.55}.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}.hero{background:linear-gradient(135deg,#0e2433,#163348 55%,#1a4a3a);color:#fff;border-radius:20px;padding:28px;margin-bottom:24px}.hero h1{font-family:'Fraunces',Georgia,serif;margin:0 0 8px;font-size:32px}.hero .desc{margin:8px 0 16px;font-size:15px;opacity:.9;line-height:1.6;max-width:760px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 13px;border-radius:999px;font-size:12.5px}.time-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}.ts-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;border:1.5px solid #e3eef1}.ts-card .num{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;margin-bottom:4px}.ts-card .lbl{font-size:12px;color:#6b9aaa}.footer{margin-top:30px;text-align:center;color:#6e8b95;font-size:13px}</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="hero">
-    <h1>${esc(unit.name)}</h1>
-    ${unit.description?`<div class="desc">${esc(unit.description)}</div>`:''}
-    <div class="meta">
-      <div class="badge">Completion: ${tp}%</div>
-      <div class="badge">AI-enhanced: ${unit.aiGenerated?'Yes':'No'}</div>
-      <div class="badge">Total study hours: ${grand.toFixed(1)}h</div>
-      <div class="badge">CBE blend (Applied+Assessed): ${ap_pct}%${ap_pct>=50?' ✅':' ⚠️'}</div>
-      <div class="badge">Kampala International University</div>
-    </div>
-  </div>
-  ${grand>0?`<div class="time-summary">
-    <div class="ts-card"><div class="num" style="color:#0e7490">${totalA.toFixed(1)}h</div><div class="lbl">A — Directed</div></div>
-    <div class="ts-card"><div class="num" style="color:#5b21b6">${totalB.toFixed(1)}h</div><div class="lbl">B — Self-directed</div></div>
-    <div class="ts-card"><div class="num" style="color:#92400e">${totalC.toFixed(1)}h</div><div class="lbl">C — Applied</div></div>
-    <div class="ts-card"><div class="num" style="color:#065f46">${totalD.toFixed(1)}h</div><div class="lbl">D — Assessed</div></div>
-    <div class="ts-card"><div class="num" style="color:#0e2433">${grand.toFixed(1)}h</div><div class="lbl">Total notional hours</div></div>
-  </div>`:''}
-  ${sections}
-  <div class="footer">Exported from CompetencyPath v2.0 · Powered by Dr. Michael Adelani Adewusi AI-Research Lab · Dr. Michael Adelani Adewusi · Kampala International University, Uganda</div>
-</div>
-</body>
-</html>`;
+  const tp=getTotalProgress(unit);const topicData=normalizeTopicPlans(unit.data[8]?.topicPlans||[]);
+  let tA=0,tB=0,tC=0,tD=0;topicData.forEach(r=>{tA+=parseH(r.hoursDirected);tB+=parseH(r.hoursSelfDirected);tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);});
+  const grand=tA+tB+tC+tD;const ap_pct=grand>0?Math.round((tC+tD)/grand*100):0;
+  const sections=STEPS.map(step=>{const data=unit.data[step.id]||{};const fh=step.fields.map(field=>{const vh=field.type==='topicTable'?topicTableHtml(data[field.key]):fmtVal(data[field.key]);return `<div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #edf4f6"><div style="font-size:11px;font-weight:700;color:#0d7d8c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">${esc(field.label)}</div>${vh}</div>`;}).join('');return `<section style="background:#fff;border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);border:1px solid #e3eef1"><div style="color:#fff;padding:16px 20px;display:flex;gap:12px;align-items:center;background:${step.color}"><div style="font-size:28px">${step.icon}</div><div><div style="font-size:11px;font-weight:700;opacity:.85;letter-spacing:.08em">STEP ${step.id}</div><div style="font-family:Georgia,serif;font-size:20px;font-weight:700;margin-top:3px">${esc(step.title)}</div></div></div><div style="padding:18px">${fh}</div></section>`;}).join('');
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>${esc(unit.name)} – CompetencyPath Export</title><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap');body{font-family:'Outfit',Arial,sans-serif;margin:0;background:#f0faf7;color:#1a3a42;line-height:1.55}.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}.hero{background:linear-gradient(135deg,#0e2433,#163348 55%,#1a4a3a);color:#fff;border-radius:20px;padding:28px;margin-bottom:24px}.hero h1{font-family:'Fraunces',Georgia,serif;margin:0 0 8px;font-size:32px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 13px;border-radius:999px;font-size:12.5px}.time-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}.ts-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;border:1.5px solid #e3eef1}.ts-card .num{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;margin-bottom:4px}.ts-card .lbl{font-size:12px;color:#6b9aaa}.footer{margin-top:30px;text-align:center;color:#6e8b95;font-size:13px}</style></head><body><div class="wrap"><div class="hero"><h1>${esc(unit.name)}</h1>${unit.description?`<div style="margin:8px 0 16px;font-size:15px;opacity:.9;line-height:1.6;max-width:760px">${esc(unit.description)}</div>`:''}<div class="meta"><div class="badge">Completion: ${tp}%</div><div class="badge">AI-enhanced: ${unit.aiGenerated?'Yes':'No'}</div><div class="badge">Total study hours: ${grand.toFixed(1)}h</div><div class="badge">CBE blend: ${ap_pct}%${ap_pct>=50?' ✅':' ⚠️'}</div><div class="badge">Kampala International University</div></div></div>${grand>0?`<div class="time-summary"><div class="ts-card"><div class="num" style="color:#0e7490">${tA.toFixed(1)}h</div><div class="lbl">A — Directed</div></div><div class="ts-card"><div class="num" style="color:#5b21b6">${tB.toFixed(1)}h</div><div class="lbl">B — Self-directed</div></div><div class="ts-card"><div class="num" style="color:#92400e">${tC.toFixed(1)}h</div><div class="lbl">C — Applied</div></div><div class="ts-card"><div class="num" style="color:#065f46">${tD.toFixed(1)}h</div><div class="lbl">D — Assessed</div></div><div class="ts-card"><div class="num" style="color:#0e2433">${grand.toFixed(1)}h</div><div class="lbl">Total notional hours</div></div></div>`:''} ${sections}<div class="footer">Exported from CompetencyPath v3.0 · Powered by Dr. Michael Adelani Adewusi AI-Research Lab · Kampala International University, Uganda</div></div></body></html>`;
 }
+function downloadActiveUnitHtml(){const unit=getUnit();if(!unit){alert('Please select a unit first.');return;}const html=generateUnitHtml(unit);const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`${(unit.name.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_'))||'course_unit'}.html`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
 
-function downloadActiveUnitHtml(){
-  const unit=getUnit();
-  if(!unit){ alert('Please select a unit first.'); return; }
-  const html=generateUnitHtml(unit);
-  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download=`${(unit.name.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_'))||'course_unit'}.html`;
-  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-}
-
-// ─────────────────────────────────────────────────────────────────
 // FILE UPLOAD
-// ─────────────────────────────────────────────────────────────────
 async function handleSelectedFile(file){
   const meta=document.getElementById('fileMeta');
-  try{
-    const text=await file.text();
-    uploadedFileText=text.trim(); uploadedFileName=file.name;
-    meta.style.display='block';
-    meta.innerHTML=`<strong>✓ Loaded:</strong> ${esc(file.name)} — ${uploadedFileText.length.toLocaleString()} characters`;
-  }catch(err){
-    uploadedFileText=''; uploadedFileName='';
-    meta.style.display='block';
-    meta.innerHTML=`<span style="color:#a02020"><strong>Error:</strong> ${esc(err.message)}</span>`;
-  }
+  try{const text=await file.text();uploadedFileText=text.trim();uploadedFileName=file.name;meta.style.display='block';meta.innerHTML=`<strong>✓ Loaded:</strong> ${esc(file.name)} — ${uploadedFileText.length.toLocaleString()} characters`;}
+  catch(err){uploadedFileText='';uploadedFileName='';meta.style.display='block';meta.innerHTML=`<span style="color:#a02020"><strong>Error:</strong> ${esc(err.message)}</span>`;}
 }
+function buildCombinedInput(){const pasted=document.getElementById('writeupInput').value.trim();const blocks=[];if(pasted)blocks.push(`PASTED TEXT:\n${pasted}`);if(uploadedFileText)blocks.push(`UPLOADED FILE (${uploadedFileName}):\n${uploadedFileText}`);return blocks.join('\n\n====================\n\n').trim();}
 
-function buildCombinedInput(){
-  const pasted=document.getElementById('writeupInput').value.trim();
-  const blocks=[];
-  if(pasted) blocks.push(`PASTED TEXT:\n${pasted}`);
-  if(uploadedFileText) blocks.push(`UPLOADED FILE (${uploadedFileName}):\n${uploadedFileText}`);
-  return blocks.join('\n\n====================\n\n').trim();
-}
-
-// ─────────────────────────────────────────────────────────────────
-// OPENROUTER BACKEND CONFIG
-// App is served from Render and calls a same-origin backend route,
-// which securely forwards each focused prompt to OpenRouter.
-// ─────────────────────────────────────────────────────────────────
-const API_BASE = '';
-
-function getAIModel(){
-  return document.getElementById('openrouterModelSelect')?.value || 'meta-llama/llama-3.3-70b-instruct';
-}
-
-function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-// Render/OpenRouter backend request
-async function providerRequest(promptText, stepLabel){
-  const base  = API_BASE;
-  const model = getAIModel();
-  const MAX_ATTEMPTS = 4;
-
-  for(let attempt=1; attempt<=MAX_ATTEMPTS; attempt++){
-    let secs = 0;
-    const el = () => document.getElementById('aiStatusText');
-    const ticker = setInterval(()=>{
-      secs++;
-      if(el()) el().innerHTML =
-        (secs < 15 ? '' : '⏱ Waiting for backend… ') +
-        '<strong>' + stepLabel + '</strong>' +
-        (secs > 5 ? ' (' + secs + 's)' : '');
-    }, 1000);
-
+// BACKEND CONFIG
+const API_BASE='';
+function getAIModel(){return document.getElementById('openrouterModelSelect')?.value||'meta-llama/llama-3.3-70b-instruct';}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+async function providerRequest(promptText,stepLabel){
+  const model=getAIModel();const MAX_ATTEMPTS=4;
+  for(let attempt=1;attempt<=MAX_ATTEMPTS;attempt++){
+    let secs=0;const el=()=>document.getElementById('aiStatusText');
+    const ticker=setInterval(()=>{secs++;if(el())el().innerHTML=(secs<15?'':'⏱ Waiting for backend… ')+'<strong>'+stepLabel+'</strong>'+(secs>5?' ('+secs+'s)':'');},1000);
     try{
-      const res = await fetch(base + '/api/generate-step', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ prompt: promptText, model, stepLabel }),
-        signal:  AbortSignal.timeout(300000)
-      });
+      const res=await fetch(API_BASE+'/api/generate-step',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:promptText,model,stepLabel}),signal:AbortSignal.timeout(300000)});
       clearInterval(ticker);
-
-      if(res.ok){
-        const data = await res.json();
-        if(data && typeof data === 'object') return data;
-        throw new Error('Empty response from server for ' + stepLabel);
-      }
-      const err = await res.json().catch(()=>({}));
-      const msg = err?.error || 'Server error ' + res.status;
-
-      if((res.status===429 || res.status===503) && attempt < MAX_ATTEMPTS){
-        if(el()) el().textContent = stepLabel + ' — provider busy, retrying...';
-        await sleep(5000 * attempt);
-        continue;
-      }
-
-      throw new Error(stepLabel + ': ' + msg);
-    } catch(err){
+      if(res.ok){const data=await res.json();if(data&&typeof data==='object')return data;throw new Error('Empty response from server for '+stepLabel);}
+      const err=await res.json().catch(()=>({}));const msg=err?.error||'Server error '+res.status;
+      if((res.status===429||res.status===503)&&attempt<MAX_ATTEMPTS){if(el())el().textContent=stepLabel+' — provider busy, retrying...';await sleep(5000*attempt);continue;}
+      throw new Error(stepLabel+': '+msg);
+    }catch(err){
       clearInterval(ticker);
-
-      if((err.name === 'AbortError' || String(err.message||'').includes('signal')) && attempt < MAX_ATTEMPTS){
-        if(el()) el().textContent = stepLabel + ' timed out — retrying...';
-        await sleep(4000 * attempt);
-        continue;
-      }
-      if(err.name === 'TypeError' && String(err.message||'').includes('fetch') && attempt < MAX_ATTEMPTS){
-        if(el()) el().textContent = stepLabel + ' — reconnecting to backend...';
-        await sleep(4000 * attempt);
-        continue;
-      }
+      if((err.name==='AbortError'||String(err.message||'').includes('signal'))&&attempt<MAX_ATTEMPTS){if(document.getElementById('aiStatusText'))document.getElementById('aiStatusText').textContent=stepLabel+' timed out — retrying...';await sleep(4000*attempt);continue;}
+      if(err.name==='TypeError'&&String(err.message||'').includes('fetch')&&attempt<MAX_ATTEMPTS){if(document.getElementById('aiStatusText'))document.getElementById('aiStatusText').textContent=stepLabel+' — reconnecting to backend...';await sleep(4000*attempt);continue;}
       throw err;
     }
   }
-
-  throw new Error('OpenRouter backend could not complete ' + stepLabel + '.');
+  throw new Error('OpenRouter backend could not complete '+stepLabel+'.');
 }
 
 // ─────────────────────────────────────────────────────────────────
-// 15 FOCUSED PROMPTS — one per design step
+// 15 FOCUSED PROMPTS
+// NOTE: p1 does NOT ask the model to generate courseCode/creditUnits/
+//       notionalHours — those fields have been removed from Step 1.
 // ─────────────────────────────────────────────────────────────────
+function p1(inp){return `You are an expert competency-based course designer for Kampala International University (KIU), Uganda.\nAnalyse the course write-up below and return ONLY a valid JSON object — no markdown, no backticks, no commentary.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON structure with detailed, substantive, institution-ready content:\n{\n  "unitName": "Full descriptive title of the unit/course",\n  "unitDescription": "2-3 sentence overview of what the course covers, who it is for, and why it matters",\n  "step1": {\n    "justification": "A strong programme-level justification for the course — explain the professional or institutional gap it addresses, why it is essential for the programme, and what value it adds to learners",\n    "courseAims": "Broad course aims written as clear academic aims using action-oriented language",\n    "courseDescription": "A concise course description aligned with the write-up"\n  }\n}`;}
 
-// ─────────────────────────────────────────────────────────────────
-// 15 FOCUSED PROMPTS — one per design step
-// ─────────────────────────────────────────────────────────────────
-function p1(inp){ return `You are an expert competency-based course designer for Kampala International University (KIU), Uganda.
-Analyse the course write-up below and return ONLY a valid JSON object — no markdown, no backticks, no commentary.
+function p2(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCourse aims: ${ctx.step1?.courseAims||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nBloom levels MUST only come from: Remember, Understand, Apply, Analyze, Evaluate, Create.\n\nReturn exactly this JSON:\n{\n  "step2": {\n    "cognitiveOutcomes": "List 4-6 cognitive outcomes, one per line, using Bloom verbs and focused on knowledge and intellectual performance",\n    "bloomVerbs": ["analyse","evaluate","apply","design"],\n    "bloomLevels": ["Understand","Apply","Analyze","Evaluate"],\n    "assessmentLinkage": "Explain how each cognitive outcome links to quizzes, projects, exams, or other assessments"\n  }\n}`;}
 
-COURSE WRITE-UP:
-${inp}
+function p3(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCognitive outcomes:\n${ctx.step2?.cognitiveOutcomes||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step3": {\n    "affectiveOutcomes": "List 3-5 affective outcomes, one per line, describing values, attitudes, professional dispositions, or ethical behaviours",\n    "professionalValues": ["integrity","professionalism","collaboration","ethical judgement"],\n    "developmentStrategies": "Explain how teaching, reflection, mentoring, or class culture will cultivate these affective outcomes",\n    "evidenceMethods": "Explain how the affective outcomes will be evidenced or measured"\n  }\n}`;}
 
-Return exactly this JSON structure with detailed, substantive, institution-ready content:
-{
-  "unitName": "Full descriptive title of the unit/course",
-  "unitDescription": "2-3 sentence overview of what the course covers, who it is for, and why it matters",
-  "step1": {
-    "courseCode": "Course code",
-    "creditUnits": "Credit units",
-    "notionalHours": "Total notional hours",
-    "justification": "A strong programme-level justification for the course",
-    "courseAims": "Broad course aims written as clear academic aims",
-    "courseDescription": "A concise course description aligned with the write-up"
-  }
-}`; }
+function p4(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step4": {\n    "psychomotorOutcomes": "List 3-5 psychomotor or practical skill outcomes, one per line, appropriate to the course context",\n    "handsOnActivities": "Describe hands-on activities, lab tasks, simulations, demonstrations, or practice tasks that build those skills",\n    "practicalAssessmentMethods": "Explain how the practical or technical skills will be assessed",\n    "equipmentMaterials": "List the equipment, materials, tools, or practice environments required"\n  }\n}`;}
 
-function p2(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Course aims: ${ctx.step1?.courseAims||''}
-Return ONLY a valid JSON object — no markdown, no backticks.
+function p5(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nContext from previous steps:\n- Course aims: ${ctx.step1?.courseAims||''}\n- Cognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}\n- Affective outcomes: ${ctx.step3?.affectiveOutcomes||''}\n- Psychomotor outcomes: ${ctx.step4?.psychomotorOutcomes||''}\n\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step5": {\n    "currentState": "Detailed description of learners typical competency level on entry to this course",\n    "desiredState": "Precise description of the competency state learners must reach by the end",\n    "gaps": "Specific knowledge gaps, skill deficits, and attitude/disposition gaps between current and desired state",\n    "priority": "Critical"\n  }\n}`;}
 
-COURSE WRITE-UP:
-${inp}
+function p6(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nRelevant prior context:\n- Cognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}\n- Psychomotor outcomes: ${ctx.step4?.psychomotorOutcomes||''}\n- Competency gap analysis: ${ctx.step5?.gaps||''}\n\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step6": {\n    "competencies": ["Competency 1: full sentence","Competency 2: full sentence","Competency 3: full sentence","Competency 4: full sentence"],\n    "knowledgeAreas": "Paragraph describing BOTH declarative and procedural knowledge required for the course",\n    "skills": ["Observable skill 1","Observable skill 2","Observable skill 3"],\n    "mappingNotes": "Detailed explanation of how knowledge areas and skills map to competencies"\n  }\n}`;}
 
-Bloom levels MUST only come from: Remember, Understand, Apply, Analyze, Evaluate, Create.
+function p7(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nCognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step7": {\n    "specific": "Precise observable description of what learners will do by the end of the course",\n    "measurable": "Performance indicators with concrete evidence — scores, rubric levels, or demonstrated outcomes. Do NOT list activities.",\n    "achievable": "Explain why the objectives are realistic for the target learners based on prior knowledge and scaffolding",\n    "relevant": "Explain why these objectives matter for academic progression and professional practice",\n    "timeBound": "By end of Week X / by the end of the course",\n    "completeObjectives": "Write 4-6 full SMART objectives, one per line"\n  }\n}`;}
 
-Return exactly this JSON:
-{
-  "step2": {
-    "cognitiveOutcomes": "List 4-6 cognitive outcomes, one per line, using Bloom verbs and focused on knowledge and intellectual performance",
-    "bloomVerbs": ["analyse","evaluate","apply","design"],
-    "bloomLevels": ["Understand","Apply","Analyze","Evaluate"],
-    "assessmentLinkage": "Explain how each cognitive outcome links to quizzes, projects, exams, or other assessments"
-  }
-}`; }
+function p8(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nSMART objectives:\n${ctx.step7?.completeObjectives||''}\n\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nCRITICAL: topicPlans Applied + Assessed hours MUST exceed 50% of total hours.\nReturn JSON (topicPlans must be an array with at least 4 rows):\n{\n  "step8": {\n    "contentOverview": "Topic sequence and pedagogical rationale",\n    "topicPlans": [\n      {"topic":"Topic title","keyContent":"Key concepts","hoursDirected":"2","hoursSelfDirected":"2","hoursApplied":"3","hoursAssessed":"1","learnerActivity":"Learners will [active verb]","activityRationale":"Why this builds competency","competencyLink":"Competency 1"}\n    ],\n    "contentRationale": "Why this sequence and why Applied+Assessed exceeds 50%"\n  }\n}`;}
 
-function p3(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Cognitive outcomes:
-${ctx.step2?.cognitiveOutcomes||''}
-Return ONLY a valid JSON object — no markdown, no backticks.
+function p9(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn JSON (rubric MUST include Excellent/Proficient/Developing/Beginning for each criterion):\n{\n  "step9": {\n    "formative": "Formative assessments with frequency and purpose",\n    "summative": "Summative assessments with weightings",\n    "rubric": "Criterion 1 – [Name]\\n  Excellent: ...\\n  Proficient: ...\\n  Developing: ...\\n  Beginning: ...",\n    "evidenceType": ["Portfolio","Case Analysis","Practical Demonstration"],\n    "passingCriteria": ">=75% with no criterion below Developing",\n    "competencyAlignment": "Quiz 1 -> Competency 1\\nProject -> Competencies 2,3",\n    "masteryJustification": "Rationale citing KIU policy, industry standards and CBE research"\n  }\n}`;}
 
-COURSE WRITE-UP:
-${inp}
+function p10(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nContext: university level, East Africa, mixed internet connectivity.\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\ncontentFormats values MUST only come from: ${CONTENT_FORMAT_OPTIONS.join(', ')}.\nReturn exactly this JSON:\n{\n  "step10": {\n    "modality": "Blended / Hybrid",\n    "tools": ["Moodle LMS","Zoom","Google Workspace","WhatsApp groups for peer support"],\n    "contentFormats": ["Video Lectures","Reading Materials","Case Studies","Discussion Forums"],\n    "accessibilityNotes": "Specific accessibility provisions for the course context"\n  }\n}`;}
 
-Return exactly this JSON:
-{
-  "step3": {
-    "affectiveOutcomes": "List 3-5 affective outcomes, one per line, describing values, attitudes, professional dispositions, or ethical behaviours",
-    "professionalValues": ["integrity","professionalism","collaboration","ethical judgement"],
-    "developmentStrategies": "Explain how teaching, reflection, mentoring, or class culture will cultivate these affective outcomes",
-    "evidenceMethods": "Explain how the affective outcomes will be evidenced or measured"
-  }
-}`; }
+function p11(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step11": {\n    "activities": "Describe 3-5 named core learning activities in detail. State what learners do, how long it takes, which competency it builds, and how mastery is demonstrated.",\n    "collaboration": "Describe specific collaborative elements: group sizes, role distribution, accountability, and how collaboration builds competence.",\n    "gamification": "Describe meaningful engagement strategies with educational rationale.",\n    "realWorld": "Describe real-world scenarios, case organisations, workplace tasks, or simulations that connect to authentic practice."\n  }\n}`;}
 
-function p4(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Return ONLY a valid JSON object — no markdown, no backticks.
+function p12(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step12": {\n    "prerequisites": "Specific prerequisite knowledge and a suggested diagnostic or self-assessment",\n    "paths": "Branching routes inside the course based on diagnostic results or mastery",\n    "selfPacedProgression": "How learners control pace within the course",\n    "competencyUnlocking": "How demonstrating competency in one module gates access to the next",\n    "optionalContent": "Optional or enrichment content for advanced learners",\n    "adaptations": "Adaptations for different learner needs",\n    "rplProvision": "Recognition of prior learning and challenge exam provision"\n  }\n}`;}
 
-COURSE WRITE-UP:
-${inp}
+function p13(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nDelivery modality: ${ctx.step10?.modality||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step13": {\n    "strategyMatrix": "Write a Strategy | Purpose | Resource matrix, with one row per line and at least 5 rows.",\n    "resourceMaterials": "Describe the core teaching and learning resources required by the course",\n    "instructionalNotes": "Explain why these instructional strategies and resources fit the learners, outcomes, and context"\n  }\n}`;}
 
-Return exactly this JSON:
-{
-  "step4": {
-    "psychomotorOutcomes": "List 3-5 psychomotor or practical skill outcomes, one per line, appropriate to the course context",
-    "handsOnActivities": "Describe hands-on activities, lab tasks, simulations, demonstrations, or practice tasks that build those skills",
-    "practicalAssessmentMethods": "Explain how the practical or technical skills will be assessed",
-    "equipmentMaterials": "List the equipment, materials, tools, or practice environments required"
-  }
-}`; }
+function p14(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nfeedbackMechanisms values MUST only come from: ${FEEDBACK_OPTIONS.join(', ')}.\n\nReturn exactly this JSON:\n{\n  "step14": {\n    "feedbackMechanisms": ["Instructor Comments","Peer Review","Learning Analytics"],\n    "feedbackSchedule": "Specific feedback timeline with turnaround expectations",\n    "improvementLoop": "Concrete process for using feedback data to revise teaching, content, or support",\n    "successMetrics": ["Completion rate: baseline 65%, target >=85%","Pass rate: baseline 60%, target >=80%"]\n  }\n}`;}
 
-function p5(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Context from previous steps:
-- Course aims: ${ctx.step1?.courseAims||''}
-- Cognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}
-- Affective outcomes: ${ctx.step3?.affectiveOutcomes||''}
-- Psychomotor outcomes: ${ctx.step4?.psychomotorOutcomes||''}
-
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON:
-{
-  "step5": {
-    "currentState": "Detailed description of learners typical competency level on entry to this course",
-    "desiredState": "Precise description of the competency state learners must reach by the end",
-    "gaps": "Specific knowledge gaps, skill deficits, and attitude/disposition gaps between current and desired state",
-    "priority": "Critical"
-  }
-}`; }
-
-function p6(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Relevant prior context:
-- Cognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}
-- Psychomotor outcomes: ${ctx.step4?.psychomotorOutcomes||''}
-- Competency gap analysis: ${ctx.step5?.gaps||''}
-
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON structure with rich, detailed content:
-{
-  "step6": {
-    "competencies": [
-      "Competency 1: full sentence describing the observable, assessable competency",
-      "Competency 2: full sentence",
-      "Competency 3: full sentence",
-      "Competency 4: full sentence"
-    ],
-    "knowledgeAreas": "Paragraph describing BOTH declarative and procedural knowledge required for the course",
-    "skills": [
-      "Observable skill 1: specific measurable verb-led description",
-      "Observable skill 2: specific measurable verb-led description",
-      "Observable skill 3: specific measurable verb-led description"
-    ],
-    "mappingNotes": "Detailed explanation of how knowledge areas and skills map to competencies"
-  }
-}`; }
-
-function p7(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Competencies: ${(ctx.step6?.competencies||[]).join('; ')}
-Cognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}
-Affective outcomes: ${ctx.step3?.affectiveOutcomes||''}
-Psychomotor outcomes: ${ctx.step4?.psychomotorOutcomes||''}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON structure with substantive content:
-{
-  "step7": {
-    "specific": "Precise observable description of what learners will do by the end of the course",
-    "measurable": "Performance indicators with concrete evidence — scores, rubric levels, or demonstrated outcomes. Do NOT list activities.",
-    "achievable": "Explain why the objectives are realistic for the target learners based on prior knowledge and scaffolding",
-    "relevant": "Explain why these objectives matter for academic progression and professional practice",
-    "timeBound": "By end of Week X / by the end of the course",
-    "completeObjectives": "Write 4-6 full SMART objectives, one per line"
-  }
-}`; }
-
-function p8(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Competencies: ${(ctx.step6?.competencies||[]).join('; ')}
-SMART objectives:
-${ctx.step7?.completeObjectives||''}
-
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-CRITICAL: topicPlans Applied + Assessed hours MUST exceed 50% of total hours.
-Return JSON (topicPlans must be an array with at least 4 rows):
-{
-  "step8": {
-    "contentOverview": "Topic sequence and pedagogical rationale",
-    "topicPlans": [
-      {
-        "topic": "Topic title",
-        "keyContent": "Key concepts and procedures",
-        "hoursDirected": "2",
-        "hoursSelfDirected": "2",
-        "hoursApplied": "3",
-        "hoursAssessed": "1",
-        "learnerActivity": "Learners will [active verb] — concrete description",
-        "activityRationale": "Why this builds competency",
-        "competencyLink": "Competency 1"
-      }
-    ],
-    "contentRationale": "Why this sequence and why Applied+Assessed exceeds 50%"
-  }
-}`; }
-
-function p9(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Competencies: ${(ctx.step6?.competencies||[]).join('; ')}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return JSON (rubric MUST include Excellent/Proficient/Developing/Beginning for each criterion):
-{
-  "step9": {
-    "formative": "Formative assessments with frequency and purpose",
-    "summative": "Summative assessments with weightings",
-    "rubric": "Criterion 1 – [Name]\n  Excellent: ...\n  Proficient: ...\n  Developing: ...\n  Beginning: ...",
-    "evidenceType": ["Portfolio","Case Analysis","Practical Demonstration"],
-    "passingCriteria": ">=75% with no criterion below Developing",
-    "competencyAlignment": "Quiz 1 -> Competency 1\nProject -> Competencies 2,3",
-    "masteryJustification": "Rationale citing KIU policy, industry standards and CBE research"
-  }
-}`; }
-
-function p10(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Context: university level, East Africa, mixed internet connectivity.
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-contentFormats values MUST only come from: ${CONTENT_FORMAT_OPTIONS.join(', ')}.
-Return exactly this JSON:
-{
-  "step10": {
-    "modality": "Blended / Hybrid",
-    "tools": ["Moodle LMS", "Zoom", "Google Workspace", "WhatsApp groups for peer support"],
-    "contentFormats": ["Video Lectures", "Reading Materials", "Case Studies", "Discussion Forums"],
-    "accessibilityNotes": "Specific accessibility provisions for the course context"
-  }
-}`; }
-
-function p11(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Competencies: ${(ctx.step6?.competencies||[]).join('; ')}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON with rich, detailed content:
-{
-  "step11": {
-    "activities": "Describe 3-5 named core learning activities in detail. State what learners do, how long it takes, which competency it builds, and how mastery is demonstrated.",
-    "collaboration": "Describe specific collaborative elements: group sizes, role distribution, accountability, and how collaboration builds competence.",
-    "gamification": "Describe meaningful engagement strategies such as milestone badges, progress checkpoints, challenge tasks, or low-stakes competitions with educational rationale.",
-    "realWorld": "Describe real-world scenarios, case organisations, workplace tasks, or simulations that connect the course to authentic practice."
-  }
-}`; }
-
-function p12(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON:
-{
-  "step12": {
-    "prerequisites": "Specific prerequisite knowledge and a suggested diagnostic or self-assessment",
-    "paths": "Branching routes inside the course based on diagnostic results or mastery",
-    "selfPacedProgression": "How learners control pace within the course",
-    "competencyUnlocking": "How demonstrating competency in one module gates access to the next",
-    "optionalContent": "Optional or enrichment content for advanced learners",
-    "adaptations": "Adaptations for different learner needs",
-    "rplProvision": "Recognition of prior learning and challenge exam provision"
-  }
-}`; }
-
-function p13(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Delivery modality: ${ctx.step10?.modality||''}
-Learning activities: ${ctx.step11?.activities||''}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-Return exactly this JSON:
-{
-  "step13": {
-    "strategyMatrix": "Write a Strategy | Purpose | Resource matrix, with one row per line and at least 5 rows.",
-    "resourceMaterials": "Describe the core teaching and learning resources required by the course",
-    "instructionalNotes": "Explain why these instructional strategies and resources fit the learners, outcomes, and context"
-  }
-}`; }
-
-function p14(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-feedbackMechanisms values MUST only come from: ${FEEDBACK_OPTIONS.join(', ')}.
-
-Return exactly this JSON:
-{
-  "step14": {
-    "feedbackMechanisms": ["Instructor Comments", "Peer Review", "Learning Analytics"],
-    "feedbackSchedule": "Specific feedback timeline with turnaround expectations",
-    "improvementLoop": "Concrete process for using feedback data to revise teaching, content, or support",
-    "successMetrics": [
-      "Completion rate: baseline 65%, target >=85%",
-      "Pass rate: baseline 60%, target >=80%"
-    ]
-  }
-}`; }
-
-function p15(inp,ctx){ return `You are an expert competency-based course designer for KIU Uganda.
-Unit: ${ctx.unitName}
-Assessments:
-${ctx.step9?.summative||''}
-Competency alignment:
-${ctx.step9?.competencyAlignment||''}
-Return ONLY a valid JSON object — no markdown, no backticks.
-
-COURSE WRITE-UP:
-${inp}
-
-CRITICAL: courseworkWeight and examWeight must sum to 100%.
-Return exactly this JSON:
-{
-  "step15": {
-    "courseworkWeight": "60%",
-    "examWeight": "40%",
-    "competenceAssessmentAlignment": "Assessment component | Weight | Competence(s) assessed\nCoursework portfolio | 30% | Competencies 1 and 3\nFinal exam | 40% | Competencies 2 and 4",
-    "gradingScale": "State the grading scale or band descriptors used for the course",
-    "authenticAssessments": "Describe authentic assessments such as project work, practicum, simulations, case studies, viva, or portfolios"
-  }
-}`; }
+function p15(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nAssessments:\n${ctx.step9?.summative||''}\nCompetency alignment:\n${ctx.step9?.competencyAlignment||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nCRITICAL: courseworkWeight and examWeight must sum to 100%.\nReturn exactly this JSON:\n{\n  "step15": {\n    "courseworkWeight": "60%",\n    "examWeight": "40%",\n    "competenceAssessmentAlignment": "Assessment component | Weight | Competence(s) assessed\\nCoursework portfolio | 30% | Competencies 1 and 3\\nFinal exam | 40% | Competencies 2 and 4",\n    "gradingScale": "State the grading scale or band descriptors used for the course",\n    "authenticAssessments": "Describe authentic assessments such as project work, practicum, simulations, case studies, viva, or portfolios"\n  }\n}`;}
 
 // ─────────────────────────────────────────────────────────────────
-// 15-CALL ORCHESTRATOR — one focused AI call per design step
+// 15-CALL ORCHESTRATOR
 // ─────────────────────────────────────────────────────────────────
 async function callOpenRouterSequence(combinedInput){
-  const setTxt = t => { const el=document.getElementById('aiStatusText'); if(el) el.textContent=t; };
-  const PAUSE  = 900;
-
-  const steps = [
-    { fn: ()=>p1(combinedInput),        label:'Step 1: Course Justification & Aims',                  gsIdx:1 },
-    { fn: ctx=>p2(combinedInput,ctx),   label:'Step 2: Cognitive Domain Outcomes',                    gsIdx:2 },
-    { fn: ctx=>p3(combinedInput,ctx),   label:'Step 3: Affective Domain Outcomes',                    gsIdx:3 },
-    { fn: ctx=>p4(combinedInput,ctx),   label:'Step 4: Psychomotor Domain Outcomes',                  gsIdx:4 },
-    { fn: ctx=>p5(combinedInput,ctx),   label:'Step 5: Competency Gap Analysis',                      gsIdx:5 },
-    { fn: ctx=>p6(combinedInput,ctx),   label:'Step 6: Knowledge & Skills Mapping',                   gsIdx:6 },
-    { fn: ctx=>p7(combinedInput,ctx),   label:'Step 7: SMART Learning Objectives',                    gsIdx:7 },
-    { fn: ctx=>p8(combinedInput,ctx),   label:'Step 8: Content, Hours & Engagement',                  gsIdx:8 },
-    { fn: ctx=>p9(combinedInput,ctx),   label:'Step 9: Evidence-based Assessments',                   gsIdx:9 },
-    { fn: ctx=>p10(combinedInput,ctx),  label:'Step 10: Delivery Methods',                            gsIdx:10 },
-    { fn: ctx=>p11(combinedInput,ctx),  label:'Step 11: Learning Activities',                         gsIdx:11 },
-    { fn: ctx=>p12(combinedInput,ctx),  label:'Step 12: Flexible Learning Paths',                     gsIdx:12 },
-    { fn: ctx=>p13(combinedInput,ctx),  label:'Step 13: Instructional Strategies & Resources',        gsIdx:13 },
-    { fn: ctx=>p14(combinedInput,ctx),  label:'Step 14: Continuous Feedback',                         gsIdx:14 },
-    { fn: ctx=>p15(combinedInput,ctx),  label:'Step 15: Assessment Weights & Credit Structure',       gsIdx:15 },
+  const setTxt=t=>{const el=document.getElementById('aiStatusText');if(el)el.textContent=t;};
+  const PAUSE=900;
+  const steps=[
+    {fn:()=>p1(combinedInput),label:'Step 1: Course Justification & Aims',gsIdx:1},
+    {fn:ctx=>p2(combinedInput,ctx),label:'Step 2: Cognitive Domain Outcomes',gsIdx:2},
+    {fn:ctx=>p3(combinedInput,ctx),label:'Step 3: Affective Domain Outcomes',gsIdx:3},
+    {fn:ctx=>p4(combinedInput,ctx),label:'Step 4: Psychomotor Domain Outcomes',gsIdx:4},
+    {fn:ctx=>p5(combinedInput,ctx),label:'Step 5: Competency Gap Analysis',gsIdx:5},
+    {fn:ctx=>p6(combinedInput,ctx),label:'Step 6: Knowledge & Skills Mapping',gsIdx:6},
+    {fn:ctx=>p7(combinedInput,ctx),label:'Step 7: SMART Learning Objectives',gsIdx:7},
+    {fn:ctx=>p8(combinedInput,ctx),label:'Step 8: Content, Hours & Engagement',gsIdx:8},
+    {fn:ctx=>p9(combinedInput,ctx),label:'Step 9: Evidence-based Assessments',gsIdx:9},
+    {fn:ctx=>p10(combinedInput,ctx),label:'Step 10: Delivery Methods',gsIdx:10},
+    {fn:ctx=>p11(combinedInput,ctx),label:'Step 11: Learning Activities',gsIdx:11},
+    {fn:ctx=>p12(combinedInput,ctx),label:'Step 12: Flexible Learning Paths',gsIdx:12},
+    {fn:ctx=>p13(combinedInput,ctx),label:'Step 13: Instructional Strategies & Resources',gsIdx:13},
+    {fn:ctx=>p14(combinedInput,ctx),label:'Step 14: Continuous Feedback',gsIdx:14},
+    {fn:ctx=>p15(combinedInput,ctx),label:'Step 15: Assessment Weights & Credit Structure',gsIdx:15},
   ];
-
-  let ctx = {};
-
-  for(let i=0; i<steps.length; i++){
-    const { fn, label, gsIdx } = steps[i];
-    setTxt(`${label}...`);
-    setGenStep(gsIdx, false);
-
-    const result = await providerRequest(fn(ctx), label);
-    ctx = { ...ctx, ...result };
-
-    setGenStep(gsIdx, true);
-    if(i < steps.length-1) await sleep(PAUSE);
+  let ctx={};
+  for(let i=0;i<steps.length;i++){
+    const{fn,label,gsIdx}=steps[i];
+    setTxt(`${label}...`);setGenStep(gsIdx,false);
+    const result=await providerRequest(fn(ctx),label);
+    ctx={...ctx,...result};
+    for(let si=1;si<=15;si++){if(result['step'+si])ctx['step'+si]=result['step'+si];}
+    if(result.unitName)ctx.unitName=result.unitName;
+    if(result.unitDescription)ctx.unitDescription=result.unitDescription;
+    setGenStep(gsIdx,true);
+    if(i<steps.length-1)await sleep(PAUSE);
   }
-
   return ctx;
 }
 
-// ─────────────────────────────────────────────────────────────────
 // QUALITY CHECK
-// ─────────────────────────────────────────────────────────────────
-function parsePct(value){
-  const m=String(value||'').match(/-?\d+(?:\.\d+)?/);
-  return m?parseFloat(m[0]):0;
-}
-
+function parsePct(value){const m=String(value||'').match(/-?\d+(?:\.\d+)?/);return m?parseFloat(m[0]):0;}
+const WEAK_PATTERNS_QC={activities:/\b(complete|watch|attend|read|listen|log in|submit|do the|take the|open)\b/i};
 function checkQuality(parsed){
   const warnings=[];
   const meas=parsed.step7?.measurable||'';
-  if(WEAK_PATTERNS.activities.test(meas)) warnings.push('Step 7 Measurable still contains activity language. Check performance indicators.');
-
-  const plans=normalizeTopicPlans(parsed.step8?.topicPlans||[]);
-  let totalC=0,totalD=0,grand=0;
-  plans.forEach(r=>{
-    totalC+=parseH(r.hoursApplied);
-    totalD+=parseH(r.hoursAssessed);
-    grand+=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed));
-  });
-  if(grand>0&&(totalC+totalD)/grand<0.5) warnings.push('Notional hours blend: Applied+Assessed is below 50%. Consider redistributing hours toward active learning.');
-
-  const cw=parsePct(parsed.step15?.courseworkWeight);
-  const ex=parsePct(parsed.step15?.examWeight);
-  if(cw||ex){
-    const total=(cw+ex);
-    if(Math.abs(total-100)>0.1) warnings.push(`Assessment weights total ${total}%, not 100%. Review Step 15 coursework and exam weights.`);
-  }
-
+  if(WEAK_PATTERNS_QC.activities.test(meas))warnings.push('Step 7 Measurable still contains activity language. Check performance indicators.');
+  const plans=normalizeTopicPlans(parsed.step8?.topicPlans||[]);let tC=0,tD=0,grand=0;
+  plans.forEach(r=>{tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);grand+=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed));});
+  if(grand>0&&(tC+tD)/grand<0.5)warnings.push('Notional hours blend: Applied+Assessed is below 50%.');
+  const cw=parsePct(parsed.step15?.courseworkWeight);const ex=parsePct(parsed.step15?.examWeight);
+  if((cw||ex)&&Math.abs(cw+ex-100)>0.1)warnings.push(`Assessment weights total ${cw+ex}%, not 100%. Review Step 15.`);
   return warnings;
 }
 
-// ─────────────────────────────────────────────────────────────────
-// AI GENERATION ORCHESTRATOR
-// ─────────────────────────────────────────────────────────────────
+// ORCHESTRATOR
 function setGenStep(n,done){
   for(let i=1;i<=15;i++){
-    const el=document.getElementById('gs'+i);
-    if(!el) continue;
-    if(i<n){
-      el.classList.add('done');
-      el.querySelector('.gs-icon').textContent='✅';
-    } else if(i===n){
-      el.querySelector('.gs-icon').textContent=done?'✅':'⏳';
-      if(done) el.classList.add('done');
-      else el.classList.remove('done');
-    } else {
-      el.classList.remove('done');
-      el.querySelector('.gs-icon').textContent='⏳';
-    }
+    const el=document.getElementById('gs'+i);if(!el)continue;
+    if(i<n){el.classList.add('done');el.querySelector('.gs-icon').textContent='✅';}
+    else if(i===n){el.querySelector('.gs-icon').textContent=done?'✅':'⏳';if(done)el.classList.add('done');else el.classList.remove('done');}
+    else{el.classList.remove('done');el.querySelector('.gs-icon').textContent='⏳';}
   }
 }
 
 async function runAIGeneration(){
   const combinedInput=buildCombinedInput();
-  if(!combinedInput){ alert('Please paste text or upload a file first.'); return; }
+  if(!combinedInput){alert('Please paste text or upload a file first.');return;}
   const targetVal=document.getElementById('targetUnitSelect').value;
-  const btn=document.getElementById('generateBtn');
-  const statusEl=document.getElementById('aiStatus');
-  const genList=document.getElementById('genStepsList');
-  btn.disabled=true;
-  statusEl.className='ai-status loading';
-  statusEl.innerHTML=`<div class="spinner"></div><div id="aiStatusText">Connecting to OpenRouter backend...</div>`;
-  genList.style.display='block';
-  for(let i=1;i<=15;i++) setGenStep(i,false);
-
+  const btn=document.getElementById('generateBtn');const statusEl=document.getElementById('aiStatus');const genList=document.getElementById('genStepsList');
+  btn.disabled=true;statusEl.className='ai-status loading';statusEl.innerHTML=`<div class="spinner"></div><div id="aiStatusText">Connecting to OpenRouter backend...</div>`;genList.style.display='block';
+  for(let i=1;i<=15;i++)setGenStep(i,false);
   try{
-    const parsed = await callOpenRouterSequence(combinedInput);
-
+    const parsed=await callOpenRouterSequence(combinedInput);
     const newData=defaultData();
-    newData[1]={
-      courseCode:parsed.step1?.courseCode||'',
-      creditUnits:parsed.step1?.creditUnits||'',
-      notionalHours:parsed.step1?.notionalHours||'',
-      justification:parsed.step1?.justification||'',
-      courseAims:parsed.step1?.courseAims||'',
-      courseDescription:parsed.step1?.courseDescription||parsed.unitDescription||''
-    };
-    newData[2]={
-      cognitiveOutcomes:parsed.step2?.cognitiveOutcomes||'',
-      bloomVerbs:normalizeArr(parsed.step2?.bloomVerbs),
-      bloomLevels:normalizeSubset(parsed.step2?.bloomLevels,BLOOM_LEVEL_OPTIONS),
-      assessmentLinkage:parsed.step2?.assessmentLinkage||''
-    };
-    newData[3]={
-      affectiveOutcomes:parsed.step3?.affectiveOutcomes||'',
-      professionalValues:normalizeArr(parsed.step3?.professionalValues),
-      developmentStrategies:parsed.step3?.developmentStrategies||'',
-      evidenceMethods:parsed.step3?.evidenceMethods||''
-    };
-    newData[4]={
-      psychomotorOutcomes:parsed.step4?.psychomotorOutcomes||'',
-      handsOnActivities:parsed.step4?.handsOnActivities||'',
-      practicalAssessmentMethods:parsed.step4?.practicalAssessmentMethods||'',
-      equipmentMaterials:parsed.step4?.equipmentMaterials||''
-    };
-    newData[5]={
-      currentState:parsed.step5?.currentState||'',
-      desiredState:parsed.step5?.desiredState||'',
-      gaps:parsed.step5?.gaps||'',
-      priority:parsed.step5?.priority||''
-    };
-    newData[6]={
-      competencies:normalizeArr(parsed.step6?.competencies),
-      knowledgeAreas:parsed.step6?.knowledgeAreas||'',
-      skills:normalizeArr(parsed.step6?.skills),
-      mappingNotes:parsed.step6?.mappingNotes||''
-    };
-    newData[7]={
-      specific:parsed.step7?.specific||'',
-      measurable:parsed.step7?.measurable||'',
-      achievable:parsed.step7?.achievable||'',
-      relevant:parsed.step7?.relevant||'',
-      timeBound:parsed.step7?.timeBound||'',
-      completeObjectives:parsed.step7?.completeObjectives||''
-    };
-    newData[8]={
-      contentOverview:parsed.step8?.contentOverview||'',
-      topicPlans:normalizeTopicPlans(parsed.step8?.topicPlans),
-      contentRationale:parsed.step8?.contentRationale||''
-    };
-    newData[9]={
-      formative:parsed.step9?.formative||'',
-      summative:parsed.step9?.summative||'',
-      rubric:parsed.step9?.rubric||'',
-      evidenceType:normalizeArr(parsed.step9?.evidenceType),
-      passingCriteria:parsed.step9?.passingCriteria||'',
-      competencyAlignment:parsed.step9?.competencyAlignment||'',
-      masteryJustification:parsed.step9?.masteryJustification||''
-    };
-    newData[10]={
-      modality:parsed.step10?.modality||'',
-      tools:normalizeArr(parsed.step10?.tools),
-      contentFormats:normalizeSubset(parsed.step10?.contentFormats,CONTENT_FORMAT_OPTIONS),
-      accessibilityNotes:parsed.step10?.accessibilityNotes||''
-    };
-    newData[11]={
-      activities:parsed.step11?.activities||'',
-      collaboration:parsed.step11?.collaboration||'',
-      gamification:parsed.step11?.gamification||'',
-      realWorld:parsed.step11?.realWorld||''
-    };
-    newData[12]={
-      prerequisites:parsed.step12?.prerequisites||'',
-      paths:parsed.step12?.paths||'',
-      selfPacedProgression:parsed.step12?.selfPacedProgression||'',
-      competencyUnlocking:parsed.step12?.competencyUnlocking||'',
-      optionalContent:parsed.step12?.optionalContent||'',
-      adaptations:parsed.step12?.adaptations||'',
-      rplProvision:parsed.step12?.rplProvision||''
-    };
-    newData[13]={
-      strategyMatrix:parsed.step13?.strategyMatrix||'',
-      resourceMaterials:parsed.step13?.resourceMaterials||'',
-      instructionalNotes:parsed.step13?.instructionalNotes||''
-    };
-    newData[14]={
-      feedbackMechanisms:normalizeSubset(parsed.step14?.feedbackMechanisms,FEEDBACK_OPTIONS),
-      feedbackSchedule:parsed.step14?.feedbackSchedule||'',
-      improvementLoop:parsed.step14?.improvementLoop||'',
-      successMetrics:normalizeArr(parsed.step14?.successMetrics)
-    };
-    newData[15]={
-      courseworkWeight:parsed.step15?.courseworkWeight||'',
-      examWeight:parsed.step15?.examWeight||'',
-      competenceAssessmentAlignment:parsed.step15?.competenceAssessmentAlignment||'',
-      gradingScale:parsed.step15?.gradingScale||'',
-      authenticAssessments:parsed.step15?.authenticAssessments||''
-    };
-
+    // Step 1 — justification, courseAims, courseDescription only (no courseCode/creditUnits/notionalHours)
+    newData[1]={justification:parsed.step1?.justification||'',courseAims:parsed.step1?.courseAims||'',courseDescription:parsed.step1?.courseDescription||parsed.unitDescription||''};
+    newData[2]={cognitiveOutcomes:parsed.step2?.cognitiveOutcomes||'',bloomVerbs:normalizeArr(parsed.step2?.bloomVerbs),bloomLevels:normalizeSubset(parsed.step2?.bloomLevels,BLOOM_LEVEL_OPTIONS),assessmentLinkage:parsed.step2?.assessmentLinkage||''};
+    newData[3]={affectiveOutcomes:parsed.step3?.affectiveOutcomes||'',professionalValues:normalizeArr(parsed.step3?.professionalValues),developmentStrategies:parsed.step3?.developmentStrategies||'',evidenceMethods:parsed.step3?.evidenceMethods||''};
+    newData[4]={psychomotorOutcomes:parsed.step4?.psychomotorOutcomes||'',handsOnActivities:parsed.step4?.handsOnActivities||'',practicalAssessmentMethods:parsed.step4?.practicalAssessmentMethods||'',equipmentMaterials:parsed.step4?.equipmentMaterials||''};
+    newData[5]={currentState:parsed.step5?.currentState||'',desiredState:parsed.step5?.desiredState||'',gaps:parsed.step5?.gaps||'',priority:parsed.step5?.priority||''};
+    newData[6]={competencies:normalizeArr(parsed.step6?.competencies),knowledgeAreas:parsed.step6?.knowledgeAreas||'',skills:normalizeArr(parsed.step6?.skills),mappingNotes:parsed.step6?.mappingNotes||''};
+    newData[7]={specific:parsed.step7?.specific||'',measurable:parsed.step7?.measurable||'',achievable:parsed.step7?.achievable||'',relevant:parsed.step7?.relevant||'',timeBound:parsed.step7?.timeBound||'',completeObjectives:parsed.step7?.completeObjectives||''};
+    newData[8]={contentOverview:parsed.step8?.contentOverview||'',topicPlans:normalizeTopicPlans(parsed.step8?.topicPlans),contentRationale:parsed.step8?.contentRationale||''};
+    newData[9]={formative:parsed.step9?.formative||'',summative:parsed.step9?.summative||'',rubric:parsed.step9?.rubric||'',evidenceType:normalizeArr(parsed.step9?.evidenceType),passingCriteria:parsed.step9?.passingCriteria||'',competencyAlignment:parsed.step9?.competencyAlignment||'',masteryJustification:parsed.step9?.masteryJustification||''};
+    newData[10]={modality:parsed.step10?.modality||'',tools:normalizeArr(parsed.step10?.tools),contentFormats:normalizeSubset(parsed.step10?.contentFormats,CONTENT_FORMAT_OPTIONS),accessibilityNotes:parsed.step10?.accessibilityNotes||''};
+    newData[11]={activities:parsed.step11?.activities||'',collaboration:parsed.step11?.collaboration||'',gamification:parsed.step11?.gamification||'',realWorld:parsed.step11?.realWorld||''};
+    newData[12]={prerequisites:parsed.step12?.prerequisites||'',paths:parsed.step12?.paths||'',selfPacedProgression:parsed.step12?.selfPacedProgression||'',competencyUnlocking:parsed.step12?.competencyUnlocking||'',optionalContent:parsed.step12?.optionalContent||'',adaptations:parsed.step12?.adaptations||'',rplProvision:parsed.step12?.rplProvision||''};
+    newData[13]={strategyMatrix:parsed.step13?.strategyMatrix||'',resourceMaterials:parsed.step13?.resourceMaterials||'',instructionalNotes:parsed.step13?.instructionalNotes||''};
+    newData[14]={feedbackMechanisms:normalizeSubset(parsed.step14?.feedbackMechanisms,FEEDBACK_OPTIONS),feedbackSchedule:parsed.step14?.feedbackSchedule||'',improvementLoop:parsed.step14?.improvementLoop||'',successMetrics:normalizeArr(parsed.step14?.successMetrics)};
+    newData[15]={courseworkWeight:parsed.step15?.courseworkWeight||'',examWeight:parsed.step15?.examWeight||'',competenceAssessmentAlignment:parsed.step15?.competenceAssessmentAlignment||'',gradingScale:parsed.step15?.gradingScale||'',authenticAssessments:parsed.step15?.authenticAssessments||''};
     const unitName=parsed.unitName||uploadedFileName.replace(/\.[^/.]+$/,'')||'AI-Generated Unit';
     const unitDesc=parsed.unitDescription||parsed.step1?.courseDescription||'';
-
-    if(targetVal==='new'){
-      const newId=Date.now();
-      state.units.push({id:newId, name:unitName, description:unitDesc, data:newData, aiGenerated:true});
-      state.activeUnit=newId;
-    } else {
-      const target=getUnit(parseInt(targetVal,10));
-      if(target){
-        target.name=unitName;
-        target.description=unitDesc;
-        target.data=newData;
-        target.aiGenerated=true;
-      }
-    }
-    state.activeStep=1;
-    setGenStep(15,true);
-
+    if(targetVal==='new'){const newId=Date.now();state.units.push({id:newId,name:unitName,description:unitDesc,data:newData,aiGenerated:true});state.activeUnit=newId;}
+    else{const target=getUnit(parseInt(targetVal,10));if(target){target.name=unitName;target.description=unitDesc;target.data=newData;target.aiGenerated=true;}}
+    state.activeStep=1;setGenStep(15,true);
     const warnings=checkQuality(parsed);
-    if(warnings.length){
-      statusEl.className='ai-status warning';
-      statusEl.innerHTML=`<strong>⚠️ Generated with notes:</strong><br>${warnings.map(w=>`• ${esc(w)}`).join('<br>')}`;
-    } else {
-      statusEl.className='ai-status success';
-      statusEl.innerHTML=`<strong>✅ Done!</strong> "${esc(unitName)}" has been structured across all ${STEPS.length} design steps through OpenRouter AI.`;
-    }
-    saveState();
-    setTimeout(()=>{ document.getElementById('importModal').classList.remove('open'); render(); },1800);
+    if(warnings.length){statusEl.className='ai-status warning';statusEl.innerHTML=`<strong>⚠️ Generated with notes:</strong><br>${warnings.map(w=>`• ${esc(w)}`).join('<br>')}`;
+    }else{statusEl.className='ai-status success';statusEl.innerHTML=`<strong>✅ Done!</strong> "${esc(unitName)}" has been structured across all ${STEPS.length} design steps through OpenRouter AI.`;}
+    saveState();setTimeout(()=>{document.getElementById('importModal').classList.remove('open');render();},1800);
   }catch(err){
-    setGenStep(1,false);
-    statusEl.className='ai-status error';
-    statusEl.innerHTML=`<strong>⚠️ Error:</strong> ${esc(err.message)}`;
-    console.error(err);
-  }finally{
-    btn.disabled=false;
-  }
+    setGenStep(1,false);statusEl.className='ai-status error';statusEl.innerHTML=`<strong>⚠️ Error:</strong> ${esc(err.message)}`;console.error(err);
+  }finally{btn.disabled=false;}
 }
 
-// ─────────────────────────────────────────────────────────────────
 // EVENT LISTENERS
-// ─────────────────────────────────────────────────────────────────
-document.getElementById('menuBtn').addEventListener('click',()=>{
-  state.sidebarOpen=!state.sidebarOpen;
-  document.getElementById('sidebar').classList.toggle('collapsed',!state.sidebarOpen);
-});
-document.getElementById('openImportBtn').addEventListener('click',()=>{
-  populateTargetSelect();
-  refreshSetupBanner();
-  document.getElementById('importModal').classList.add('open');
-});
-document.getElementById('closeImportModal').addEventListener('click',()=>{ document.getElementById('importModal').classList.remove('open'); });
-
-
-document.getElementById('importModal').addEventListener('click',e=>{ if(e.target===document.getElementById('importModal')) document.getElementById('importModal').classList.remove('open'); });
-document.getElementById('closeCompleteModal').addEventListener('click',()=>{ document.getElementById('completeModal').classList.remove('open'); });
-document.getElementById('completeModal').addEventListener('click',e=>{ if(e.target===document.getElementById('completeModal')) document.getElementById('completeModal').classList.remove('open'); });
-
-// Provider is OpenRouter via Render — no client-side keys needed
-
-// ── SETUP BANNER LOGIC ──────────────────────────────────────────
-function refreshSetupBanner(){ /* no-op: app served from Render */ }
-
-function setSetupTab(){ }
-
-function showSetupStatus(){ }
-
-// Setup listeners not needed — served from Render
-
-
-
-document.querySelectorAll('.import-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.import-tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    ['paste','upload','tips'].forEach(name=>{ document.getElementById(`tab-${name}`).style.display=tab.dataset.tab===name?'block':'none'; });
-  });
-});
-document.getElementById('showAddUnitBtn').addEventListener('click',()=>{
-  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='none';
-  document.getElementById('addUnitForm').style.display='block';
-  document.getElementById('newUnitInput').focus();
-});
-document.getElementById('cancelAddUnit').addEventListener('click',()=>{
-  document.getElementById('addUnitForm').style.display='none';
-  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';
-  document.getElementById('newUnitInput').value='';
-});
-function doAddUnit(){
-  const name=document.getElementById('newUnitInput').value.trim();
-  if(!name) return;
-  const id=Date.now();
-  state.units.push({id, name, description:'', data:defaultData(), aiGenerated:false});
-  state.activeUnit=id; state.activeStep=1;
-  document.getElementById('newUnitInput').value='';
-  document.getElementById('addUnitForm').style.display='none';
-  document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';
-  render(); saveState();
-}
+document.getElementById('menuBtn').addEventListener('click',()=>{state.sidebarOpen=!state.sidebarOpen;document.getElementById('sidebar').classList.toggle('collapsed',!state.sidebarOpen);});
+document.getElementById('openImportBtn').addEventListener('click',()=>{populateTargetSelect();document.getElementById('importModal').classList.add('open');});
+document.getElementById('closeImportModal').addEventListener('click',()=>document.getElementById('importModal').classList.remove('open'));
+document.getElementById('importModal').addEventListener('click',e=>{if(e.target===document.getElementById('importModal'))document.getElementById('importModal').classList.remove('open');});
+document.getElementById('closeCompleteModal').addEventListener('click',()=>document.getElementById('completeModal').classList.remove('open'));
+document.getElementById('completeModal').addEventListener('click',e=>{if(e.target===document.getElementById('completeModal'))document.getElementById('completeModal').classList.remove('open');});
+document.querySelectorAll('.import-tab').forEach(tab=>{tab.addEventListener('click',()=>{document.querySelectorAll('.import-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');['paste','upload','tips'].forEach(name=>{document.getElementById(`tab-${name}`).style.display=tab.dataset.tab===name?'block':'none';});});});
+document.getElementById('showAddUnitBtn').addEventListener('click',()=>{document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='none';document.getElementById('addUnitForm').style.display='block';document.getElementById('newUnitInput').focus();});
+document.getElementById('cancelAddUnit').addEventListener('click',()=>{document.getElementById('addUnitForm').style.display='none';document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';document.getElementById('newUnitInput').value='';});
+function doAddUnit(){const name=document.getElementById('newUnitInput').value.trim();if(!name)return;const id=Date.now();state.units.push({id,name,description:'',data:defaultData(),aiGenerated:false});state.activeUnit=id;state.activeStep=1;document.getElementById('newUnitInput').value='';document.getElementById('addUnitForm').style.display='none';document.getElementById('showAddUnitBtn').closest('.btn-sidebar').style.display='';render();saveState();}
 document.getElementById('confirmAddUnit').addEventListener('click',doAddUnit);
-document.getElementById('newUnitInput').addEventListener('keydown',e=>{ if(e.key==='Enter') doAddUnit(); });
-
-function populateTargetSelect(){
-  const sel=document.getElementById('targetUnitSelect');
-  sel.innerHTML='';
-  state.units.forEach(u=>{ const o=document.createElement('option'); o.value=u.id; o.textContent=u.name; if(u.id===state.activeUnit) o.selected=true; sel.appendChild(o); });
-  const newOpt=document.createElement('option'); newOpt.value='new'; newOpt.textContent='+ Create new unit from this write-up'; sel.appendChild(newOpt);
-}
-
-document.getElementById('writeupInput').addEventListener('input',function(){ document.getElementById('charCount').textContent=this.value.length; });
-document.getElementById('chooseFileBtn').addEventListener('click',()=>{ document.getElementById('fileInput').click(); });
-document.getElementById('fileInput').addEventListener('change',async e=>{ const file=e.target.files?.[0]; if(file) await handleSelectedFile(file); });
+document.getElementById('newUnitInput').addEventListener('keydown',e=>{if(e.key==='Enter')doAddUnit();});
+function populateTargetSelect(){const sel=document.getElementById('targetUnitSelect');sel.innerHTML='';state.units.forEach(u=>{const o=document.createElement('option');o.value=u.id;o.textContent=u.name;if(u.id===state.activeUnit)o.selected=true;sel.appendChild(o);});const newOpt=document.createElement('option');newOpt.value='new';newOpt.textContent='+ Create new unit from this write-up';sel.appendChild(newOpt);}
+document.getElementById('writeupInput').addEventListener('input',function(){document.getElementById('charCount').textContent=this.value.length;});
+document.getElementById('chooseFileBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
+document.getElementById('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(file)await handleSelectedFile(file);});
 const fileBox=document.getElementById('fileBox');
-['dragenter','dragover'].forEach(evt=>fileBox.addEventListener(evt,e=>{ e.preventDefault(); fileBox.classList.add('dragover'); }));
-['dragleave','drop'].forEach(evt=>fileBox.addEventListener(evt,e=>{ e.preventDefault(); fileBox.classList.remove('dragover'); }));
-fileBox.addEventListener('drop',async e=>{ const file=e.dataTransfer.files?.[0]; if(file) await handleSelectedFile(file); });
-
+['dragenter','dragover'].forEach(evt=>fileBox.addEventListener(evt,e=>{e.preventDefault();fileBox.classList.add('dragover');}));
+['dragleave','drop'].forEach(evt=>fileBox.addEventListener(evt,e=>{e.preventDefault();fileBox.classList.remove('dragover');}));
+fileBox.addEventListener('drop',async e=>{const file=e.dataTransfer.files?.[0];if(file)await handleSelectedFile(file);});
 document.getElementById('downloadUnitBtn').addEventListener('click',downloadActiveUnitHtml);
 document.getElementById('generateBtn').addEventListener('click',runAIGeneration);
-
-document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') saveState(); });
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveState();});
 window.addEventListener('beforeunload',()=>saveState());
 
-// ─────────────────────────────────────────────────────────────────
 // INIT
-// ─────────────────────────────────────────────────────────────────
-loadState();
-normalizeStateShape();
-render();
-saveState();
+loadState();normalizeStateShape();render();saveState();
 </script>
 </body>
 </html>
