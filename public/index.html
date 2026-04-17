@@ -379,23 +379,12 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       <div class="model-selector-row">
         <div class="model-selector-top">
           <span class="model-selector-label">🤖 Model</span>
-          <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:var(--teal-xlight);color:var(--teal-dark);border-radius:999px;font-weight:700">⚡ Free · Fast</span>
+          <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#4f46e5;border-radius:999px;font-weight:700">💎 Premium</span>
         </div>
         <select class="model-select" id="openrouterModelSelect">
-          <optgroup label="⚡ Free Models (Recommended)">
-            <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B – Best free quality</option>
-            <option value="meta-llama/llama-3.1-8b-instruct:free">Llama 3.1 8B – Fastest free</option>
-            <option value="mistralai/mistral-7b-instruct:free">Mistral 7B – Fast &amp; reliable free</option>
-            <option value="qwen/qwen-2.5-72b-instruct:free">Qwen 2.5 72B – High quality free</option>
-          </optgroup>
-          <optgroup label="💎 Premium Models">
-            <option value="anthropic/claude-3.5-haiku">Claude 3.5 Haiku – Fast &amp; smart</option>
-            <option value="anthropic/claude-3.7-sonnet">Claude 3.7 Sonnet – Most capable</option>
-            <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash – Fast reasoning</option>
-            <option value="deepseek/deepseek-r1">DeepSeek R1 – Deep reasoning</option>
-          </optgroup>
+          <option value="meta-llama/llama-3.3-70b-instruct" selected>Llama 3.3 70B – Premium</option>
         </select>
-        <div class="model-status" id="openrouterModelStatus">All AI requests are sent from your Render backend to OpenRouter.</div>
+        <div class="model-status" id="openrouterModelStatus">All AI requests are sent from your Render backend to OpenRouter using Llama 3.3 70B (premium).</div>
       </div>
 
       <div class="target-unit-row">
@@ -937,7 +926,7 @@ function buildCombinedInput(){const pasted=document.getElementById('writeupInput
 
 // BACKEND CONFIG
 const API_BASE='';
-function getAIModel(){return document.getElementById('openrouterModelSelect')?.value||'meta-llama/llama-3.3-70b-instruct';}
+function getAIModel(){return 'meta-llama/llama-3.3-70b-instruct';}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 async function providerRequest(promptText,stepLabel){
   const model=getAIModel();const MAX_ATTEMPTS=4;
