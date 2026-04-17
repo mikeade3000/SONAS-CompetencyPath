@@ -142,11 +142,8 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
   box-shadow:var(--shadow);
   background:linear-gradient(135deg,#fff 0%,#f7fffe 100%);
 }
-.unit-desc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.unit-desc-header{display:flex;align-items:center;margin-bottom:10px}
 .unit-desc-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-mid)}
-.unit-desc-badge{font-size:10px;padding:3px 10px;border-radius:999px;
-  background:var(--teal-xlight);color:var(--teal-dark);font-weight:600;
-  max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .unit-desc-textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;
   font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);background:#fafffe;
   outline:none;resize:vertical;min-height:72px;transition:border-color .18s,box-shadow .18s;line-height:1.6}
@@ -1272,7 +1269,7 @@ function renderContent(){
 
   const descCard=document.createElement('div');
   descCard.className='unit-desc-card';
-  descCard.innerHTML=`<div class="unit-desc-header"><span class="unit-desc-title">📝 Course Unit Description</span><span class="unit-desc-badge">${esc(unit.name)}</span></div>`;
+  descCard.innerHTML=`<div class="unit-desc-header"><span class="unit-desc-title">📝 Course Unit Description</span></div>`;
   const descTA=document.createElement('textarea');
   descTA.className='unit-desc-textarea'+(unit.aiGenerated&&unit.description?' ai-populated':'');
   descTA.placeholder='Write a 2–3 sentence description of this unit: what it covers, who it is for, and why it matters to learners…';
