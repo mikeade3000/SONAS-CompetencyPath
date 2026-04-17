@@ -148,7 +148,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .topic-table-scroll{overflow-x:auto;overflow-y:visible}
 .topic-table-scroll::-webkit-scrollbar{height:6px}
 .topic-table-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.topic-table{width:100%;border-collapse:collapse;min-width:1380px}
+.topic-table{width:100%;border-collapse:collapse;min-width:2500px}
 .topic-table th{background:#f0faf7;padding:0;vertical-align:middle}
 .topic-table td{border-bottom:1px solid var(--border-light);vertical-align:top;padding:10px 8px}
 .topic-table tr:last-child td{border-bottom:none}
@@ -160,6 +160,12 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .hour-header-b{background:var(--hour-b-bg);color:var(--hour-b-text)}
 .hour-header-c{background:var(--hour-c-bg);color:var(--hour-c-text)}
 .hour-header-d{background:var(--hour-d-bg);color:var(--hour-d-text)}
+.week-header{background:#ede9fe;color:#4f46e5}
+.bloom-header{background:#fce7f3;color:#9d174d}
+.method-header{background:#ffedd5;color:#9a3412}
+.assess-type-header{background:#e0f2fe;color:#0369a1}
+.resources-header{background:#ecfccb;color:#3f6212}
+.perf-header{background:#f3e8ff;color:#6b21a8}
 .th-total{color:var(--ink-mid);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-align:center;padding:10px 8px}
 .table-input,.table-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;font-family:'Outfit',sans-serif;background:#fff;color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}
 .table-input:focus,.table-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(16,185,129,.1)}
@@ -169,6 +175,12 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .hour-cell-b{background:rgba(139,92,246,.04)}
 .hour-cell-c{background:rgba(245,158,11,.04)}
 .hour-cell-d{background:rgba(16,185,129,.04)}
+.week-cell{background:rgba(99,102,241,.04)}
+.bloom-cell{background:rgba(236,72,153,.04)}
+.method-cell{background:rgba(234,88,12,.04)}
+.assess-type-cell{background:rgba(2,132,199,.04)}
+.resources-cell{background:rgba(101,163,13,.04)}
+.perf-cell{background:rgba(168,85,247,.04)}
 .total-cell{text-align:center;font-weight:700;color:var(--ink);font-size:14px;padding:8px 4px}
 .total-cell.over{color:var(--teal-mid)}
 .blend-summary{padding:14px 16px;background:linear-gradient(135deg,#f0faf7,#f7fff9);border-top:1px solid var(--border-light)}
@@ -535,6 +547,7 @@ const STEPS = [
     ]
   },
   { id:8, title:"Plan Course Content, Notional Hours and Engagement Activities", icon:"🧩", color:"#af7ac5",
+    evaluatorNote:"Each topic row must specify: week/module, Bloom's level, teaching method, learner activity, activity rationale (cite learning theory), assessment type (formative/summative/peer), resources required (named materials), performance indicator (measurable mastery evidence), and competency link. Applied + Assessed hours must exceed 50% of total.",
     fields:[
       {key:"contentOverview", label:"Course Content Overview", type:"textarea",
        placeholder:"Describe the overall sequence of topics and the pedagogical logic for their ordering…"},
@@ -655,7 +668,7 @@ const STEPS = [
 // STATE & HELPERS
 // ─────────────────────────────────────────────────────────────────
 function emptyTopicPlanRow(){
-  return {topic:"",keyContent:"",hoursDirected:"",hoursSelfDirected:"",hoursApplied:"",hoursAssessed:"",learnerActivity:"",activityRationale:"",competencyLink:""};
+  return {week:"",topic:"",keyContent:"",bloomsLevel:"",hoursDirected:"",hoursSelfDirected:"",hoursApplied:"",hoursAssessed:"",teachingMethod:"",learnerActivity:"",activityRationale:"",assessmentType:"",resourcesRequired:"",performanceIndicator:"",competencyLink:""};
 }
 function defaultData(){
   const d={};
@@ -686,11 +699,20 @@ function normalizeSubset(v,allowed){return Array.isArray(v)?v.filter(x=>allowed.
 function normalizeTopicPlans(v){
   if(!Array.isArray(v))return[];
   return v.map(row=>({
-    topic:String(row?.topic||'').trim(),keyContent:String(row?.keyContent||'').trim(),
-    hoursDirected:String(row?.hoursDirected||'').trim(),hoursSelfDirected:String(row?.hoursSelfDirected||'').trim(),
-    hoursApplied:String(row?.hoursApplied||'').trim(),hoursAssessed:String(row?.hoursAssessed||'').trim(),
+    week:String(row?.week||'').trim(),
+    topic:String(row?.topic||'').trim(),
+    keyContent:String(row?.keyContent||'').trim(),
+    bloomsLevel:String(row?.bloomsLevel||'').trim(),
+    hoursDirected:String(row?.hoursDirected||'').trim(),
+    hoursSelfDirected:String(row?.hoursSelfDirected||'').trim(),
+    hoursApplied:String(row?.hoursApplied||'').trim(),
+    hoursAssessed:String(row?.hoursAssessed||'').trim(),
+    teachingMethod:String(row?.teachingMethod||'').trim(),
     learnerActivity:String(row?.learnerActivity||row?.engagementActivity||'').trim(),
     activityRationale:String(row?.activityRationale||'').trim(),
+    assessmentType:String(row?.assessmentType||'').trim(),
+    resourcesRequired:String(row?.resourcesRequired||'').trim(),
+    performanceIndicator:String(row?.performanceIndicator||'').trim(),
     competencyLink:String(row?.competencyLink||'').trim()
   })).filter(r=>r.topic||r.keyContent||r.hoursApplied||r.learnerActivity);
 }
@@ -779,7 +801,7 @@ function buildTopicTableField(value,onChange){
   if(!rows.length)rows=[emptyTopicPlanRow()];
   const wrap=document.createElement('div');wrap.className='topic-table-wrap';
   const tools=document.createElement('div');tools.className='topic-table-tools';
-  tools.innerHTML=`<div><div style="font-size:12.5px;font-weight:700;color:var(--ink-mid);margin-bottom:3px">Topic Content Plan</div><div class="topic-table-note">Distribute hours across 4 activity types. CBE goal: Applied + Assessed &gt; 50% of total.</div></div><button type="button" class="btn-small btn-add-row">+ Add Topic Row</button>`;
+  tools.innerHTML=`<div><div style="font-size:12.5px;font-weight:700;color:var(--ink-mid);margin-bottom:3px">Detailed Topic Content Plan with Notional Hours</div><div class="topic-table-note">15 columns per row: Week · Topic · Content · Bloom's Level · Hours (A/B/C/D) · Teaching Method · Activity · Rationale · Assessment Type · Resources · Performance Indicator · Competency. <strong>CBE goal: Applied + Assessed &gt; 50% of total.</strong></div></div><button type="button" class="btn-small btn-add-row">+ Add Topic Row</button>`;
   wrap.appendChild(tools);
   const tableScroll=document.createElement('div');tableScroll.className='topic-table-scroll';wrap.appendChild(tableScroll);
   const blendDiv=document.createElement('div');blendDiv.className='blend-summary';wrap.appendChild(blendDiv);
@@ -794,22 +816,69 @@ function buildTopicTableField(value,onChange){
   function sync(){onChange(rows.map(r=>({...r})));renderTable();renderBlend();}
   function onlyBlend(){onChange(rows.map(r=>({...r})));renderBlend();}
   function renderTable(){
-    tableScroll.innerHTML=`<table class="topic-table"><thead><tr><th rowspan="2" class="th-main" style="width:170px;min-width:170px">Topic / Subtopic</th><th rowspan="2" class="th-main" style="width:190px;min-width:190px">Key Content</th><th colspan="1" class="th-hour-group hour-header-a" style="width:68px;min-width:68px"><div class="th-hour-parent">A – Directed</div></th><th colspan="1" class="th-hour-group hour-header-b" style="width:68px;min-width:68px"><div class="th-hour-parent">B – Self-dir</div></th><th colspan="1" class="th-hour-group hour-header-c" style="width:68px;min-width:68px"><div class="th-hour-parent">C – Applied</div></th><th colspan="1" class="th-hour-group hour-header-d" style="width:68px;min-width:68px"><div class="th-hour-parent">D – Assessed</div></th><th rowspan="2" class="th-total" style="width:58px;min-width:58px">Total h</th><th rowspan="2" class="th-main" style="width:210px;min-width:210px">Learner Activity<br><span style="font-weight:400;font-size:10px;color:var(--muted)">What learners DO</span></th><th rowspan="2" class="th-main" style="width:210px;min-width:210px">Activity Rationale<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Why it builds competency</span></th><th rowspan="2" class="th-main" style="width:130px;min-width:130px">Competency Link</th><th rowspan="2" class="th-main" style="width:72px;min-width:72px">Action</th></tr><tr><th class="th-hour-sub hour-header-a">hrs</th><th class="th-hour-sub hour-header-b">hrs</th><th class="th-hour-sub hour-header-c">hrs</th><th class="th-hour-sub hour-header-d">hrs</th></tr></thead><tbody></tbody></table>`;
+    tableScroll.innerHTML=`<table class="topic-table"><thead>
+      <tr>
+        <th rowspan="2" class="th-main week-header" style="width:75px;min-width:75px">Week /<br>Module</th>
+        <th rowspan="2" class="th-main" style="width:165px;min-width:165px">Topic / Subtopic</th>
+        <th rowspan="2" class="th-main" style="width:185px;min-width:185px">Key Content<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Concepts &amp; procedures</span></th>
+        <th rowspan="2" class="th-main bloom-header" style="width:115px;min-width:115px">Bloom's<br>Level</th>
+        <th colspan="4" class="th-hour-group" style="background:#f8fafc;color:var(--ink-mid);font-size:11px;font-weight:700;padding:8px 4px 0;text-align:center;border-bottom:1px solid var(--border)">Notional Hours (A / B / C / D)</th>
+        <th rowspan="2" class="th-total" style="width:58px;min-width:58px">Total h</th>
+        <th rowspan="2" class="th-main method-header" style="width:150px;min-width:150px">Teaching<br>Method</th>
+        <th rowspan="2" class="th-main" style="width:195px;min-width:195px">Learner Activity<br><span style="font-weight:400;font-size:10px;color:var(--muted)">What learners DO</span></th>
+        <th rowspan="2" class="th-main" style="width:190px;min-width:190px">Activity Rationale<br><span style="font-weight:400;font-size:10px;color:var(--muted)">Learning theory link</span></th>
+        <th rowspan="2" class="th-main assess-type-header" style="width:130px;min-width:130px">Assessment<br>Type</th>
+        <th rowspan="2" class="th-main resources-header" style="width:165px;min-width:165px">Resources<br>Required</th>
+        <th rowspan="2" class="th-main perf-header" style="width:190px;min-width:190px">Performance<br>Indicator</th>
+        <th rowspan="2" class="th-main" style="width:125px;min-width:125px">Competency<br>Link</th>
+        <th rowspan="2" class="th-main" style="width:72px;min-width:72px">Action</th>
+      </tr>
+      <tr>
+        <th class="th-hour-sub hour-header-a" style="width:65px;min-width:65px">A – Dir<br>hrs</th>
+        <th class="th-hour-sub hour-header-b" style="width:65px;min-width:65px">B – Self<br>hrs</th>
+        <th class="th-hour-sub hour-header-c" style="width:65px;min-width:65px">C – App<br>hrs</th>
+        <th class="th-hour-sub hour-header-d" style="width:65px;min-width:65px">D – Ass<br>hrs</th>
+      </tr>
+    </thead><tbody></tbody></table>`;
     const tbody=tableScroll.querySelector('tbody');
     rows.forEach((row,idx)=>{
       const totalH=(parseH(row.hoursDirected)+parseH(row.hoursSelfDirected)+parseH(row.hoursApplied)+parseH(row.hoursAssessed)).toFixed(1);
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td><input class="table-input" placeholder="Topic or subtopic title…" value="${esc(row.topic||'')}"></td><td><textarea class="table-textarea" placeholder="Key concepts, procedures, or skills to be taught…">${esc(row.keyContent||'')}</textarea></td><td class="hour-cell-a"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursDirected||'')}"></td><td class="hour-cell-b"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursSelfDirected||'')}"></td><td class="hour-cell-c"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursApplied||'')}"></td><td class="hour-cell-d"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursAssessed||'')}"></td><td class="total-cell ${parseFloat(totalH)>0?'over':''}">${parseFloat(totalH)>0?totalH:'—'}</td><td><textarea class="table-textarea" placeholder="Learners will [active verb]…">${esc(row.learnerActivity||'')}</textarea></td><td><textarea class="table-textarea" placeholder="Why this activity builds the competency…">${esc(row.activityRationale||'')}</textarea></td><td><input class="table-input" placeholder="e.g. Competency 2" value="${esc(row.competencyLink||'')}"></td><td><button type="button" class="btn-small btn-remove-row">Remove</button></td>`;
-      const inputs=tr.querySelectorAll('input,textarea');
-      const[topicEl,contentEl,hA,hB,hC,hD,actEl,ratEl,compEl]=inputs;
+      tr.innerHTML=`
+        <td class="week-cell"><input class="table-input hour-input" placeholder="Wk 1" value="${esc(row.week||'')}"></td>
+        <td><input class="table-input" placeholder="Topic or subtopic title…" value="${esc(row.topic||'')}"></td>
+        <td><textarea class="table-textarea" placeholder="Key concepts, theories, procedures, and skills covered…">${esc(row.keyContent||'')}</textarea></td>
+        <td class="bloom-cell"><select class="table-input" style="font-size:12px;padding:6px 4px"><option value="">Level…</option><option ${row.bloomsLevel==='Remember'?'selected':''}>Remember</option><option ${row.bloomsLevel==='Understand'?'selected':''}>Understand</option><option ${row.bloomsLevel==='Apply'?'selected':''}>Apply</option><option ${row.bloomsLevel==='Analyse'?'selected':''}>Analyse</option><option ${row.bloomsLevel==='Evaluate'?'selected':''}>Evaluate</option><option ${row.bloomsLevel==='Create'?'selected':''}>Create</option></select></td>
+        <td class="hour-cell-a"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursDirected||'')}"></td>
+        <td class="hour-cell-b"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursSelfDirected||'')}"></td>
+        <td class="hour-cell-c"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursApplied||'')}"></td>
+        <td class="hour-cell-d"><input class="table-input hour-input" placeholder="0" value="${esc(row.hoursAssessed||'')}"></td>
+        <td class="total-cell ${parseFloat(totalH)>0?'over':''}">${parseFloat(totalH)>0?totalH:'—'}</td>
+        <td class="method-cell"><textarea class="table-textarea" style="min-height:60px" placeholder="e.g. Lecture + demo, Case study, Lab session, Problem-based…">${esc(row.teachingMethod||'')}</textarea></td>
+        <td><textarea class="table-textarea" placeholder="Learners will [active verb]…">${esc(row.learnerActivity||'')}</textarea></td>
+        <td><textarea class="table-textarea" placeholder="Cite learning theory: Bloom, Kolb, Vygotsky, constructivism…">${esc(row.activityRationale||'')}</textarea></td>
+        <td class="assess-type-cell"><textarea class="table-textarea" style="min-height:60px" placeholder="e.g. Diagnostic quiz, Formative: peer review, Summative: case report…">${esc(row.assessmentType||'')}</textarea></td>
+        <td class="resources-cell"><textarea class="table-textarea" style="min-height:60px" placeholder="e.g. LMS slides, EMIS dataset, case pack, lab kit, journal article…">${esc(row.resourcesRequired||'')}</textarea></td>
+        <td class="perf-cell"><textarea class="table-textarea" placeholder="How mastery is evidenced: score ≥75%, rubric level, demonstration…">${esc(row.performanceIndicator||'')}</textarea></td>
+        <td><input class="table-input" placeholder="e.g. Competency 2" value="${esc(row.competencyLink||'')}"></td>
+        <td><button type="button" class="btn-small btn-remove-row">Remove</button></td>`;
+      // Wire up all inputs in order: week,topic,keyContent,bloomsLevel(select),hA,hB,hC,hD,teachingMethod,learnerActivity,activityRationale,assessmentType,resourcesRequired,performanceIndicator,competencyLink
+      const allInputs=tr.querySelectorAll('input,textarea,select');
+      const [weekEl,topicEl,contentEl,bloomEl,hA,hB,hC,hD,methodEl,actEl,ratEl,assTypeEl,resEl,perfEl,compEl]=allInputs;
+      weekEl.addEventListener('input',()=>{rows[idx].week=weekEl.value;debouncedSave();});
       topicEl.addEventListener('input',()=>{rows[idx].topic=topicEl.value;debouncedSave();onlyBlend();});
       contentEl.addEventListener('input',()=>{rows[idx].keyContent=contentEl.value;debouncedSave();});
+      bloomEl.addEventListener('change',()=>{rows[idx].bloomsLevel=bloomEl.value;debouncedSave();});
       hA.addEventListener('input',()=>{rows[idx].hoursDirected=hA.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
       hB.addEventListener('input',()=>{rows[idx].hoursSelfDirected=hB.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
       hC.addEventListener('input',()=>{rows[idx].hoursApplied=hC.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
       hD.addEventListener('input',()=>{rows[idx].hoursAssessed=hD.value;updateTotalCell(tr,idx);onlyBlend();debouncedSave();});
+      methodEl.addEventListener('input',()=>{rows[idx].teachingMethod=methodEl.value;debouncedSave();});
       actEl.addEventListener('input',()=>{rows[idx].learnerActivity=actEl.value;debouncedSave();});
       ratEl.addEventListener('input',()=>{rows[idx].activityRationale=ratEl.value;debouncedSave();});
+      assTypeEl.addEventListener('input',()=>{rows[idx].assessmentType=assTypeEl.value;debouncedSave();});
+      resEl.addEventListener('input',()=>{rows[idx].resourcesRequired=resEl.value;debouncedSave();});
+      perfEl.addEventListener('input',()=>{rows[idx].performanceIndicator=perfEl.value;debouncedSave();});
       compEl.addEventListener('input',()=>{rows[idx].competencyLink=compEl.value;debouncedSave();});
       tr.querySelector('.btn-remove-row').addEventListener('click',()=>{rows.splice(idx,1);if(!rows.length)rows.push(emptyTopicPlanRow());sync();debouncedSave();});
       tbody.appendChild(tr);
@@ -904,11 +973,70 @@ function fmtVal(value){
 }
 function topicTableHtml(rows){
   const clean=normalizeTopicPlans(rows);if(!clean.length)return '<p style="color:#888">—</p>';
-  let tA=0,tB=0,tC=0,tD=0;clean.forEach(r=>{tA+=parseH(r.hoursDirected);tB+=parseH(r.hoursSelfDirected);tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);});
+  let tA=0,tB=0,tC=0,tD=0;
+  clean.forEach(r=>{tA+=parseH(r.hoursDirected);tB+=parseH(r.hoursSelfDirected);tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);});
   const grand=tA+tB+tC+tD;
-  const rh=clean.map(r=>{const th=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)).toFixed(1);return `<tr><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-weight:600">${esc(r.topic||'—')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.keyContent||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #e0f9ff;padding:10px;text-align:center;background:#f0fdff;font-weight:600">${r.hoursDirected||'—'}</td><td style="border:1px solid #ede9fe;padding:10px;text-align:center;background:#faf5ff;font-weight:600">${r.hoursSelfDirected||'—'}</td><td style="border:1px solid #fef3c7;padding:10px;text-align:center;background:#fffbeb;font-weight:600">${r.hoursApplied||'—'}</td><td style="border:1px solid #d1fae5;padding:10px;text-align:center;background:#f0fdf4;font-weight:600">${r.hoursAssessed||'—'}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${th}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.learnerActivity||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top;font-style:italic;color:#555">${esc(r.activityRationale||'—').replace(/\n/g,'<br>')}</td><td style="border:1px solid #dbe9ed;padding:10px;vertical-align:top">${esc(r.competencyLink||'—')}</td></tr>`;}).join('');
+  const b='border:1px solid #dbe9ed;padding:9px;vertical-align:top;';
+  const rh=clean.map(r=>{
+    const th=(parseH(r.hoursDirected)+parseH(r.hoursSelfDirected)+parseH(r.hoursApplied)+parseH(r.hoursAssessed)).toFixed(1);
+    const bloomBg={'Remember':'#f0f9ff','Understand':'#f0fdf4','Apply':'#fef9c3','Analyse':'#fdf4ff','Evaluate':'#fef2f2','Create':'#fff7ed'};
+    const bBg=bloomBg[r.bloomsLevel]||'#fafffe';
+    return `<tr>
+      <td style="${b}text-align:center;font-weight:700;color:#4f46e5;background:#ede9fe">${esc(r.week||'—')}</td>
+      <td style="${b}font-weight:600;min-width:140px">${esc(r.topic||'—')}</td>
+      <td style="${b}min-width:160px">${esc(r.keyContent||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}text-align:center;background:${bBg};font-weight:600;font-size:12px">${esc(r.bloomsLevel||'—')}</td>
+      <td style="border:1px solid #e0f9ff;padding:9px;text-align:center;background:#f0fdff;font-weight:700">${r.hoursDirected||'—'}</td>
+      <td style="border:1px solid #ede9fe;padding:9px;text-align:center;background:#faf5ff;font-weight:700">${r.hoursSelfDirected||'—'}</td>
+      <td style="border:1px solid #fef3c7;padding:9px;text-align:center;background:#fffbeb;font-weight:700">${r.hoursApplied||'—'}</td>
+      <td style="border:1px solid #d1fae5;padding:9px;text-align:center;background:#f0fdf4;font-weight:700">${r.hoursAssessed||'—'}</td>
+      <td style="${b}text-align:center;font-weight:700;font-size:14px">${th}</td>
+      <td style="${b}background:#fff7ed;min-width:140px">${esc(r.teachingMethod||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}min-width:180px">${esc(r.learnerActivity||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}font-style:italic;color:#555;min-width:180px">${esc(r.activityRationale||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}background:#e0f2fe;min-width:120px">${esc(r.assessmentType||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}background:#ecfccb;min-width:150px">${esc(r.resourcesRequired||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}background:#f3e8ff;min-width:170px">${esc(r.performanceIndicator||'—').replace(/\n/g,'<br>')}</td>
+      <td style="${b}min-width:110px">${esc(r.competencyLink||'—')}</td>
+    </tr>`;
+  }).join('');
   const ap_pct=grand>0?Math.round((tC+tD)/grand*100):0;
-  return `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:1100px;margin-top:6px"><thead><tr><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:140px">Topic</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:160px">Key Content</th><th style="border:1px solid #e0f9ff;padding:10px;background:#e0f9ff;text-align:center;color:#0e7490;min-width:60px">A hrs<br><small>Directed</small></th><th style="border:1px solid #ede9fe;padding:10px;background:#ede9fe;text-align:center;color:#5b21b6;min-width:60px">B hrs<br><small>Self-dir</small></th><th style="border:1px solid #fef3c7;padding:10px;background:#fef3c7;text-align:center;color:#92400e;min-width:60px">C hrs<br><small>Applied</small></th><th style="border:1px solid #d1fae5;padding:10px;background:#d1fae5;text-align:center;color:#065f46;min-width:60px">D hrs<br><small>Assessed</small></th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:center;min-width:55px">Total</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Learner Activity</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:180px">Activity Rationale</th><th style="border:1px solid #dbe9ed;padding:10px;background:#f3fbfc;text-align:left;min-width:120px">Competency Link</th></tr></thead><tbody>${rh}</tbody><tfoot><tr><td colspan="2" style="border:1px solid #dbe9ed;padding:10px;font-weight:700;background:#f8fcfd">TOTALS</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#e0f9ff">${tA.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#ede9fe">${tB.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#fef3c7">${tC.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#d1fae5">${tD.toFixed(1)}</td><td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${grand.toFixed(1)}</td><td colspan="3" style="border:1px solid #dbe9ed;padding:10px;background:#${ap_pct>=50?'ecfdf5':'fef9c3'}"><strong>CBE Blend:</strong> Applied+Assessed = ${ap_pct}% of total hours ${ap_pct>=50?'✅ Meets CBE threshold (≥50%)':'⚠️ Below CBE threshold — increase applied/assessed hours'}</td></tr></tfoot></table></div>`;
+  const th_style='border:1px solid #dbe9ed;padding:10px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;';
+  return `<div style="overflow-x:auto;margin-top:6px"><table style="width:100%;border-collapse:collapse;min-width:2000px">
+    <thead>
+      <tr>
+        <th style="${th_style}background:#ede9fe;color:#4f46e5;min-width:65px">Week</th>
+        <th style="${th_style}background:#f3fbfc;min-width:140px">Topic / Subtopic</th>
+        <th style="${th_style}background:#f3fbfc;min-width:160px">Key Content</th>
+        <th style="${th_style}background:#fce7f3;color:#9d174d;min-width:100px">Bloom's Level</th>
+        <th style="border:1px solid #e0f9ff;padding:10px;background:#e0f9ff;text-align:center;color:#0e7490;font-weight:700;min-width:58px">A hrs<br><small>Directed</small></th>
+        <th style="border:1px solid #ede9fe;padding:10px;background:#ede9fe;text-align:center;color:#5b21b6;font-weight:700;min-width:58px">B hrs<br><small>Self-dir</small></th>
+        <th style="border:1px solid #fef3c7;padding:10px;background:#fef3c7;text-align:center;color:#92400e;font-weight:700;min-width:58px">C hrs<br><small>Applied</small></th>
+        <th style="border:1px solid #d1fae5;padding:10px;background:#d1fae5;text-align:center;color:#065f46;font-weight:700;min-width:58px">D hrs<br><small>Assessed</small></th>
+        <th style="${th_style}background:#f3fbfc;text-align:center;min-width:55px">Total h</th>
+        <th style="${th_style}background:#fff7ed;color:#9a3412;min-width:140px">Teaching Method</th>
+        <th style="${th_style}background:#f3fbfc;min-width:175px">Learner Activity</th>
+        <th style="${th_style}background:#f3fbfc;min-width:175px">Activity Rationale</th>
+        <th style="${th_style}background:#e0f2fe;color:#0369a1;min-width:120px">Assessment Type</th>
+        <th style="${th_style}background:#ecfccb;color:#3f6212;min-width:150px">Resources Required</th>
+        <th style="${th_style}background:#f3e8ff;color:#6b21a8;min-width:165px">Performance Indicator</th>
+        <th style="${th_style}background:#f3fbfc;min-width:110px">Competency Link</th>
+      </tr>
+    </thead>
+    <tbody>${rh}</tbody>
+    <tfoot><tr>
+      <td colspan="4" style="border:1px solid #dbe9ed;padding:10px;font-weight:700;background:#f8fcfd">TOTALS</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#e0f9ff">${tA.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#ede9fe">${tB.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#fef3c7">${tC.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700;background:#d1fae5">${tD.toFixed(1)}</td>
+      <td style="border:1px solid #dbe9ed;padding:10px;text-align:center;font-weight:700">${grand.toFixed(1)}</td>
+      <td colspan="7" style="border:1px solid #dbe9ed;padding:10px;background:#${ap_pct>=50?'ecfdf5':'fef9c3'}">
+        <strong>CBE Blend:</strong> Applied + Assessed = ${ap_pct}% of total hours &nbsp;
+        ${ap_pct>=50?'✅ Meets CBE threshold (≥50%)':'⚠️ Below CBE threshold — redistribute hours toward applied and assessed activities'}
+      </td>
+    </tr></tfoot>
+  </table></div>`;
 }
 function generateUnitHtml(unit){
   const tp=getTotalProgress(unit);const topicData=normalizeTopicPlans(unit.data[8]?.topicPlans||[]);
@@ -972,7 +1100,7 @@ function p6(inp,ctx){return `You are an expert competency-based course designer 
 
 function p7(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nCognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn exactly this JSON:\n{\n  "step7": {\n    "specific": "Precise observable description of what learners will do by the end of the course",\n    "measurable": "Performance indicators with concrete evidence — scores, rubric levels, or demonstrated outcomes. Do NOT list activities.",\n    "achievable": "Explain why the objectives are realistic for the target learners based on prior knowledge and scaffolding",\n    "relevant": "Explain why these objectives matter for academic progression and professional practice",\n    "timeBound": "By end of Week X / by the end of the course",\n    "completeObjectives": "Write 4-6 full SMART objectives, one per line"\n  }\n}`;}
 
-function p8(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nSMART objectives:\n${ctx.step7?.completeObjectives||''}\n\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nCRITICAL: topicPlans Applied + Assessed hours MUST exceed 50% of total hours.\nReturn JSON (topicPlans must be an array with at least 4 rows):\n{\n  "step8": {\n    "contentOverview": "Topic sequence and pedagogical rationale",\n    "topicPlans": [\n      {"topic":"Topic title","keyContent":"Key concepts","hoursDirected":"2","hoursSelfDirected":"2","hoursApplied":"3","hoursAssessed":"1","learnerActivity":"Learners will [active verb]","activityRationale":"Why this builds competency","competencyLink":"Competency 1"}\n    ],\n    "contentRationale": "Why this sequence and why Applied+Assessed exceeds 50%"\n  }\n}`;}
+function p8(inp,ctx){return `You are an expert competency-based course designer for Kampala International University (KIU), Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nCognitive outcomes: ${ctx.step2?.cognitiveOutcomes||''}\nSMART objectives:\n${ctx.step7?.completeObjectives||''}\nDelivery modality: ${ctx.step10?.modality||'Blended / Hybrid'}\n\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nCRITICAL RULES:\n1. topicPlans Applied (C) + Assessed (D) hours MUST exceed 50% of total hours across all rows.\n2. bloomsLevel MUST be one of: Remember, Understand, Apply, Analyse, Evaluate, Create.\n3. Generate at least 5 topic rows covering the full course duration week by week.\n4. Every row must have substantive, course-specific content — not placeholder text.\n5. teachingMethod must name the specific pedagogical technique used (e.g. Socratic questioning, think-pair-share, EMIS lab session, problem-based learning, role-play simulation).\n6. assessmentType must specify the category AND instrument (e.g. Formative: MCQ diagnostic quiz, Summative: case analysis report, Peer: structured peer review using rubric).\n7. resourcesRequired must name specific materials (e.g. EMIS dashboard access, Uganda Education Statistics Abstract 2023, Moodle quiz bank, Excel dataset).\n8. performanceIndicator must state measurable evidence of mastery (e.g. Scores ≥70% on gate quiz; Proficient on rubric criterion 2; correctly identifies all 5 data anomalies).\n9. activityRationale must cite a specific learning theory (Bloom 1956, Kolb 1984, Vygotsky ZPD, constructivism, deliberate practice, spaced retrieval).\n\nReturn exactly this JSON:\n{\n  "step8": {\n    "contentOverview": "Detailed narrative of the full topic sequence, pedagogical logic, and how topics build progressively toward the competencies",\n    "topicPlans": [\n      {\n        "week": "Week 1",\n        "topic": "Full topic title",\n        "keyContent": "Specific declarative and procedural knowledge: concepts, theories, frameworks, and skills covered in this topic",\n        "bloomsLevel": "Understand",\n        "hoursDirected": "2",\n        "hoursSelfDirected": "1.5",\n        "hoursApplied": "3",\n        "hoursAssessed": "1",\n        "teachingMethod": "Specific named teaching method with brief description of how it is applied",\n        "learnerActivity": "Learners will [active Bloom verb] — specific description of the task, product, or performance expected from learners",\n        "activityRationale": "This activity builds [competency name] because [learning theory citation] — specific pedagogical justification",\n        "assessmentType": "Category: specific assessment instrument and its purpose",\n        "resourcesRequired": "Named specific resources: platform, dataset, reading, tool, or material",\n        "performanceIndicator": "Measurable evidence of mastery: score threshold, rubric level, or observable demonstration",\n        "competencyLink": "Competency 1"\n      }\n    ],\n    "contentRationale": "Detailed justification of topic sequence, hour distribution rationale, and explanation of why Applied+Assessed exceeds 50% in line with CBE principles"\n  }\n}`;}
 
 function p9(inp,ctx){return `You are an expert competency-based course designer for KIU Uganda.\nUnit: ${ctx.unitName}\nCompetencies: ${(ctx.step6?.competencies||[]).join('; ')}\nReturn ONLY a valid JSON object — no markdown, no backticks.\n\nCOURSE WRITE-UP:\n${inp}\n\nReturn JSON (rubric MUST include Excellent/Proficient/Developing/Beginning for each criterion):\n{\n  "step9": {\n    "formative": "Formative assessments with frequency and purpose",\n    "summative": "Summative assessments with weightings",\n    "rubric": "Criterion 1 – [Name]\\n  Excellent: ...\\n  Proficient: ...\\n  Developing: ...\\n  Beginning: ...",\n    "evidenceType": ["Portfolio","Case Analysis","Practical Demonstration"],\n    "passingCriteria": ">=75% with no criterion below Developing",\n    "competencyAlignment": "Quiz 1 -> Competency 1\\nProject -> Competencies 2,3",\n    "masteryJustification": "Rationale citing KIU policy, industry standards and CBE research"\n  }\n}`;}
 
