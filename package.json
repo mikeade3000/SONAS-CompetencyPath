@@ -1,8 +1,8 @@
 {
   "name": "competencypath-openrouter",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "private": true,
-  "description": "CompetencyPath 15-step CBE course designer served from Render with an OpenRouter backend proxy locked to Llama 3.3 70B Instruct.",
+  "description": "CompetencyPath 15-step CBE course designer served from Render with an OpenRouter backend proxy.",
   "main": "server.js",
   "type": "commonjs",
   "engines": {
