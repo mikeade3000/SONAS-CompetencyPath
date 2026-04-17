@@ -1,104 +1,187 @@
 const express = require('express');
-const path    = require('path');
-const app     = express();
-const PORT    = process.env.PORT || 3000;
+const compression = require('compression');
+const path = require('path');
+const fs = require('fs');
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json({ limit: '1mb' }));
+const app = express();
+const PORT = process.env.PORT || 3000;
+const ROOT = __dirname;
+const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free';
 
-const GROQ_ENDPOINT  = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_API_KEY   = process.env.GROQ_API_KEY;
+app.disable('x-powered-by');
+app.use(compression());
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: false, limit: '5mb' }));
 
-// Cascade: if one model is rate-limited, immediately try the next
-const MODEL_CASCADE = [
-  'llama-3.3-70b-versatile',
-  'llama-3.1-8b-instant',
-  'llama3-70b-8192',
-  'llama3-8b-8192'
-];
+function firstExisting(candidates) {
+  for (const rel of candidates) {
+    const full = path.join(ROOT, rel);
+    if (fs.existsSync(full)) return full;
+  }
+  return null;
+}
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+function getAppTitle() {
+  return process.env.OPENROUTER_APP_NAME || 'CompetencyPath OpenRouter';
+}
 
-app.get('/ping', (_req, res) => res.json({ status: 'ok', ts: Date.now() }));
-app.get('/',    (_req, res) => res.json({ status: 'ok', service: 'CompetencyPath API', ts: Date.now() }));
+function getReferer(req) {
+  return process.env.PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
+}
 
-app.post('/api/generate-step', async (req, res) => {
-  const { prompt, model, stepLabel } = req.body || {};
-  if (!prompt)       return res.status(400).json({ error: 'prompt is required' });
-  if (!GROQ_API_KEY) return res.status(500).json({ error: 'GROQ_API_KEY not set on server' });
+function getServerApiKey() {
+  return process.env.OPENROUTER_API_KEY || '';
+}
 
-  const complexSteps = ['Step 4','Step 5','Step 7','Step 8'];
-  const maxTokens    = complexSteps.some(s => (stepLabel||'').includes(s)) ? 4096 : 2048;
+function parseMaxTokens(stepLabel = '') {
+  const longSteps = ['Step 8', 'Step 9', 'Step 11', 'Step 12', 'Step 13', 'Step 15'];
+  return longSteps.some((step) => stepLabel.includes(step)) ? 4500 : 2500;
+}
 
-  // Build cascade: requested model first, then the rest
-  const requested = MODEL_CASCADE.includes(model) ? model : MODEL_CASCADE[0];
-  const cascade   = [requested, ...MODEL_CASCADE.filter(m => m !== requested)];
+function cleanJsonContent(raw) {
+  return String(raw || '')
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```$/i, '')
+    .trim();
+}
 
-  // Total time budget: 80s (under Render's 90s request timeout)
-  // Strategy: try each model once with a short wait on 429, then move on
-  const deadline = Date.now() + 80000;
+async function openRouterRequest({ prompt, stepLabel, req }) {
+  const apiKey = getServerApiKey();
+  if (!apiKey) {
+    const err = new Error('OPENROUTER_API_KEY is missing on the server.');
+    err.status = 500;
+    throw err;
+  }
 
-  for (const tryModel of cascade) {
-    if (Date.now() >= deadline) break;
+  const payload = {
+    model: OPENROUTER_MODEL,
+    messages: [{ role: 'user', content: prompt }],
+    response_format: { type: 'json_object' },
+    temperature: 0.4,
+    max_tokens: parseMaxTokens(stepLabel)
+  };
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`,
+    'HTTP-Referer': getReferer(req),
+    'X-Title': getAppTitle()
+  };
+
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 180000);
 
     try {
-      const groqRes = await fetch(GROQ_ENDPOINT, {
-        method:  'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'Authorization': 'Bearer ' + GROQ_API_KEY
-        },
-        body: JSON.stringify({
-          model:           tryModel,
-          messages:        [{ role: 'user', content: prompt }],
-          response_format: { type: 'json_object' },
-          temperature:     0.7,
-          max_tokens:      maxTokens
-        }),
-        signal: AbortSignal.timeout(25000) // 25s per Groq attempt
+      const response = await fetch(OPENROUTER_API_URL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
 
-      if (groqRes.ok) {
-        const data    = await groqRes.json();
-        const raw     = data?.choices?.[0]?.message?.content || '';
-        const cleaned = raw.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
-        try {
-          return res.json(JSON.parse(cleaned));
-        } catch {
-          return res.status(502).json({ error: 'Model returned malformed JSON. Try a shorter write-up.' });
+      clearTimeout(timeout);
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const message =
+          data?.error?.message ||
+          data?.error ||
+          `OpenRouter HTTP ${response.status}`;
+
+        if ((response.status === 429 || response.status === 503) && attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * 4000));
+          continue;
         }
+
+        const err = new Error(message);
+        err.status = response.status;
+        throw err;
       }
 
-      const errData = await groqRes.json().catch(() => ({}));
-      const msg     = errData?.error?.message || '';
+      const raw = data?.choices?.[0]?.message?.content || '';
+      const cleaned = cleanJsonContent(raw);
 
-      if (groqRes.status === 429) {
-        // Rate limited — wait a short time then try NEXT model (don't wait a full minute)
-        const retryAfter = parseInt(groqRes.headers.get('retry-after') || '0', 10);
-        const waitMs = Math.min((retryAfter > 0 ? retryAfter : 8) * 1000, 20000); // max 20s wait
-        console.log(`[${stepLabel}] ${tryModel} rate-limited. Waiting ${waitMs/1000}s then trying next model...`);
-        if (Date.now() + waitMs < deadline) await sleep(waitMs);
-        continue; // try next model
+      try {
+        return JSON.parse(cleaned);
+      } catch (parseError) {
+        const err = new Error(`Could not parse JSON for ${stepLabel || 'request'}.`);
+        err.status = 502;
+        throw err;
       }
+    } catch (error) {
+      clearTimeout(timeout);
+      lastError = error;
 
-      // Other errors — return immediately
-      return res.status(groqRes.status).json({ error: msg || `Groq HTTP ${groqRes.status}` });
-
-    } catch (err) {
-      // Network/timeout error on this model — try next immediately
-      console.warn(`[${stepLabel}] ${tryModel} error: ${err.message} — trying next model`);
-      continue;
+      if ((error.name === 'AbortError' || String(error.message || '').includes('aborted')) && attempt < 3) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 3000));
+        continue;
+      }
+      if (attempt < 3 && error.status && [429, 503].includes(error.status)) {
+        await new Promise((resolve) => setTimeout(resolve, attempt * 4000));
+        continue;
+      }
+      break;
     }
   }
 
-  // All models failed within time budget
-  return res.status(429).json({
-    error: 'All Groq models are currently rate-limited. Please wait 60 seconds and try again.'
+  throw lastError || new Error('OpenRouter request failed.');
+}
+
+app.get('/health', (_req, res) => {
+  res.json({
+    ok: true,
+    provider: 'openrouter',
+    hasApiKey: Boolean(getServerApiKey()),
+    app: getAppTitle()
   });
 });
 
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.post('/api/generate-step', async (req, res) => {
+  try {
+    const { prompt, stepLabel } = req.body || {};
+
+    if (!prompt || typeof prompt !== 'string' || !prompt.trim()) {
+      return res.status(400).json({ error: 'A non-empty prompt is required.' });
+    }
+
+    const result = await openRouterRequest({
+      prompt: prompt.trim(),
+      stepLabel: stepLabel || 'AI generation step',
+      req
+    });
+
+    return res.json(result);
+  } catch (error) {
+    const status = error.status || 500;
+    return res.status(status).json({
+      error: error.message || 'Unexpected server error.'
+    });
+  }
 });
 
-app.listen(PORT, () => console.log('CompetencyPath running on port ' + PORT));
+app.use(express.static(ROOT, {
+  extensions: ['html']
+}));
+
+app.get('*', (req, res) => {
+  const file = firstExisting([
+    'index.html',
+    'CompetencyPath_OpenRouter_15_steps.html',
+    'CompetencyPath_15_steps.html'
+  ]);
+
+  if (!file) {
+    return res.status(404).send('No HTML entry file found.');
+  }
+
+  return res.sendFile(file);
+});
+
+app.listen(PORT, () => {
+  console.log(`CompetencyPath OpenRouter server listening on port ${PORT}`);
+});
