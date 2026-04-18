@@ -272,6 +272,98 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 .btn-close-modal{width:100%;margin-top:16px;border:none;border-radius:11px;padding:13px;cursor:pointer;color:#fff;font-weight:600;font-family:'Outfit',sans-serif;font-size:14px;background:linear-gradient(135deg,var(--ink),var(--ink-mid))}
 @media(max-width:900px){.checkbox-grid{grid-template-columns:1fr}.target-unit-row{flex-direction:column;align-items:stretch}}
 @media(max-width:700px){main{padding:14px}.form-card{padding:18px 16px}.step-nav-btns{flex-direction:column}.btn-prev,.btn-next,.btn-complete{width:100%}}
+
+/* ── DISCLAIMER POPUP ── */
+.disclaimer-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.72);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(6px);
+  animation:disc-fade-in .35s ease;
+}
+@keyframes disc-fade-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.disclaimer-box{
+  width:100%;max-width:600px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(180,0,0,.35),0 0 0 4px #dc2626;
+  animation:disc-bounce .45s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes disc-bounce{
+  0%{transform:translateY(-40px) scale(.92);opacity:0}
+  60%{transform:translateY(6px) scale(1.01);opacity:1}
+  100%{transform:translateY(0) scale(1);opacity:1}
+}
+.disclaimer-header{
+  background:linear-gradient(135deg,#7f1d1d 0%,#dc2626 60%,#b91c1c 100%);
+  padding:22px 24px 18px;
+  display:flex;align-items:center;gap:16px;
+  position:relative;
+}
+.disclaimer-caution-icon{
+  width:60px;height:60px;flex-shrink:0;
+  background:#fff2;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;
+  border:2.5px solid rgba(255,255,255,.4);
+  animation:disc-pulse 1.8s ease-in-out infinite;
+}
+@keyframes disc-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}
+  50%{box-shadow:0 0 0 10px rgba(255,255,255,0)}
+}
+.disclaimer-header-text{}
+.disclaimer-header-label{
+  font-size:10px;font-weight:700;letter-spacing:.16em;
+  color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:4px;
+}
+.disclaimer-header-title{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:700;
+  color:#fff;line-height:1.15;
+}
+.disclaimer-body{
+  padding:22px 24px 20px;
+}
+.disclaimer-body p{
+  font-family:'Outfit',sans-serif;
+  font-size:14px;line-height:1.7;color:#1a1a1a;margin:0 0 14px;
+}
+.disclaimer-body p:last-of-type{margin-bottom:0;}
+.disc-point{
+  display:flex;gap:12px;align-items:flex-start;
+  background:#fef2f2;border:1.5px solid #fecaca;
+  border-radius:10px;padding:12px 14px;margin-bottom:10px;
+}
+.disc-point-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.disc-point-text{font-family:'Outfit',sans-serif;font-size:13.5px;line-height:1.6;color:#1a1a1a}
+.disc-point-text strong{color:#7f1d1d}
+.disclaimer-footer{
+  background:#fef2f2;border-top:2px solid #fecaca;
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;
+}
+.disclaimer-branding{
+  font-family:'Outfit',sans-serif;font-size:11px;
+  color:#991b1b;font-weight:600;line-height:1.5;
+}
+.disclaimer-btn{
+  border:none;border-radius:10px;
+  padding:11px 28px;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;
+  box-shadow:0 4px 14px rgba(220,38,38,.4);
+  transition:all .2s;white-space:nowrap;
+}
+.disclaimer-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(220,38,38,.5)}
+.disc-timer{
+  font-family:'Outfit',sans-serif;font-size:11px;
+  color:#6b7280;text-align:center;margin-top:8px;
+}
+
 </style>
 </head>
 <body>
@@ -354,7 +446,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
     <button class="modal-close-x" id="closeImportModal">✕</button>
     <div class="modal-head">
       <h2>✦ Course Import</h2>
-      <p>Paste or upload your course write-up — powered by the Render/OpenRouter backend · Dr. Michael Adelani Adewusi AI-Research Lab</p>
+      <p>Paste or upload your course write-up — powered by Dr. Michael Adelani Adewusi AI-Research Lab</p>
     </div>
     <div class="modal-body">
       <div class="import-tabs">
@@ -394,9 +486,9 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
           <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#4f46e5;border-radius:999px;font-weight:700">💎 Premium</span>
         </div>
         <select class="model-select" id="openrouterModelSelect">
-          <option value="meta-llama/llama-3.3-70b-instruct" selected>Llama 3.3 70B – Premium</option>
+          <option value="meta-llama/llama-3.3-70b-instruct" selected>Premium</option>
         </select>
-        <div class="model-status" id="openrouterModelStatus">All AI requests are sent from your Render backend to OpenRouter using Llama 3.3 70B (premium).</div>
+        <div class="model-status" id="openrouterModelStatus">All requests are sent from your Dr. Adelani AI-Lab backend (premium).</div>
       </div>
 
       <div class="target-unit-row">
@@ -632,8 +724,8 @@ const STEPS = [
        placeholder:"List and describe the core teaching and learning materials required for the course…"},
       {key:"instructionalNotes", label:"Instructional Design Notes", type:"textarea",
        placeholder:"Explain how the selected strategies support learner engagement, competence development, and inclusive teaching…"},
-      {key:"localisedReferences", label:"Reading Materials (APA 7th Edition with DOI)", type:"textarea",
-       hint:"Verifiable Materials with DOIs",
+      {key:"localisedReferences", label:"Localised References (APA 7th Edition with DOI)", type:"textarea",
+       hint:"5–7 verifiable references with real DOIs, prioritising African/East African/Ugandan authors, journals, and institutional contexts. Format: APA 7th edition. One reference per line.",
        placeholder:"Author, A. A., & Author, B. B. (Year). Title of article. Journal Name, Volume(Issue), pages. https://doi.org/xxxxx\n\nAuthor, C. C. (Year). Title of book chapter. In E. E. Editor (Ed.), Book title (pp. xx–xx). Publisher. https://doi.org/xxxxx"}
     ]
   },
@@ -786,7 +878,7 @@ function renderUnits(){
     const prog=getTotalProgress(unit);const active=unit.id===state.activeUnit;
     const d=document.createElement('div');d.className='unit-card'+(active?' active':'');
     const cr=2*Math.PI*12;
-    d.innerHTML=`<div class="unit-card-row"><span class="unit-name">${esc(unit.name)}${unit.aiGenerated?'<span style="font-size:9px;color:#10b981;margin-left:4px;font-weight:700">✦AI</span>':''}</span><svg class="ring-svg" width="32" height="32" style="flex-shrink:0"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2.5"/><circle cx="16" cy="16" r="12" fill="none" stroke="${active?'#10b981':'rgba(255,255,255,.25)'}" stroke-width="2.5" stroke-dasharray="${cr.toFixed(1)}" stroke-dashoffset="${(cr*(1-prog/100)).toFixed(1)}" stroke-linecap="round"/><text x="16" y="16" text-anchor="middle" dominant-baseline="middle" style="font-size:6px;font-weight:700;fill:${active?'#10b981':'rgba(255,255,255,.4)'};font-family:sans-serif;transform:rotate(90deg);transform-origin:center">${prog}%</text></svg></div>${unit.description?`<div class="unit-desc-preview">${esc(unit.description)}</div>`:''}<div class="unit-bar"><div class="unit-bar-fill" style="width:${prog}%"></div></div>`;
+    d.innerHTML=`<div class="unit-card-row"><span class="unit-name">${esc(unit.name)}${unit.aiGenerated?'<span style="font-size:9px;color:#10b981;margin-left:4px;font-weight:700">✦</span>':''}</span><svg class="ring-svg" width="32" height="32" style="flex-shrink:0"><circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2.5"/><circle cx="16" cy="16" r="12" fill="none" stroke="${active?'#10b981':'rgba(255,255,255,.25)'}" stroke-width="2.5" stroke-dasharray="${cr.toFixed(1)}" stroke-dashoffset="${(cr*(1-prog/100)).toFixed(1)}" stroke-linecap="round"/><text x="16" y="16" text-anchor="middle" dominant-baseline="middle" style="font-size:6px;font-weight:700;fill:${active?'#10b981':'rgba(255,255,255,.4)'};font-family:sans-serif;transform:rotate(90deg);transform-origin:center">${prog}%</text></svg></div>${unit.description?`<div class="unit-desc-preview">${esc(unit.description)}</div>`:''}<div class="unit-bar"><div class="unit-bar-fill" style="width:${prog}%"></div></div>`;
     d.addEventListener('click',()=>{state.activeUnit=unit.id;state.activeStep=1;render();});
     el.appendChild(d);
   });
@@ -963,7 +1055,7 @@ function renderContent(){
   content.appendChild(descCard);
   const step=STEPS.find(s=>s.id===state.activeStep);const data=unit.data[step.id];const pct=getCompletion(unit,step.id);
   const header=document.createElement('div');header.className='step-header';header.style.background=`linear-gradient(135deg,${step.color}f0,${step.color}99)`;
-  header.innerHTML=`<div class="step-header-inner"><div class="step-icon-big">${step.icon}</div><div style="flex:1"><div class="step-num-label">Step ${step.id} of ${STEPS.length}</div><div class="step-title">${step.title}</div>${unit.aiGenerated?'<div class="ai-filled-badge">✦ Dr. Adelani AI-Lab Enhanced</div>':''}<div class="step-progress-row"><div class="step-progress-bar"><div class="step-progress-fill" id="stepProgFill" style="width:${pct}%"></div></div><span class="step-pct-label" id="stepProgTxt">${pct}% complete</span></div>${step.evaluatorNote?`<div class="step-evaluator-note"><strong>📌 Design Guidance:</strong> ${esc(step.evaluatorNote)}</div>`:''}</div></div>`;
+  header.innerHTML=`<div class="step-header-inner"><div class="step-icon-big">${step.icon}</div><div style="flex:1"><div class="step-num-label">Step ${step.id} of ${STEPS.length}</div><div class="step-title">${step.title}</div>${unit.aiGenerated?'<div class="ai-filled-badge">✦ Dr. Adelani Lab — Generated</div>':''}<div class="step-progress-row"><div class="step-progress-bar"><div class="step-progress-fill" id="stepProgFill" style="width:${pct}%"></div></div><span class="step-pct-label" id="stepProgTxt">${pct}% complete</span></div>${step.evaluatorNote?`<div class="step-evaluator-note"><strong>📌 Design Guidance:</strong> ${esc(step.evaluatorNote)}</div>`:''}</div></div>`;
   content.appendChild(header);
   const card=document.createElement('div');card.className='form-card';
   step.fields.forEach(field=>{const ai=unit.aiGenerated&&(Array.isArray(data[field.key])?data[field.key].length>0:!!String(data[field.key]||'').trim());card.appendChild(buildField(field,data[field.key],val=>{unit.data[step.id][field.key]=val;updateProgress();},ai));});
@@ -980,7 +1072,8 @@ function renderContent(){
 }
 function updateProgress(){renderSteps();renderUnits();renderHeaderRing();const unit=getUnit();const pct=getCompletion(unit,state.activeStep);const fill=document.getElementById('stepProgFill');const txt=document.getElementById('stepProgTxt');if(fill)fill.style.width=pct+'%';if(txt)txt.textContent=pct+'% complete';}
 function render(){renderUnits();renderSteps();renderContent();renderHeaderRing();}
-function showCompleteModal(unit){let html='';STEPS.forEach(step=>{const pct=getCompletion(unit,step.id);html+=`<div class="modal-summary-row"><span>${step.icon} ${step.title}</span><span class="spct">${pct}%</span></div>`;});document.getElementById('completeSummary').innerHTML=html;document.getElementById('completeModal').classList.add('open');}
+function showCompleteModal(unit){let html='';STEPS.forEach(step=>{const pct=getCompletion(unit,step.id);html+=`<div class="modal-summary-row"><span>${step.icon} ${step.title}</span><span class="spct">${pct}%</span></div>`;});document.getElementById('completeSummary').innerHTML=html;document.getElementById('completeModal').classList.add('open');// Show disclaimer when unit design is completed
+setTimeout(function(){if(typeof window._showDisclaimer==='function')window._showDisclaimer();},800);}
 
 // HTML EXPORT
 function fmtVal(value){
@@ -1060,7 +1153,143 @@ function generateUnitHtml(unit){
   let tA=0,tB=0,tC=0,tD=0;topicData.forEach(r=>{tA+=parseH(r.hoursDirected);tB+=parseH(r.hoursSelfDirected);tC+=parseH(r.hoursApplied);tD+=parseH(r.hoursAssessed);});
   const grand=tA+tB+tC+tD;const ap_pct=grand>0?Math.round((tC+tD)/grand*100):0;
   const sections=STEPS.map(step=>{const data=unit.data[step.id]||{};const fh=step.fields.map(field=>{const vh=field.type==='topicTable'?topicTableHtml(data[field.key]):fmtVal(data[field.key]);return `<div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #edf4f6"><div style="font-size:11px;font-weight:700;color:#0d7d8c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">${esc(field.label)}</div>${vh}</div>`;}).join('');return `<section style="background:#fff;border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 18px rgba(0,0,0,.05);border:1px solid #e3eef1"><div style="color:#fff;padding:16px 20px;display:flex;gap:12px;align-items:center;background:${step.color}"><div style="font-size:28px">${step.icon}</div><div><div style="font-size:11px;font-weight:700;opacity:.85;letter-spacing:.08em">STEP ${step.id}</div><div style="font-family:Georgia,serif;font-size:20px;font-weight:700;margin-top:3px">${esc(step.title)}</div></div></div><div style="padding:18px">${fh}</div></section>`;}).join('');
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>${esc(unit.name)} – CompetencyPath Export</title><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap');body{font-family:'Outfit',Arial,sans-serif;margin:0;background:#f0faf7;color:#1a3a42;line-height:1.55}.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}.hero{background:linear-gradient(135deg,#0e2433,#163348 55%,#1a4a3a);color:#fff;border-radius:20px;padding:28px;margin-bottom:24px}.hero h1{font-family:'Fraunces',Georgia,serif;margin:0 0 8px;font-size:32px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 13px;border-radius:999px;font-size:12.5px}.time-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}.ts-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;border:1.5px solid #e3eef1}.ts-card .num{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;margin-bottom:4px}.ts-card .lbl{font-size:12px;color:#6b9aaa}.footer{margin-top:30px;text-align:center;color:#6e8b95;font-size:13px}</style></head><body><div class="wrap"><div class="hero"><h1>${esc(unit.name)}</h1>${unit.description?`<div style="margin:8px 0 16px;font-size:15px;opacity:.9;line-height:1.6;max-width:760px">${esc(unit.description)}</div>`:''}<div class="meta"><div class="badge">Completion: ${tp}%</div><div class="badge">AI-enhanced: ${unit.aiGenerated?'Yes':'No'}</div><div class="badge">Total study hours: ${grand.toFixed(1)}h</div><div class="badge">CBE blend: ${ap_pct}%${ap_pct>=50?' ✅':' ⚠️'}</div><div class="badge">Kampala International University</div></div></div>${grand>0?`<div class="time-summary"><div class="ts-card"><div class="num" style="color:#0e7490">${tA.toFixed(1)}h</div><div class="lbl">A — Directed</div></div><div class="ts-card"><div class="num" style="color:#5b21b6">${tB.toFixed(1)}h</div><div class="lbl">B — Self-directed</div></div><div class="ts-card"><div class="num" style="color:#92400e">${tC.toFixed(1)}h</div><div class="lbl">C — Applied</div></div><div class="ts-card"><div class="num" style="color:#065f46">${tD.toFixed(1)}h</div><div class="lbl">D — Assessed</div></div><div class="ts-card"><div class="num" style="color:#0e2433">${grand.toFixed(1)}h</div><div class="lbl">Total notional hours</div></div></div>`:''} ${sections}<div class="footer">Exported from CompetencyPath v3.0 · Powered by Dr. Michael Adelani Adewusi AI-Research Lab · Kampala International University, Uganda</div></div></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>${esc(unit.name)} – CompetencyPath Export</title><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap');body{font-family:'Outfit',Arial,sans-serif;margin:0;background:#f0faf7;color:#1a3a42;line-height:1.55}.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}.hero{background:linear-gradient(135deg,#0e2433,#163348 55%,#1a4a3a);color:#fff;border-radius:20px;padding:28px;margin-bottom:24px}.hero h1{font-family:'Fraunces',Georgia,serif;margin:0 0 8px;font-size:32px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 13px;border-radius:999px;font-size:12.5px}.time-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}.ts-card{background:#fff;border-radius:12px;padding:14px 16px;text-align:center;border:1.5px solid #e3eef1}.ts-card .num{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;margin-bottom:4px}.ts-card .lbl{font-size:12px;color:#6b9aaa}.footer{margin-top:30px;text-align:center;color:#6e8b95;font-size:13px}
+/* ── DISCLAIMER POPUP ── */
+.disclaimer-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.72);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(6px);
+  animation:disc-fade-in .35s ease;
+}
+@keyframes disc-fade-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.disclaimer-box{
+  width:100%;max-width:600px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(180,0,0,.35),0 0 0 4px #dc2626;
+  animation:disc-bounce .45s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes disc-bounce{
+  0%{transform:translateY(-40px) scale(.92);opacity:0}
+  60%{transform:translateY(6px) scale(1.01);opacity:1}
+  100%{transform:translateY(0) scale(1);opacity:1}
+}
+.disclaimer-header{
+  background:linear-gradient(135deg,#7f1d1d 0%,#dc2626 60%,#b91c1c 100%);
+  padding:22px 24px 18px;
+  display:flex;align-items:center;gap:16px;
+  position:relative;
+}
+.disclaimer-caution-icon{
+  width:60px;height:60px;flex-shrink:0;
+  background:#fff2;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;
+  border:2.5px solid rgba(255,255,255,.4);
+  animation:disc-pulse 1.8s ease-in-out infinite;
+}
+@keyframes disc-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}
+  50%{box-shadow:0 0 0 10px rgba(255,255,255,0)}
+}
+.disclaimer-header-text{}
+.disclaimer-header-label{
+  font-size:10px;font-weight:700;letter-spacing:.16em;
+  color:rgba(255,255,255,.7);text-transform:uppercase;margin-bottom:4px;
+}
+.disclaimer-header-title{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:700;
+  color:#fff;line-height:1.15;
+}
+.disclaimer-body{
+  padding:22px 24px 20px;
+}
+.disclaimer-body p{
+  font-family:'Outfit',sans-serif;
+  font-size:14px;line-height:1.7;color:#1a1a1a;margin:0 0 14px;
+}
+.disclaimer-body p:last-of-type{margin-bottom:0;}
+.disc-point{
+  display:flex;gap:12px;align-items:flex-start;
+  background:#fef2f2;border:1.5px solid #fecaca;
+  border-radius:10px;padding:12px 14px;margin-bottom:10px;
+}
+.disc-point-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.disc-point-text{font-family:'Outfit',sans-serif;font-size:13.5px;line-height:1.6;color:#1a1a1a}
+.disc-point-text strong{color:#7f1d1d}
+.disclaimer-footer{
+  background:#fef2f2;border-top:2px solid #fecaca;
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;
+}
+.disclaimer-branding{
+  font-family:'Outfit',sans-serif;font-size:11px;
+  color:#991b1b;font-weight:600;line-height:1.5;
+}
+.disclaimer-btn{
+  border:none;border-radius:10px;
+  padding:11px 28px;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;
+  box-shadow:0 4px 14px rgba(220,38,38,.4);
+  transition:all .2s;white-space:nowrap;
+}
+.disclaimer-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(220,38,38,.5)}
+.disc-timer{
+  font-family:'Outfit',sans-serif;font-size:11px;
+  color:#6b7280;text-align:center;margin-top:8px;
+}
+
+</style></head><body><div class="wrap"><div class="hero"><h1>${esc(unit.name)}</h1>${unit.description?`<div style="margin:8px 0 16px;font-size:15px;opacity:.9;line-height:1.6;max-width:760px">${esc(unit.description)}</div>`:''}<div class="meta"><div class="badge">Completion: ${tp}%</div><div class="badge">Generated: ${unit.aiGenerated?'Yes':'No'}</div><div class="badge">Total study hours: ${grand.toFixed(1)}h</div><div class="badge">CBE blend: ${ap_pct}%${ap_pct>=50?' ✅':' ⚠️'}</div><div class="badge">Kampala International University</div></div></div>${grand>0?`<div class="time-summary"><div class="ts-card"><div class="num" style="color:#0e7490">${tA.toFixed(1)}h</div><div class="lbl">A — Directed</div></div><div class="ts-card"><div class="num" style="color:#5b21b6">${tB.toFixed(1)}h</div><div class="lbl">B — Self-directed</div></div><div class="ts-card"><div class="num" style="color:#92400e">${tC.toFixed(1)}h</div><div class="lbl">C — Applied</div></div><div class="ts-card"><div class="num" style="color:#065f46">${tD.toFixed(1)}h</div><div class="lbl">D — Assessed</div></div><div class="ts-card"><div class="num" style="color:#0e2433">${grand.toFixed(1)}h</div><div class="lbl">Total notional hours</div></div></div>`:''} ${sections}<div class="footer">Exported from CompetencyPath v3.0 · Powered by Dr. Michael Adelani Adewusi AI-Research Lab · Kampala International University, Uganda</div></div>
+<!-- ── DISCLAIMER POPUP ── -->
+<div class="disclaimer-overlay" id="disclaimerOverlay">
+  <div class="disclaimer-box">
+    <div class="disclaimer-header">
+      <div class="disclaimer-caution-icon">⚠️</div>
+      <div class="disclaimer-header-text">
+        <div class="disclaimer-header-label">Important Disclaimer</div>
+        <div class="disclaimer-header-title">Read Before Using This Tool</div>
+      </div>
+    </div>
+    <div class="disclaimer-body">
+      <div class="disc-point">
+        <div class="disc-point-icon">🎓</div>
+        <div class="disc-point-text">
+          <strong>You are the master of your course unit.</strong> This tool is designed to <em>assist</em> you in developing a Competency-Based Education (CBE) course unit design — it does not replace your professional academic judgement. You, as the lecturer, are <strong>fully responsible for all content, accuracy, and suitability</strong> of the final course design.
+        </div>
+      </div>
+      <div class="disc-point">
+        <div class="disc-point-icon">🏫</div>
+        <div class="disc-point-text">
+          <strong>SONAS-Specific Tool.</strong> CompetencyPath has been specifically designed and calibrated for the <strong>School of Natural and Applied Sciences (SONAS)</strong> at Kampala International University, Uganda. It may not be fully appropriate or ideal for other schools, faculties, or institutions without modification.
+        </div>
+      </div>
+      <div class="disc-point">
+        <div class="disc-point-icon">🤖</div>
+        <div class="disc-point-text">
+          <strong>Generated Content Requires Review.</strong> All generated content must be critically reviewed, verified, and edited by a qualified academic before use. References, learning outcomes, assessments, and notional hours are suggestions only.
+        </div>
+      </div>
+    </div>
+    <div class="disclaimer-footer">
+      <div class="disclaimer-branding">
+        Dr. Adelani AI-Research Lab<br>
+        Kampala International University, Uganda
+      </div>
+      <div>
+        <button class="disclaimer-btn" id="disclaimerAcknBtn" onclick="window.hideDisclaimer()">I Understand — Continue</button>
+        <div class="disc-timer" id="discTimer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>`;
 }
 function downloadActiveUnitHtml(){const unit=getUnit();if(!unit){alert('Please select a unit first.');return;}const html=generateUnitHtml(unit);const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`${(unit.name.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_'))||'course_unit'}.html`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
 
@@ -1222,7 +1451,7 @@ async function runAIGeneration(){
     newData[13]={strategyMatrix:parsed.step13?.strategyMatrix||'',resourceMaterials:parsed.step13?.resourceMaterials||'',instructionalNotes:parsed.step13?.instructionalNotes||'',localisedReferences:parsed.step13?.localisedReferences||''};
     newData[14]={feedbackMechanisms:normalizeSubset(parsed.step14?.feedbackMechanisms,FEEDBACK_OPTIONS),feedbackSchedule:parsed.step14?.feedbackSchedule||'',improvementLoop:parsed.step14?.improvementLoop||'',successMetrics:normalizeArr(parsed.step14?.successMetrics)};
     newData[15]={courseworkWeight:parsed.step15?.courseworkWeight||'',examWeight:parsed.step15?.examWeight||'',competenceAssessmentAlignment:parsed.step15?.competenceAssessmentAlignment||'',gradingScale:parsed.step15?.gradingScale||'',authenticAssessments:parsed.step15?.authenticAssessments||''};
-    const unitName=parsed.unitName||uploadedFileName.replace(/\.[^/.]+$/,'')||'AI-Generated Unit';
+    const unitName=parsed.unitName||uploadedFileName.replace(/\.[^/.]+$/,'')||'Generated Unit';
     const unitDesc=parsed.unitDescription||parsed.step1?.courseDescription||'';
     if(targetVal==='new'){const newId=Date.now();state.units.push({id:newId,name:unitName,description:unitDesc,data:newData,aiGenerated:true});state.activeUnit=newId;}
     else{const target=getUnit(parseInt(targetVal,10));if(target){target.name=unitName;target.description=unitDesc;target.data=newData;target.aiGenerated=true;}}
@@ -1264,6 +1493,88 @@ window.addEventListener('beforeunload',()=>saveState());
 
 // INIT
 loadState();normalizeStateShape();render();saveState();
+
+
+// ── DISCLAIMER POPUP ──────────────────────────────────────────────
+// Global functions so onclick="..." in the HTML always works,
+// regardless of script execution timing.
+var _discCountdown = null;
+
+window.hideDisclaimer = function(){
+  var el = document.getElementById('disclaimerOverlay');
+  if(el){ el.style.display = 'none'; }
+  clearInterval(_discCountdown);
+  var t = document.getElementById('discTimer');
+  if(t){ t.textContent = ''; }
+};
+
+window.showDisclaimer = function(){
+  var el = document.getElementById('disclaimerOverlay');
+  if(!el){ return; }
+  el.style.display = 'flex';
+  clearInterval(_discCountdown);
+  var secs = 10;
+  var t = document.getElementById('discTimer');
+  if(t){ t.textContent = 'Auto-dismisses in ' + secs + 's'; }
+  _discCountdown = setInterval(function(){
+    secs--;
+    if(t){ t.textContent = secs > 0
+      ? 'Auto-dismisses in ' + secs + 's'
+      : 'Click the button above to continue'; }
+    if(secs <= 0){ clearInterval(_discCountdown); }
+  }, 1000);
+};
+
+// Also wire via _showDisclaimer for unit completion hook
+window._showDisclaimer = window.showDisclaimer;
+
+// Show on first load — after DOM is ready
+window.addEventListener('load', function(){ window.showDisclaimer(); });
+
 </script>
+
+<!-- ── DISCLAIMER POPUP ── -->
+<div class="disclaimer-overlay" id="disclaimerOverlay">
+  <div class="disclaimer-box">
+    <div class="disclaimer-header">
+      <div class="disclaimer-caution-icon">⚠️</div>
+      <div class="disclaimer-header-text">
+        <div class="disclaimer-header-label">Important Disclaimer</div>
+        <div class="disclaimer-header-title">Read Before Using This Tool</div>
+      </div>
+    </div>
+    <div class="disclaimer-body">
+      <div class="disc-point">
+        <div class="disc-point-icon">🎓</div>
+        <div class="disc-point-text">
+          <strong>You are the master of your course unit.</strong> This tool is designed to <em>assist</em> you in developing a Competency-Based Education (CBE) course unit design — it does not replace your professional academic judgement. You, as the lecturer, are <strong>fully responsible for all content, accuracy, and suitability</strong> of the final course design.
+        </div>
+      </div>
+      <div class="disc-point">
+        <div class="disc-point-icon">🏫</div>
+        <div class="disc-point-text">
+          <strong>SONAS-Specific Tool.</strong> CompetencyPath has been specifically designed and calibrated for the <strong>School of Natural and Applied Sciences (SONAS)</strong> at Kampala International University, Uganda. It may not be fully appropriate or ideal for other schools, faculties, or institutions without modification.
+        </div>
+      </div>
+      <div class="disc-point">
+        <div class="disc-point-icon">🤖</div>
+        <div class="disc-point-text">
+          <strong>Generated Content Requires Review.</strong> All generated content must be critically reviewed, verified, and edited by a qualified academic before use. References, learning outcomes, assessments, and notional hours are suggestions only.
+        </div>
+      </div>
+    </div>
+    <div class="disclaimer-footer">
+      <div class="disclaimer-branding">
+        Dr. Adelani AI-Research Lab<br>
+        Kampala International University, Uganda
+      </div>
+      <div>
+        <button class="disclaimer-btn" id="disclaimerAcknBtn" onclick="window.hideDisclaimer()">I Understand — Continue</button>
+        <div class="disc-timer" id="discTimer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
