@@ -433,7 +433,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
       <div class="empty-state" id="emptyState">
         <div class="empty-icon">🎓</div>
         <h2>Welcome to CompetencyPath</h2>
-        <p>Select a course unit from the sidebar, or use <strong>Import Write-up</strong> to generate a complete 15-step CBE course design through the OpenRouter-powered backend.</p>
+        <p>Select a course unit from the sidebar, or use <strong>Import Write-up</strong> to generate a complete 15-step CBE course design through the Dr. Adelani AI-Research Lab-powered backend.</p>
       </div>
       <div id="stepContent" style="display:none"></div>
     </div>
@@ -446,7 +446,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
     <button class="modal-close-x" id="closeImportModal">✕</button>
     <div class="modal-head">
       <h2>✦ Course Import</h2>
-      <p>Paste or upload your course write-up — powered by Dr. Michael Adelani Adewusi AI-Research Lab</p>
+      <p>Paste or upload your course write-up — powered by the Dr. Michael Adelani Adewusi AI-Research Lab</p>
     </div>
     <div class="modal-body">
       <div class="import-tabs">
@@ -486,9 +486,9 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
           <span class="api-key-badge" style="font-size:10px;padding:3px 9px;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#4f46e5;border-radius:999px;font-weight:700">💎 Premium</span>
         </div>
         <select class="model-select" id="openrouterModelSelect">
-          <option value="meta-llama/llama-3.3-70b-instruct" selected>Premium</option>
+          <option value="meta-llama/llama-3.3-70b-instruct" selected>Llama 3.3 70B – Premium</option>
         </select>
-        <div class="model-status" id="openrouterModelStatus">Dr. Adelani AI-Lab backend (premium).</div>
+        <div class="model-status" id="openrouterModelStatus">Dr. Michael Adelani Adewusi AI-Research Lab (premium).</div>
       </div>
 
       <div class="target-unit-row">
@@ -525,7 +525,7 @@ main::-webkit-scrollbar-thumb{background:#c7dde4;border-radius:8px}
 <div class="modal-backdrop" id="completeModal">
   <div class="complete-modal">
     <h2>🎉 Unit Design Complete!</h2>
-    <p>Summary of completion across all 15 OpenRouter-generated design steps.</p>
+    <p>Summary of completion across all 15 generated design steps.</p>
     <div id="completeSummary"></div>
     <button class="btn-close-modal" id="closeCompleteModal">Close</button>
   </div>
@@ -1287,7 +1287,34 @@ function generateUnitHtml(unit){
       </div>
     </div>
   </div>
-</div>
+<script>
+// ── DISCLAIMER — exported standalone file ──
+var _discCd = null;
+window.hideDisclaimer = function(){
+  var el = document.getElementById('disclaimerOverlay');
+  if(el){ el.style.display = 'none'; }
+  clearInterval(_discCd);
+  var t = document.getElementById('discTimer');
+  if(t){ t.textContent = ''; }
+};
+window.showDisclaimer = function(){
+  var el = document.getElementById('disclaimerOverlay');
+  if(!el){ return; }
+  el.style.display = 'flex';
+  clearInterval(_discCd);
+  var secs = 10;
+  var t = document.getElementById('discTimer');
+  if(t){ t.textContent = 'Auto-dismisses in ' + secs + 's'; }
+  _discCd = setInterval(function(){
+    secs--;
+    if(t){ t.textContent = secs > 0
+      ? 'Auto-dismisses in ' + secs + 's'
+      : 'Click the button above to continue'; }
+    if(secs <= 0){ clearInterval(_discCd); }
+  }, 1000);
+};
+window.addEventListener('load', function(){ window.showDisclaimer(); });
+<\/script>
 
 </body></html>`;
 }
